@@ -70,16 +70,81 @@
                         <li class="menu-header">MAIN MENU</li>
                         <li class="{{ setActive('/dashboard') }}"><a class="nav-link"
                                 href="{{ route('dashboard.index') }}"><i class="fas fa-tachometer-alt"></i>
-                                <span>Dashboard</span></a></li>
+                                <span>Dashboard</span></a>
+                        </li>
+                        @if(auth()->user()->can('roles.index') || auth()->user()->can('permission.index') || auth()->user()->can('users.index'))
+                        @endif
+                        
+                        @can('sliders.index')
+                        <li class="{{ setActive('admin/slider') }}"><a class="nav-link"
+                                href="#"><i class="fas fa-laptop"></i>
+                                <span>Sliders</span></a></li>
+                        @endcan
+
+                        <li
+                            class="dropdown {{ setActive('admin/role'). setActive('admin/permission'). setActive('admin/user') }}">
+                            @if(auth()->user()->can('roles.index') || auth()->user()->can('permission.index') || auth()->user()->can('users.index'))
+                                <a href="#" class="nav-link has-dropdown"><i class="fas fa-users"></i>
+                                <span>Users Management</span></a>
+                            @endif
+                            
+                            <ul class="dropdown-menu">
+                                @can('roles.index')
+                                    <li class="{{ setActive('admin/role') }}"><a class="nav-link"
+                                        href="{{ route('roles.index') }}"><i class="fas fa-unlock"></i> Roles</a>
+                                </li>
+                                @endcan
+
+                                @can('permissions.index')
+                                    <li class="{{ setActive('/permission') }}"><a class="nav-link"
+                                    href="{{ route('permissions.index') }}"><i class="fas fa-key"></i>
+                                    Permissions</a></li>
+                                @endcan
+
+                                @can('users.index')
+                                    <li class="{{ setActive('/user') }}"><a class="nav-link"
+                                        href="{{ route('users.index') }}"><i class="fas fa-users"></i> Users</a>
+                                    </li>
+                                @endcan
+                            </ul>
+                        </li>
+                        
                         @can('exams.index')
                         <li class="{{ setActive('/exam') }}"><a class="nav-link"
                                 href="{{  route('exams.index') }}"><i class="fas fa-book-open"></i>
                                 <span>Exams</span></a></li>
                         @endcan
+                        @can('kelas.index')
+                        <li class="{{ setActive('/kelas') }}"><a class="nav-link"
+                                href="{{ route('kelas.index') }}"><i class="fas fa-graduation-cap"></i> 
+                                <span>Kelas</span></a>
+                        </li>
+                        @endcan
+                        @can('mapels.index')
+                        <li class="{{ setActive('/mapels') }}"><a class="nav-link"
+                                href="{{ route('mapels.index') }}"><i class="fas fa-book"></i> 
+                                <span>Mata Pelajaran</span></a>
+                        </li>
+                        @endcan
+
+                        @can('materi.index')
+                        <li class="{{ setActive('/materi') }}"><a class="nav-link"
+                                href="{{ route('materi.index') }}"><i class="fas fa-journal-whills"></i> 
+                                <span>Materi</span></a>
+                        </li>
+                        @endcan
+
+                        @can('absensi.index')
+                        <li class="{{ setActive('/absensi') }}"><a class="nav-link"
+                                href="{{ route('absensi.index') }}"><i class="fas fa-clipboard-list"></i> 
+                                <span>Absensi</span></a>
+                        </li>
+                        @endcan
 
                         @can('questions.index')
                         <li class="{{ setActive('/question') }}"><a class="nav-link"
-                                href="{{ route('questions.index') }}"><i class="fas fa-question"></i> <span>Questions</span></a>
+                                href="{{ route('questions.index') }}"><i class="fas fa-question"></i> 
+                                <span>Questions</span></a>
                         </li>
                         @endcan
 
@@ -123,61 +188,7 @@
                                 <span>Document</span></a></li>
                         @endcan
 
-                        @if(auth()->user()->can('roles.index') || auth()->user()->can('permission.index') || auth()->user()->can('users.index'))
-                        <li class="menu-header">PENGATURAN</li>
-                        @endif
-                        
-                        @can('sliders.index')
-                        <li class="{{ setActive('admin/slider') }}"><a class="nav-link"
-                                href="#"><i class="fas fa-laptop"></i>
-                                <span>Sliders</span></a></li>
-                        @endcan
-
-                        <li
-                            class="dropdown {{ setActive('admin/role'). setActive('admin/permission'). setActive('admin/user') }}">
-                            @if(auth()->user()->can('roles.index') || auth()->user()->can('permission.index') || auth()->user()->can('users.index'))
-                                <a href="#" class="nav-link has-dropdown"><i class="fas fa-users"></i><span>Users
-                                Management</span></a>
-                            @endif
-                            
-                            <ul class="dropdown-menu">
-                                @can('roles.index')
-                                    <li class="{{ setActive('admin/role') }}"><a class="nav-link"
-                                        href="{{ route('roles.index') }}"><i class="fas fa-unlock"></i> Roles</a>
-                                </li>
-                                @endcan
-
-                                @can('permissions.index')
-                                    <li class="{{ setActive('/permission') }}"><a class="nav-link"
-                                    href="{{ route('permissions.index') }}"><i class="fas fa-key"></i>
-                                    Permissions</a></li>
-                                @endcan
-
-                                @can('users.index')
-                                    <li class="{{ setActive('/user') }}"><a class="nav-link"
-                                        href="{{ route('users.index') }}"><i class="fas fa-users"></i> Users</a>
-                                </li>
-                                @endcan
-
-                                @can('kelas.index')
-                                    <li class="{{ setActive('/kelas') }}"><a class="nav-link"
-                                        href="{{ route('kelas.index') }}"><i class="fas fa-graduation-cap"></i> Kelas</a>
-                                </li>
-                                @endcan
-
-                                @can('mapels.index')
-                                    <li class="{{ setActive('/mapels') }}"><a class="nav-link"
-                                        href="{{ route('mapels.index') }}"><i class="fas fa-book"></i> Mata Pelajaran</a>
-                                </li>
-                                @endcan
-
-                                @can('materi.index')
-                                    <li class="{{ setActive('/materi') }}"><a class="nav-link"
-                                        href="{{ route('materi.index') }}"><i class="fas fa-book"></i> Materi </a>
-                                </li>
-                                @endcan
-                            </ul>
-                        </li>
+                       
                     </ul>
                 </aside>
             </div>
