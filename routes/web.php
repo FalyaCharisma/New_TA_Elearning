@@ -15,6 +15,9 @@ use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\MapelController;
 use App\Http\Controllers\MateriController;
+use App\Http\Controllers\AbsensiController;
+use App\Http\Controllers\InformasiController;
+use App\Http\Controllers\ProfileController;
 use App\Models\Exam;
 
 /*
@@ -99,6 +102,21 @@ Route::group(['middleware' => 'auth'], function(){
     //materi
     Route::resource('materi', MateriController::class)->except([
         'show'
+    ]);
+
+    //absens
+    Route::resource('absensi', AbsensiController::class)->except([
+        'show', 'create', 'edit', 'update'
+    ]);
+
+    //informasi
+     Route::resource('informasi', InformasiController::class)->except([
+        'show'
+    ]);
+
+    //Profile
+    Route::resource('profile', ProfileController::class)->except([
+        'show', 'create', 'edit', 'update'
     ]);
 
     //exams
