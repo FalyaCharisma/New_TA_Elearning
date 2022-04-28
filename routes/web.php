@@ -17,6 +17,7 @@ use App\Http\Controllers\MapelController;
 use App\Http\Controllers\MateriController;
 use App\Http\Controllers\AbsensiController;
 use App\Http\Controllers\InformasiController;
+use App\Http\Controllers\ProfileController;
 use App\Models\Exam;
 
 /*
@@ -111,6 +112,11 @@ Route::group(['middleware' => 'auth'], function(){
     //informasi
      Route::resource('informasi', InformasiController::class)->except([
         'show'
+    ]);
+
+    //Profile
+    Route::resource('profile', ProfileController::class)->except([
+        'show', 'create', 'edit', 'update'
     ]);
 
     //exams

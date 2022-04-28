@@ -45,6 +45,9 @@
                             <div class="d-sm-none d-lg-inline-block">Hi, {{ auth()->user()->name }}</div>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
+                        <a href="{{ url('profile') }}" class="dropdown-item has-icon text-danger">
+                                <i class="fas fa-pencil-alt"></i> Edit Profil
+                        </a>
                             <a href="{{ route('logout') }}" style="cursor: pointer" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();"
                                 class="dropdown-item has-icon text-danger">

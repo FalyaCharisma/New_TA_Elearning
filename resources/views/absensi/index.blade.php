@@ -22,9 +22,9 @@
 
                             <div class="form-group">
                                 <label>FOTO</label>
-                                <input type="file" name="absensi" class="form-control @error('absensi') is-invalid @enderror">
+                                <input type="file" name="image" class="form-control @error('image') is-invalid @enderror">
 
-                                @error('absensi')
+                                @error('image')
                                 <div class="invalid-feedback" style="display: block">
                                     {{ $message }}
                                 </div>

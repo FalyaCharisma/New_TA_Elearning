@@ -41,20 +41,20 @@ class AbsensiController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'keterangan'     => 'required',
-            'absensi'        => 'required|mimes:jpg,bmp,png',
+            'keterangan'   => 'required',
+            'image'        => 'required|mimes:jpg,bmp,png',
         ]);
 
         //upload image
-        $absensi = $request->file('absensi');
-        $absensi->storeAs('public/absensis', $absensi->hashName());
+        $image = $request->file('image');
+        $image->storeAs('public/absensis', $image->hashName());
 
-        $absensi = Absensi::create([
-            'keterangan'     => $request->input('keterangan'),
-            'link'           => $absensi->hashName(),
+        $image = Absensi::create([
+            'keterangan'   => $request->input('keterangan'),
+            'link'         => $image->hashName(),
         ]);
 
-        if($absensi){
+        if($image){
             //redirect dengan pesan sukses
             return redirect()->route('absensi.index')->with(['success' => 'Data Berhasil Disimpan!']);
         }else{
