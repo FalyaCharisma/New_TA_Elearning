@@ -16,6 +16,7 @@ use App\Http\Controllers\KelasController;
 use App\Http\Controllers\MapelController;
 use App\Http\Controllers\MateriController;
 use App\Http\Controllers\AbsensiController;
+use App\Http\Controllers\InformasiController;
 use App\Models\Exam;
 
 /*
@@ -105,6 +106,11 @@ Route::group(['middleware' => 'auth'], function(){
     //absens
     Route::resource('absensi', AbsensiController::class)->except([
         'show', 'create', 'edit', 'update'
+    ]);
+
+    //informasi
+     Route::resource('informasi', InformasiController::class)->except([
+        'show'
     ]);
 
     //exams

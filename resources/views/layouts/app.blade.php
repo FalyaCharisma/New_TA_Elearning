@@ -108,7 +108,11 @@
                                 @endcan
                             </ul>
                         </li>
-                        
+                        @can('informasi.index')
+                        <li class="{{ setActive('/informasi') }}"><a class="nav-link"
+                                href="{{  route('informasi.index') }}"><i class="fas fa-info"></i>
+                                <span>Informasi</span></a></li>
+                        @endcan 
                         @can('exams.index')
                         <li class="{{ setActive('/exam') }}"><a class="nav-link"
                                 href="{{  route('exams.index') }}"><i class="fas fa-book-open"></i>
