@@ -25,14 +25,13 @@ class ProfileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request)
     {
         $this->validate($request, [
             'name'      => 'required',
-            'email'     => 'required|email|unique:users,email,'.$user->id
         ]);
 
-        $user = User::findOrFail($user->id);
+        $user = User::where('id',Auth::user()->id)->first();
 
         if($request->input('password') == "") {
             $user->update([
@@ -54,6 +53,9 @@ class ProfileController extends Controller
                 'password'  => bcrypt($request->input('password'))
             ]);
         }
+        $user->update();
+
+        return redirect('profile');
     }
 
 }

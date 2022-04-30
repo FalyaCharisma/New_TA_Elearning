@@ -14,7 +14,7 @@
                     <h4><i class="fas fa-user"></i> Edit Profile</h4>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('users.update', $user->id) }}" method="POST"
+                    <form action="{{ route('profile.update', $user->id) }}" method="POST"
                         enctype="multipart/form-data">
                         @csrf
                         @method('PUT')

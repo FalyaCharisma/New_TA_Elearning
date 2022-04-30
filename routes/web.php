@@ -116,7 +116,7 @@ Route::group(['middleware' => 'auth'], function(){
 
     //Profile
     Route::resource('profile', ProfileController::class)->except([
-        'show', 'create', 'edit', 'update'
+        'show'
     ]);
 
     //exams
