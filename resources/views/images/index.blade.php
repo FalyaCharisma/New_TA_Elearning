@@ -85,7 +85,7 @@
                             @foreach ($images as $no => $image)
                                 <tr>
                                     <th scope="row" style="text-align: center">{{ ++$no + ($images->currentPage()-1) * $images->perPage() }}</th>
-                                    <td><img src="{{ Storage::url('public/images/'.$image->link) }}" style="width: 150px"></td>
+                                    <td><img src="{{ asset('storage/public/images/'.$image->link) }}" style="width: 150px"></td>
                                     <td>{{ $image->title }}</td>
                                     <td>{{ $image->caption }}</td>
                                     <td class="text-center">

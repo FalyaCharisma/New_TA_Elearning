@@ -87,8 +87,8 @@
                                     <th scope="row" style="text-align: center">{{ ++$no + ($audios->currentPage()-1) * $audios->perPage() }}</th>
                                     <td>
                                         <audio width="160" height="120" controls>
-                                            <source src="{{ Storage::url('public/audios/'.$audio->link) }}" type="audio/mp3">
-                                            <source src="{{ Storage::url('public/audios/'.$audio->link) }}" type="audio/wav">
+                                            <source src="{{ asset('storage/public/audios/'.$audio->link) }}" type="audio/mp3">
+                                            <source src="{{ asset('storage/public/audios/'.$audio->link) }}" type="audio/wav">
                                         </audio>
                                     </td>
                                     <td>{{ $audio->title }}</td>

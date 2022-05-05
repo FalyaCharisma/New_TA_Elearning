@@ -86,7 +86,7 @@
                                 <tr>
                                     <th scope="row" style="text-align: center">{{ ++$no + ($documents->currentPage()-1) * $documents->perPage() }}</th>
                                     <td>
-                                        <a href="{{ Storage::url('public/documents/'.$document->link) }}" download> <i class="fas fa-file-download"></i> Download
+                                        <a href="{{ asset('storage/public/documents/'.$document->link) }}" download> <i class="fas fa-file-download"></i> Download
                                     </td>
                                     <td>{{ $document->title }}</td>
                                     <td>{{ $document->caption }}</td>

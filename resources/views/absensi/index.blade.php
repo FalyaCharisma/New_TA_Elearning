@@ -22,7 +22,7 @@
 
                             <div class="form-group">
                                 <label>FOTO</label>
-                                <input type="file" name="image" class="form-control @error('image') is-invalid @enderror">
+                                <input type="file" name="image" id="image" class="form-control @error('image') is-invalid @enderror">
 
                                 @error('image')
                                 <div class="invalid-feedback" style="display: block">
@@ -44,7 +44,7 @@
                             @enderror
                             </div>
 
-                            <button class="btn btn-primary mr-1 btn-submit" type="submit"><i class="fa fa-upload"></i> UPLOAD</button>
+                            <button class="btn btn-primary mr-1 btn-submit" type="submit" id="submit"><i class="fa fa-upload"></i> UPLOAD</button>
                             <button class="btn btn-warning btn-reset" type="reset"><i class="fa fa-redo"></i> RESET</button>
 
 
@@ -56,7 +56,7 @@
 
             <div class="card">
                 <div class="card-header">
-                    <h4><i class="fas fa-image"></i> Absensi</h4>
+                    <h4><i class="fas fa-image"></i>Riwayat Absensi</h4>
                 </div>
 
                 <div class="card-body">
@@ -72,12 +72,12 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach ($absens as $no => $absensi)
+                            @foreach ($absens as $no => $absensis)
                                 <tr>
                                     <th scope="row" style="text-align: center">{{ ++$no + ($absens->currentPage()-1) * $absens->perPage() }}</th>
-                                    <td><img src="{{ Storage::url('public/absensis/'.$absensi->link) }}" style="width: 150px"></td>
-                                    <td>{{ $absensi->keterangan }}</td>
-                                    <td>{{ $absensi->created_at }}</td>
+                                    <td><img src="{{ asset('storage/public/absensis/'. $absensis->link) }}" width="150" ></td>
+                                    <td>{{ $absensis->keterangan }}</td>
+                                    <td>{{ $absensis->created_at }}</td>
                                 </tr>
                             @endforeach
                             </tbody>

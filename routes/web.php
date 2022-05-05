@@ -18,6 +18,7 @@ use App\Http\Controllers\MateriController;
 use App\Http\Controllers\AbsensiController;
 use App\Http\Controllers\InformasiController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\FotoController;
 use App\Models\Exam;
 
 /*
