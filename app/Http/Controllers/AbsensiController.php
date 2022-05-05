@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Absensi;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class AbsensiController extends Controller
@@ -15,7 +16,7 @@ class AbsensiController extends Controller
      */
     public function __construct()
     {
-        $this->middleware(['permission:absensi.index|absensi.create|absensi.delete']);
+        $this->middleware(['permission:absensi.index|absensi.create|absensi.delete|absensi.tentor|absensi.riwayat']);
     }
 
     /**
@@ -23,12 +24,25 @@ class AbsensiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function tentor()
     {
         $absens = Absensi::latest()->when(request()->q, function($absens) {
             $absens = $absens->where('keterangan', 'like', '%'. request()->q . '%');
         })->paginate(10);
+        return view('absensi.tentor', compact('absens'));
+    }
+ 
+    public function riwayat()
+    {
+        $absens = Absensi::with('user')->get();
 
+        return view('absensi.riwayat', compact('absens'));
+    }
+
+    public function index(){
+        $absens = Absensi::latest()->when(request()->q, function($absens) {
+            $absens = $absens->where('keterangan', 'like', '%'. request()->q . '%');
+        })->paginate(10);
         return view('absensi.index', compact('absens'));
     }
 
@@ -48,12 +62,14 @@ class AbsensiController extends Controller
         $link = $request->file('image')->hashName();
         $path = $request->file('image')->store('public/absensis');
         $keterangan = $request->input('keterangan');
+        $user_id = Auth::user()->id;
 
         $save = new Absensi;
  
         $save->link = $link;
         $save->path = $path;
         $save->keterangan = $keterangan;
+        $save->user_id = $user_id;
  
         $save->save();
 
@@ -68,11 +84,10 @@ class AbsensiController extends Controller
      */
     public function destroy($id)
     {
-        $absensi = Absensi::findOrFail($id);
-        $link= Storage::disk('local')->delete('public/absens/'.$absensi->link);
-        $absensi->delete();
-
-        if($absensi){
+        $absens = Absensi::findOrFail($id);
+        $absens->delete();
+ 
+        if($absens){
             return response()->json([
                 'status' => 'success'
             ]);

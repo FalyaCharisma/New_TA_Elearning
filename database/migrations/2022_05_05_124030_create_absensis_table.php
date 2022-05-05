@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAbsensiTable extends Migration
+class CreateAbsensisTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,11 @@ class CreateAbsensiTable extends Migration
      */
     public function up()
     {
-        Schema::create('absensi', function (Blueprint $table) {
+        Schema::create('absensis', function (Blueprint $table) {
             $table->id();
             $table->string('keterangan');
+            $table->string('path');
+            $table->foreignId('user_id');
             $table->string('link');
             $table->timestamps();
         });
@@ -28,6 +30,6 @@ class CreateAbsensiTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('absensi');
+        Schema::dropIfExists('absensis');
     }
 }
