@@ -18,7 +18,7 @@ class MateriController extends Controller
      */
     public function __construct()
     {
-        $this->middleware(['permission:materi.index|materi.create|materi.edit|materi.delete']);
+        $this->middleware(['permission:materi.index|materi.create|materi.edit|materi.delete|materi.tentor']);
     }
 
      /**
@@ -27,6 +27,23 @@ class MateriController extends Controller
      * @return \Illuminate\Http\Response
      */ 
     public function index()
+    {
+        $materis = Materi::latest()->when(request()->q, function($materis) {
+            $materis = $materis->where('judul', 'like', '%'. request()->q . '%');
+        })->paginate(10);
+
+        $mataPelajaran = new mataPelajaran();
+        $kelass = new Kelas();
+        $user = new User();
+        return view('materi.index', compact('materis', 'mataPelajaran', 'kelass', 'user'));
+    }
+
+     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */ 
+    public function tentor()
     {
         $materis = Materi::latest()->when(request()->q, function($materis) {
             $materis = $materis->where('judul', 'like', '%'. request()->q . '%');

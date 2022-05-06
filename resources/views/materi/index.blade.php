@@ -32,18 +32,20 @@
                             </div>
                         </div>
                     </form>
+                    @can('materi.tentor')
                     <div class="table-responsive">
                         <table class="table table-bordered">
                             <thead>
-                            <tr>
+                            <tr> 
                                 <th scope="col" style="text-align: center;width: 6%">NO.</th>
-                                <th scope="col">JUDUL</th>
+                                 <th scope="col">JUDUL</th>
                                 <th scope="col">MATA PELAJARAN</th>
                                 <th scope="col" style="width: 15%;text-align: center">AKSI</th>
                             </tr>
                             </thead>
                             <tbody>
                             @foreach ($materis as $no => $materi)
+                            @if ($materi->user_id_teacher == Auth::user()->id)
                                 <tr>
                                     <th scope="row" style="text-align: center">{{ ++$no + ($materis->currentPage()-1) * $materis->perPage() }}</th>
                                     <td>{{ $materi->judul }}</td>
@@ -62,6 +64,7 @@
                                         @endcan
                                     </td>
                                 </tr>
+                            @endif
                             @endforeach
                             </tbody>
                         </table>
@@ -69,6 +72,7 @@
                             {{$materis->links("vendor.pagination.bootstrap-4")}}
                         </div>
                     </div>
+                    @endcan
                 </div>
             </div>
         </div>
