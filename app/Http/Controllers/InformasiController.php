@@ -88,7 +88,7 @@ class InformasiController extends Controller
     {
         $this->validate($request, [
             'isi_informasi'      => 'required'
-        ]);
+        ]); 
 
         $info = Informasi::findOrFail($info->id);
 
