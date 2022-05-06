@@ -10,7 +10,7 @@ class InformasiController extends Controller
 {
      /**
      * __construct
-     *
+     * 
      * @return void
      */
     public function __construct()
@@ -87,8 +87,10 @@ class InformasiController extends Controller
     public function update(Request $request, Informasi $info)
     {
         $this->validate($request, [
-            'isi_informasi'      => 'required',
+            'isi_informasi'      => 'required'
         ]);
+
+        $info = Informasi::findOrFail($info->id);
 
         $info->update([
             'isi_informasi'      => $request->input('isi_informasi'),
