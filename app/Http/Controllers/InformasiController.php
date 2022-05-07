@@ -72,10 +72,15 @@ class InformasiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Informasi $info)
+    // public function edit(Informasi $info)
+    // {
+
+        public function edit($id)
     {
-        return view('informasi.edit', compact('info'));
+        $informasi = Informasi::find($id);
+        return view('informasi.edit', compact('informasi'));
     }
+    
 
     /**
      * Update the specified resource in storage.

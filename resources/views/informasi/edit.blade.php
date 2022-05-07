@@ -1,5 +1,6 @@
 @extends('layouts.app')
 
+@section('title', 'isi_informasi')
 @section('content')
 <div class="main-content">
     <section class="section">
@@ -15,14 +16,15 @@
                 </div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ url('informasi', $info->id ) }}"
+                    <form method="POST" action="{{ url('informasi', $informasi->id ) }}"
                         enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <div class="form-group">
                             <label>ISI INFORMASI</label>
-                            <textarea name="isi_informasi" value="{{ old('isi_informasi', $info->isi_informasi) }}" class="form-control @error('isi_informasi') is-invalid @enderror" placeholder="Place some text here"
-                            style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+
+                            <textarea name="isi_informasi" value="{{ old('isi_informasi', $informasi->isi_informasi) }}" placeholder="Place some text here" class="form-control @error('isi_informasi') is-invalid @enderror" 
+                            style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">{{ $informasi->isi_informasi}}</textarea>
 
                             @error('isi_informasi')
                             <div class="invalid-feedback" style="display: block">
