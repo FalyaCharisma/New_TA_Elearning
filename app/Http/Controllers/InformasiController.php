@@ -89,18 +89,19 @@ class InformasiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Informasi $info)
+
+    public function update(Request $request,$id)
     {
         $this->validate($request, [
-            'isi_informasi'      => 'required'
+            'isi_informasi'  => 'required'
         ]); 
 
-        $info = Informasi::findOrFail($info->id);
+        // $info = Informasi::findOrFail($request->id);
+        $info = Informasi::find($id);
 
-        $info->update([
-            'isi_informasi'      => $request->input('isi_informasi'),
-        ]);
-
+         $info->isi_informasi = $request->input('isi_informasi');
+         $info->update();
+    
         if($info){
             //redirect dengan pesan sukses
             return redirect()->route('informasi.index')->with(['success' => 'Data Berhasil Diupdate!']);
