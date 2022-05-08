@@ -81,7 +81,12 @@ class MateriController extends Controller
             'mapel'  => 'required',
             'judul'  => 'required',
             'isi'    => 'required',
+            'document'     => 'required|mimes:doc,docx,pdf',
         ]);
+
+        //upload document
+        $document = $request->file('document');
+        $document->storeAs('public/materis', $document->getClientOriginalName());
 
         $materi = Materi::create([
             'kelas'           => $request->input('kelas'),
@@ -90,18 +95,20 @@ class MateriController extends Controller
             'isi'             => $request->input('isi'),
             'keterangan'      => $request->input('keterangan'),
             'kesimpulan'      => $request->input('kesimpulan'),
-            'user_id_teacher' => Auth()->id()
+            'user_id_teacher' => Auth()->id(),
+            'link'            => $document->getClientOriginalName(),
         ]);
 
 
-        if($materi){
+        if ($materi) {
             //redirect dengan pesan sukses
             return redirect()->route('materi.index')->with(['success' => 'Data Berhasil Disimpan!']);
-        }else{
+        } else {
             //redirect dengan pesan error
             return redirect()->route('materi.index')->with(['error' => 'Data Gagal Disimpan!']);
         }
     }
+
      /**
      * Show the form for editing the specified resource.
      *

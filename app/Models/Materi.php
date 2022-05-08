@@ -16,8 +16,13 @@ class Materi extends Model
      * @var array
      */
     protected $fillable = [
-        'mapel', 'kelas', 'judul', 'isi', 'kesimpulan', 'keterangan', 'user_id_teacher',
+        'mapel', 'kelas', 'judul', 'isi', 'kesimpulan', 'keterangan', 'user_id_teacher', 'link',
     ];
+
+    // link 
+    public function getLink($id){
+        return $this->where('id',$id)->value('link');
+    }
 
     /**
      * This is For CRUD

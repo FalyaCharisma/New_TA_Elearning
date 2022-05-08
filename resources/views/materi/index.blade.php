@@ -32,7 +32,8 @@
                             </div>
                         </div>
                     </form>
-                    @can('materi.tentor')
+
+                    {{-- @can('materi.tentor')  --}}
                     <div class="table-responsive">
                         <table class="table table-bordered">
                             <thead>
@@ -40,6 +41,7 @@
                                 <th scope="col" style="text-align: center;width: 6%">NO.</th>
                                  <th scope="col">JUDUL</th>
                                 <th scope="col">MATA PELAJARAN</th>
+                                <th scope="col">DOKUMEN MATERI</th>
                                 <th scope="col" style="width: 15%;text-align: center">AKSI</th>
                             </tr>
                             </thead>
@@ -50,6 +52,9 @@
                                     <th scope="row" style="text-align: center">{{ ++$no + ($materis->currentPage()-1) * $materis->perPage() }}</th>
                                     <td>{{ $materi->judul }}</td>
                                     <td>{{ $materi->mapel }}</td>
+                                    <td>
+                                        <a href="{{ asset('storage/public/materis/'.$materi->link) }}" download> <i class="fas fa-file-download"></i> Download
+                                    </td>
                                     <td class="text-center">
                                         @can('materi.edit')
                                             <a href="{{ route('materi.edit', $materi->id) }}" class="btn btn-sm btn-primary">
@@ -72,7 +77,7 @@
                             {{$materis->links("vendor.pagination.bootstrap-4")}}
                         </div>
                     </div>
-                    @endcan
+                    {{-- @endcan --}}
                 </div>
             </div>
         </div>
@@ -120,7 +125,7 @@
                                 }).then(function() {
                                     location.reload();
                                 });
-                            }else{
+                            }else{ 
                                 swal({
                                     title: 'GAGAL!',
                                     text: 'DATA GAGAL DIHAPUS!',
