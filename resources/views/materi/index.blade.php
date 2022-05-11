@@ -15,14 +15,14 @@
                 </div>
 
                 <div class="card-body">
+                    
                     <form action="{{ route('materi.index') }}" method="GET">
+                    @can('materi.create')
                         <div class="form-group">
                             <div class="input-group mb-3">
-                                @can('materi.create')
                                     <div class="input-group-prepend">
                                         <a href="{{ route('materi.create') }}" class="btn btn-primary" style="padding-top: 10px;"><i class="fa fa-plus-circle"></i> TAMBAH</a>
                                     </div>
-                                @endcan
                                 <input type="text" class="form-control" name="q"
                                        placeholder="cari berdasarkan judul">
                                 <div class="input-group-append">
@@ -31,15 +31,16 @@
                                 </div>
                             </div>
                         </div>
+                    @endcan
                     </form>
 
-                    {{-- @can('materi.tentor')  --}}
+                    @can('materi.tentor')
                     <div class="table-responsive">
                         <table class="table table-bordered">
                             <thead>
                             <tr> 
                                 <th scope="col" style="text-align: center;width: 6%">NO.</th>
-                                 <th scope="col">JUDUL</th>
+                                <th scope="col">JUDUL</th>
                                 <th scope="col">MATA PELAJARAN</th>
                                 <th scope="col">DOKUMEN MATERI</th>
                                 <th scope="col" style="width: 15%;text-align: center">AKSI</th>
@@ -77,7 +78,42 @@
                             {{$materis->links("vendor.pagination.bootstrap-4")}}
                         </div>
                     </div>
-                    {{-- @endcan --}}
+                    @endcan
+
+                    @can('materi.showlist')
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th scope="col" style="text-align: center;width: 6%">NO.</th>
+                                <th scope="col">Mata Pelajaran</th>
+                                <th scope="col">JUDUL</th>
+                                <th scope="col">Aksi</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach ($materis as $no => $materi)
+                            @if ($materi->kelas == Auth::user()->kelas)
+                                <tr>
+                                    <th scope="row" style="text-align: center">{{ ++$no + ($materis->currentPage()-1) * $materis->perPage() }}</th>
+                                    <td>{{ $materi->mapel }}</td>
+                                    <td>{{ $materi->judul }}</td>
+                                    <td>
+                                        <a href="materi/showMateri/{{ $materi->id }}" class="btn btn-sm btn-info">
+                                            <i class="fa fa-eye"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            @endif
+                            @endforeach
+                            </tbody>
+                        </table>
+                        <div style="text-align: center">
+                            {{$materis->links("vendor.pagination.bootstrap-4")}}
+                        </div>
+                    </div>
+                    @endcan
+
                 </div>
             </div>
         </div>

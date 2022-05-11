@@ -44,6 +44,7 @@
                             </thead>
                             <tbody>
                             @foreach ($users as $no => $user)
+                        
                                 <tr>
                                     <th scope="row" style="text-align: center">{{ ++$no + ($users->currentPage()-1) * $users->perPage() }}</th>
                                     <td>{{ $user->name }}</td>
@@ -68,6 +69,7 @@
                                         @endcan
                                     </td>
                                 </tr>
+
                             @endforeach
                             </tbody>
                         </table>
@@ -75,8 +77,55 @@
                             {{$users->links("vendor.pagination.bootstrap-4")}}
                         </div>
                     </div>
+                    @can('users.tentor')
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th scope="col" style="text-align: center;width: 6%">NO.</th>
+                                <th scope="col">NAMA USER</th>
+                                <th scope="col">ROLE</th>
+                                <th scope="col" style="width: 15%;text-align: center">AKSI</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach ($users as $no => $user)
+                            @if($user->name=='Tentor')
+                                <tr>
+                                    <th scope="row" style="text-align: center">{{ ++$no + ($users->currentPage()-1) * $users->perPage() }}</th>
+                                    <td>{{ $user->name }}</td>
+                                    <td>
+                                        @if(!empty($user->getRoleNames()))
+                                            @foreach($user->getRoleNames() as $role)
+                                                <label class="badge badge-success">{{ $role }}</label>
+                                            @endforeach
+                                        @endif
+                                    </td>
+                                    <td class="text-center">
+                                        @can('users.edit')
+                                            <a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-primary">
+                                                <i class="fa fa-pencil-alt"></i>
+                                            </a>
+                                        @endcan
+                                        
+                                        @can('users.delete')
+                                            <button onClick="Delete(this.id)" class="btn btn-sm btn-danger" id="{{ $user->id }}">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
+                                        @endcan
+                                    </td>
+                                </tr>
+                            @endif
+                            @endforeach
+                            </tbody>
+                        </table>
+                        <div style="text-align: center">
+                            {{$users->links("vendor.pagination.bootstrap-4")}}
+                        </div>
+                    </div>
+                    @endcan
                 </div>
-            </div>
+            </div> 
         </div>
 
     </section>

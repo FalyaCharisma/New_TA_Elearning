@@ -1,13 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Models\User;
 use App\Models\mataPelajaran;
 use App\Models\Kelas;
 use App\Models\Materi;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Auth;
 
 class MateriController extends Controller
 {
@@ -18,7 +18,7 @@ class MateriController extends Controller
      */
     public function __construct()
     {
-        $this->middleware(['permission:materi.index|materi.create|materi.edit|materi.delete|materi.tentor']);
+        $this->middleware(['permission:materi.index|materi.create|materi.edit|materi.delete|materi.tentor|materi.showMateri|materi.showlist']);
     }
 
      /**
@@ -179,5 +179,23 @@ class MateriController extends Controller
                 'status' => 'error'
             ]);
         }
+    }
+    
+    public function showlist()
+    {     
+
+        $user = Auth::user();
+        $mataPelajaran = mataPelajaran::get();
+        $materis = Materi::where('kelas', $user->kelas)->where('mapel', $mataPelajaran->mata_pelajaran)->get();
+
+        return view('materi.showlist', compact('materis', 'mataPelajaran', 'user'));
+    }
+
+    public function showMateri($id)
+    {
+        $user = Auth::user($id);
+        $materis = Materi::findOrFail($id);
+
+        return view('materi.showMateri', compact('user', 'materis'));
     }
 }

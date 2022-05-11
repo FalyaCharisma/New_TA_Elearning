@@ -90,7 +90,7 @@ Route::group(['middleware' => 'auth'], function(){
         'show', 'create', 'edit', 'update'
     ]);
 
-     //kelas
+     //mapel
      Route::resource('mapels', MapelController::class)->except([
         'show', 'create', 'edit', 'update'
     ]);
@@ -101,9 +101,8 @@ Route::group(['middleware' => 'auth'], function(){
     ]);
 
     //materi
-    Route::resource('materi', MateriController::class)->except([
-        'show'
-    ]);
+    Route::resource('materi', MateriController::class);
+    Route::get('materi/showMateri/{id}', [MateriController::class, 'showMateri'])->name('materi.showMateri');
 
     //absens
     Route::resource('absensi', AbsensiController::class)->except([

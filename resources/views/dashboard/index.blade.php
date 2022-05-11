@@ -90,31 +90,7 @@
         </div>
         @endhasrole
 
-        @hasrole('student')
-        @foreach ($mapels->chunk(4) as $mapel)
-        <div class="row">
-          <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-            <div class="card card-statistic-1">
-              <div class="card-icon bg-primary">
-                <i class="fa fa-book-open text-white fa-2x"></i>
-              </div>
-              <div class="card-wrap">
-                <div class="card-header">
-                @foreach($mapel as $m)
-                  <h4>{{ $m->mata_pelajaran }}</h4>
-                  <h4>{{ $user->kelas }}</h4>
-                </div>
-              
-              </div>
-              <a href="../Student/Materi/List/{{ $m->id }}" class="small-box-footer">Lihat List Materi <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-            
-            @endforeach
-          </div>
-          
-          @endforeach
-        </div>
-        @endhasrole
+       
     </section>
 </div>
 @endsection
