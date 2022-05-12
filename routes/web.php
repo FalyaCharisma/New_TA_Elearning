@@ -19,6 +19,7 @@ use App\Http\Controllers\AbsensiController;
 use App\Http\Controllers\InformasiController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\FotoController;
+use App\Http\Controllers\DiskusiController;
 use App\Models\Exam;
 
 /*
@@ -116,6 +117,11 @@ Route::group(['middleware' => 'auth'], function(){
 
     //Profile
     Route::resource('profile', ProfileController::class)->except([
+        'show'
+    ]);
+
+    //Diskusi
+    Route::resource('diskusi', DiskusiController::class)->except([
         'show'
     ]);
 

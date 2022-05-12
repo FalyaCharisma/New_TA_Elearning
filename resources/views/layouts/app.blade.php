@@ -121,6 +121,11 @@
                                 href="{{  route('exams.index') }}"><i class="fas fa-book-open"></i>
                                 <span>Exams</span></a></li>
                         @endcan
+                        @can('materi.index')
+                        <li class="{{ setActive('/diskusi') }}"><a class="nav-link"
+                                href="{{  route('diskusi.index') }}"><i class="fas fa-question"></i>
+                                <span>Forum Diskusi</span></a></li>
+                        @endcan
                         @can('kelas.index')
                         <li class="{{ setActive('/kelas') }}"><a class="nav-link"
                                 href="{{ route('kelas.index') }}"><i class="fas fa-graduation-cap"></i> 
