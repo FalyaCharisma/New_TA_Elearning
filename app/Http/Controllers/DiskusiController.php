@@ -35,5 +35,32 @@ class DiskusiController extends Controller
         return view('diskusi.index', compact('diskusi', 'materi', 'user'));
     }
 
-  
+    public function create(){
+        $materi = Materi::latest()->get();
+        $user = User::latest()->get();
+        return view('diskusi.create', compact('materi','user'));
+    }
+
+    public function store(Request $request)
+    {
+        $this->validate($request, [
+            'materi'      => 'required',
+            'pertanyaan'  => 'required',
+        ]);
+
+        $diskusi = Diskusi::create([
+            'materi'          => $request->input('materi'),
+            'pertanyaan'      => $request->input('pertanyaan'),
+            'user_id' => Auth()->id(),
+        ]);
+
+
+        if ($diskusi) {
+            //redirect dengan pesan sukses
+            return redirect()->route('diskusi.index')->with(['success' => 'Data Berhasil Disimpan!']);
+        } else {
+            //redirect dengan pesan error
+            return redirect()->route('diskusi.index')->with(['error' => 'Data Gagal Disimpan!']);
+        }
+    }
 }
