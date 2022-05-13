@@ -33,7 +33,51 @@
                         </div>
                     @endcan
                     </form>
+                    
+                    <!-- <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr> 
+                    
+                                <th scope="col">MATERI</th>
+                                <th scope="col">PERTANYAAN</th>
+                                <th scope="col">TANGGAL</th>
+                                <th scope="col">NAMA</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach ($diskusi as $diskusi)
+                            @if ($diskusi->user_id == Auth::user()->id)
+                                <tr>
+                                   
+                                    <td>{{ $diskusi->materi }}</td>
+                                    <td>{{ $diskusi->pertanyaan }}</td>
+                                    <td>{{ $diskusi->created_at }}</td>
+                                    <td>{{ $diskusi->user->name }}</td>
+                                </tr>
+                            @endif
+                            @endforeach
+                            </tbody>
+                        </table>
+               
+                    </div> -->
 
+                    <div class="card card-default  mb-2">
+                    @if ($diskusi->user_id == Auth::user()->id)
+                        <div class="card-header">
+                            <span class="">{{$diskusi->user->name}}, <b>{{$diskusi->created_at->diffForhumans()}}</b></span>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="">{{$diskusi->materi}}</h5>
+                            <hr>
+                            <p class="">{{($diskusi->pertanyaan)}} </p> 
+                        </div>
+                        <div class="card-footer">
+                            <p> Replies</p>
+                        </div>
+                    @endif
+                    </div>
+              
                 </div>
             </div>
         </div>
