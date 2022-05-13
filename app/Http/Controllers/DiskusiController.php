@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Materi;
 use App\Models\Diskusi;
+use App\Models\Respon;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Auth;
+
 
 class DiskusiController extends Controller
 {
@@ -17,7 +19,7 @@ class DiskusiController extends Controller
      */
     public function __construct()
     {
-        $this->middleware(['permission:diskusi.index|diskusi.create|diskusi.edit|diskusi.delete']);
+        $this->middleware(['permission:diskusi.index|diskusi.create|diskusi.edit|diskusi.delete|diskusi.respon|showDiskusi|diskusi.siswa|diskusi.tentor']);
     }
 
      /**
@@ -32,6 +34,26 @@ class DiskusiController extends Controller
         })->paginate(10);
         $materi = new Materi();
         $user = new User();
+        return view('diskusi.index', compact('diskusi', 'materi', 'user'));
+    }
+
+    public function siswa()
+    {
+        $diskusi = Diskusi::latest()->when(request()->q, function($diskusi) {
+            $diskusi = $diskusi->where('materi', 'like', '%'. request()->q . '%');
+        })->paginate(10);
+        $materi = new Materi();
+        $user = new User();
+        return view('diskusi.index', compact('diskusi', 'materi', 'user'));
+    }
+    
+    public function tentor()
+    {
+        $diskusi = Diskusi::latest()->when(request()->q, function($diskusi) {
+            $diskusi = $diskusi->where('materi', 'like', '%'. request()->q . '%');
+        })->paginate(10);
+        $materi = Materi::latest()->get();
+        $user = User::latest()->get();
         return view('diskusi.index', compact('diskusi', 'materi', 'user'));
     }
 
@@ -62,5 +84,23 @@ class DiskusiController extends Controller
             //redirect dengan pesan error
             return redirect()->route('diskusi.index')->with(['error' => 'Data Gagal Disimpan!']);
         }
+    }
+
+    public function respon($id){
+        $diskusi = Diskusi::findOrFail($id);
+        $respon = Respon::create([
+            'user_id'       => Auth::id(),
+            'diskusi_id'    => $id,
+            'respon'        => $request->request()->respon,  
+        ]);
+
+        return redirect()->back();
+    }
+
+    public function showDiskusi($id)
+    {
+        $diskusi = Diskusi::findOrFail($id);
+
+        return view('diskusi.showDiskusi', compact('diskusi'));
     }
 }
