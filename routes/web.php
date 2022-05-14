@@ -20,6 +20,7 @@ use App\Http\Controllers\InformasiController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\FotoController;
 use App\Http\Controllers\DiskusiController;
+use App\Http\Controllers\UjianController;
 use App\Models\Exam;
 
 /*
@@ -126,7 +127,8 @@ Route::group(['middleware' => 'auth'], function(){
     ]);
     Route::get('diskusi/showDiskusi/{id}', [DiskusiController::class, 'showDiskusi'])->name('diskusi.showDiskusi');
 
-
+    //ujian
+    Route::resource('ujian', UjianController::class); 
     //exams
     
     Route::resource('exams', ExamController::class); 
