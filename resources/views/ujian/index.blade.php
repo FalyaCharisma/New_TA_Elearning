@@ -90,7 +90,6 @@
         {
             var id = id;
             var token = $("meta[name='csrf-token']").attr("content");
-
             swal({
                 title: "APAKAH KAMU YAKIN ?",
                 text: "INGIN MENGHAPUS DATA INI!",
@@ -102,7 +101,6 @@
                 dangerMode: true,
             }).then(function(isConfirm) {
                 if (isConfirm) {
-
                     //ajax delete
                     jQuery.ajax({
                         url: "{{ route("ujian.index") }}/"+id,
@@ -139,7 +137,6 @@
                             }
                         }
                     });
-
                 } else {
                     return true;
                 }
