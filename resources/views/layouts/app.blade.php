@@ -116,11 +116,11 @@
                                 href="{{  route('informasi.index') }}"><i class="fas fa-info"></i>
                                 <span>Informasi</span></a></li>
                         @endcan 
-                        <!-- @can('exams.index')
+                        @can('exams.index')
                         <li class="{{ setActive('/exam') }}"><a class="nav-link"
                                 href="{{  route('exams.index') }}"><i class="fas fa-book-open"></i>
                                 <span>Exams</span></a></li>
-                        @endcan -->
+                        @endcan
                         @can('materi.index')
                         <li class="{{ setActive('/diskusi') }}"><a class="nav-link"
                                 href="{{  route('diskusi.index') }}"><i class="fas fa-question"></i>
@@ -153,19 +153,19 @@
                         </li>
                         @endcan
 
-                        <!-- @can('questions.index')
+                        @can('questions.index')
                         <li class="{{ setActive('/question') }}"><a class="nav-link"
                                 href="{{ route('questions.index') }}"><i class="fas fa-question"></i> 
                                 <span>Questions</span></a>
                         </li>
-                        @endcan -->
+                        @endcan
 
-                        @can('ujian.index')
+                        <!-- @can('ujian.index')
                         <li class="{{ setActive('/ujian') }}"><a class="nav-link"
                                 href="{{ route('ujian.index') }}"><i class="fas fa-book-open"></i> 
                                 <span>Ujian</span></a>
                         </li>
-                        @endcan
+                        @endcan -->
 
                         @can('subjects.index')
                         <li class="{{ setActive('/subject') }}"><a class="nav-link"
@@ -275,5 +275,6 @@
         });
         @endif
     </script>
+     @livewireScripts
 </body>
 </html>
