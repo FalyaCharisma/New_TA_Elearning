@@ -103,14 +103,18 @@
                                     href="{{ route('permissions.index') }}"><i class="fas fa-key"></i>
                                     Permissions</a></li>
                                 @endcan
-
-                                @can('users.index')
-                                    <li class="{{ setActive('/user') }}"><a class="nav-link"
-                                        href="{{ route('users.index') }}"><i class="fas fa-users"></i> Users</a>
-                                    </li>
-                                @endcan
                             </ul>
                         </li>
+                        @can('users.tentor')
+                        <li class="{{ setActive('/user') }}"><a class="nav-link"
+                                href="{{  url('users/tentor') }}"><i class="fas fa-users"></i>
+                                <span>Data Tentor</span></a></li>
+                        @endcan 
+                        @can('users.siswa')
+                        <li class="{{ setActive('/user') }}"><a class="nav-link"
+                                href="{{  url('users/siswa') }}"><i class="fas fa-users"></i>
+                                <span>Data Siswa</span></a></li>
+                        @endcan 
                         @can('informasi.index')
                         <li class="{{ setActive('/informasi') }}"><a class="nav-link"
                                 href="{{  route('informasi.index') }}"><i class="fas fa-info"></i>

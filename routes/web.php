@@ -61,6 +61,8 @@ Route::group(['middleware' => 'auth'], function(){
     Route::resource('users', UserController::class)->except([
         'show'
     ]);
+    Route::get('users/siswa', [UserController::class, 'siswa'])->name('users.siswa');
+    Route::get('users/tentor', [UserController::class, 'tentor'])->name('users.tentor');
 
     //images
     Route::resource('images', ImageController::class)->except([

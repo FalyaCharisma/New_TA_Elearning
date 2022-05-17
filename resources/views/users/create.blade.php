@@ -31,6 +31,18 @@
                         </div>
 
                         <div class="form-group">
+                            <label>USERNAME</label>
+                            <input type="text" name="username" value="{{ old('username') }}" placeholder="Masukkan Username"
+                                class="form-control @error('username') is-invalid @enderror">
+
+                            @error('username')
+                            <div class="invalid-feedback" style="display: block">
+                                {{ $message }}
+                            </div>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
                             <label>EMAIL</label>
                             <input type="email" name="email" value="{{ old('email') }}" placeholder="Masukkan Email"
                                 class="form-control @error('email') is-invalid @enderror">
@@ -81,18 +93,6 @@
                             @enderror
                         </div>
 
-                        <div class="form-group">
-                            <label>TANGGAL LAHIR</label>
-                            <input type="date" name="tgl_lahir" value="{{ old('tgl_lahir') }}" placeholder="Masukkan Tanggal Lahir"
-                                class="form-control @error('tgl_lahir') is-invalid @enderror">
-
-                            @error('name')
-                            <div class="invalid-feedback" style="display: block">
-                                {{ $message }}
-                            </div>
-                            @enderror
-                        </div>
-
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -127,6 +127,7 @@
                                 </label>
                             </div>
                             @endforeach
+                            
                         </div>
 
                         <button class="btn btn-primary mr-1 btn-submit" type="submit"><i class="fa fa-paper-plane"></i>

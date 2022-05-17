@@ -36,20 +36,20 @@ class ProfileController extends Controller
         if($request->input('password') == "") {
             $user->update([
                 'name'      => $request->input('name'),
+                'username'  => $request->input('username'),
                 'email'     => $request->input('email'),
                 'kelas'     => $request->input('kelas'),
                 'alamat'    => $request->input('alamat'),
                 'no_wa'     => $request->input('no_wa'),
-                'tgl_lahir' => $request->input('tgl_lahir')
             ]);
         } else {
             $user->update([
                 'name'      => $request->input('name'),
+                'username'  => $request->input('username'),
                 'email'     => $request->input('email'),
                 'kelas'     => $request->input('kelas'),
                 'alamat'    => $request->input('alamat'),
                 'no_wa'     => $request->input('no_wa'),
-                'tgl_lahir' => $request->input('tgl_lahir'),
                 'password'  => bcrypt($request->input('password'))
             ]);
         }

@@ -4,18 +4,18 @@
 <div class="main-content">
     <section class="section">
         <div class="section-header">
-            <h1>Users</h1>
+            <h1>Data Siswa</h1>
         </div>
 
         <div class="section-body">
 
             <div class="card">
                 <div class="card-header">
-                    <h4><i class="fas fa-users"></i> Users</h4>
+                    <h4><i class="fas fa-users"></i> Data Siswa</h4>
                 </div>
 
                 <div class="card-body">
-                    <form action="{{ route('users.index') }}" method="GET">
+                    <form action="{{ route('users.siswa') }}" method="GET">
                         <div class="form-group">
                             <div class="input-group mb-3">
                                 @can('users.create')
@@ -32,58 +32,7 @@
                             </div>
                         </div>
                     </form>
-               
-                    @can('users.tentor')
-                    <div class="table-responsive">
-                        <table class="table table-bordered">
-                            <thead>
-                            <tr>
-                                <th scope="col" style="text-align: center;width: 6%">NO.</th>
-                                <th scope="col">NAMA USER</th>
-                                <th scope="col">ROLE</th>
-                                <th scope="col" style="width: 15%;text-align: center">AKSI</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @foreach ($users as $no => $user)
-                            @if(!empty($user->getRoleNames()))
-                            @foreach($user->getRoleNames() as $role)
-                            @if($role=='teacher')
-                                <tr>
-                                    <th scope="row" style="text-align: center">{{ ++$no + ($users->currentPage()-1) * $users->perPage() }}</th>
-                                    <td>{{ $user->name }}</td>
-                                    <td>
-                                        @if(!empty($user->getRoleNames()))
-                                            @foreach($user->getRoleNames() as $role)
-                                                <label class="badge badge-success">{{ $role }}</label>
-                                            @endforeach
-                                        @endif
-                                    </td>
-                                    <td class="text-center">
-                                        @can('users.edit')
-                                            <a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-primary">
-                                                <i class="fa fa-pencil-alt"></i>
-                                            </a>
-                                        @endcan
-                                        
-                                        @can('users.delete')
-                                            <button onClick="Delete(this.id)" class="btn btn-sm btn-danger" id="{{ $user->id }}">
-                                                <i class="fa fa-trash"></i>
-                                            </button>
-                                        @endcan
-                                    </td>
-                                </tr>
-                            @endif
-                            @endforeach
-                            @endif
-                            @endforeach
-                            </tbody>
-                        </table>
-                        <div style="text-align: center">
-                            {{$users->links("vendor.pagination.bootstrap-4")}}
-                        </div>
-                    </div>
-                    @endcan
+
 
                     @can('users.siswa')
                     <div class="table-responsive">

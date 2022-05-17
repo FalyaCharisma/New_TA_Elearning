@@ -19,11 +19,11 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'username',
         'email',
         'kelas',
         'no_wa',
         'alamat',
-        'tgl_lahir',
         'password',
     ];
 
@@ -65,6 +65,7 @@ class User extends Authenticatable
     public function kelas(){
         return $this->belongsTo(Kelas::class);
     }
+
     /*
     * This is For CRUD
     *

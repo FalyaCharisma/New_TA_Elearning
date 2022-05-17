@@ -16,7 +16,7 @@ class UserController extends Controller
      */
     public function __construct()
     {
-        $this->middleware(['permission:users.index|users.create|users.edit|users.delete']);
+        $this->middleware(['permission:users.index|users.create|users.edit|users.delete|users.tentor|users.siswa']);
     }
 
     /**
@@ -29,9 +29,33 @@ class UserController extends Controller
         $users = User::latest()->when(request()->q, function($users) {
             $users = $users->where('name', 'like', '%'. request()->q . '%');
         })->paginate(10);
-
+        $roles = new Role();
         $kelas = new Kelas();
-        return view('users.index', compact('users', 'kelas'));
+        return view('users.index', compact('users','roles', 'kelas'));
+    }
+     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function tentor()
+    { 
+        $users = User::latest()->when(request()->q, function($users) {
+            $users = $users->where('name', 'like', '%'. request()->q . '%');
+        })->paginate(10);
+        $roles = new Role();
+        $kelas = new Kelas();
+        return view('users.tentor', compact('users','roles', 'kelas'));
+    }
+
+    public function siswa()
+    { 
+        $users = User::latest()->when(request()->q, function($users) {
+            $users = $users->where('name', 'like', '%'. request()->q . '%');
+        })->paginate(10);
+        $roles = new Role();
+        $kelas = new Kelas();
+        return view('users.siswa', compact('users','roles', 'kelas'));
     }
 
     /**
@@ -63,11 +87,11 @@ class UserController extends Controller
 
         $user = User::create([
             'name'      => $request->input('name'),
+            'username'  => $request->input('username'),
             'email'     => $request->input('email'),
             'kelas'     => $request->input('kelas'),
             'alamat'    => $request->input('alamat'),
             'no_wa'     => $request->input('no_wa'),
-            'tgl_lahir' => $request->input('tgl_lahir'),
             'password'  => bcrypt($request->input('password'))
         ]);
 
@@ -115,20 +139,20 @@ class UserController extends Controller
         if($request->input('password') == "") {
             $user->update([
                 'name'      => $request->input('name'),
+                'username'  => $request->input('username'),
                 'email'     => $request->input('email'),
                 'kelas'     => $request->input('kelas'),
                 'alamat'    => $request->input('alamat'),
                 'no_wa'     => $request->input('no_wa'),
-                'tgl_lahir' => $request->input('tgl_lahir')
             ]);
         } else {
             $user->update([
                 'name'      => $request->input('name'),
+                'username'  => $request->input('username'),
                 'email'     => $request->input('email'),
                 'kelas'     => $request->input('kelas'),
                 'alamat'    => $request->input('alamat'),
                 'no_wa'     => $request->input('no_wa'),
-                'tgl_lahir' => $request->input('tgl_lahir'),
                 'password'  => bcrypt($request->input('password'))
             ]);
         }
