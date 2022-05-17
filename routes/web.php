@@ -125,7 +125,9 @@ Route::group(['middleware' => 'auth'], function(){
     Route::resource('diskusi', DiskusiController::class)->except([
         'show'
     ]);
+
     Route::get('diskusi/showDiskusi/{id}', [DiskusiController::class, 'showDiskusi'])->name('diskusi.showDiskusi');
+    Route::post('diskusi/respon/{id}',[DiskusiController::class, 'respon'])->name('diskusi.respon');
 
     //ujian
     Route::resource('ujian', UjianController::class); 
