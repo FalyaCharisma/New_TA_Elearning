@@ -84,27 +84,16 @@
                                 <span>Sliders</span></a></li>
                         @endcan
 
-                        <li
-                            class="dropdown {{ setActive('admin/role'). setActive('admin/permission'). setActive('admin/user') }}">
-                            @if(auth()->user()->can('roles.index') || auth()->user()->can('permission.index') || auth()->user()->can('users.index'))
-                                <a href="#" class="nav-link has-dropdown"><i class="fas fa-users"></i>
-                                <span>Users Management</span></a>
-                            @endif
-                            
-                            <ul class="dropdown-menu">
-                                @can('roles.index')
-                                    <li class="{{ setActive('admin/role') }}"><a class="nav-link"
-                                        href="{{ route('roles.index') }}"><i class="fas fa-unlock"></i> Roles</a>
-                                </li>
-                                @endcan
-
-                                @can('permissions.index')
-                                    <li class="{{ setActive('/permission') }}"><a class="nav-link"
-                                    href="{{ route('permissions.index') }}"><i class="fas fa-key"></i>
-                                    Permissions</a></li>
-                                @endcan
-                            </ul>
-                        </li>
+                        @can('roles.index')
+                        <li class="{{ setActive('admin/role') }}"><a class="nav-link"
+                                href="{{  route('roles.index') }}"><i class="fas fa-unlock"></i>
+                                <span>Roles</span></a></li>
+                        @endcan 
+                        @can('permissions.index')
+                        <li class="{{ setActive('/permission') }}"><a class="nav-link"
+                                href="{{  route('permissions.index') }}"><i class="fas fa-key"></i>
+                                <span>Permission</span></a></li>
+                        @endcan 
                         @can('users.tentor')
                         <li class="{{ setActive('/user') }}"><a class="nav-link"
                                 href="{{  url('users/tentor') }}"><i class="fas fa-users"></i>
