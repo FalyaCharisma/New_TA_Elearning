@@ -33,10 +33,11 @@ class DiskusiController extends Controller
             $diskusi = $diskusi->where('materi', 'like', '%'. request()->q . '%');
         })->paginate(10);
 
+        // $diskusi = Diskusi::latest();
         $respon = Respon::latest();
         $materi = new Materi();
         $user = new User();
-        return view('diskusi.index', compact('diskusi', 'respon', 'user'));
+        return view('diskusi.index', compact('diskusi','respon', 'materi', 'user'));
     }
 
     public function siswa()
@@ -88,12 +89,12 @@ class DiskusiController extends Controller
         }
     }
 
-    public function respon($id){
-        $diskusi = Diskusi::findOrFail($id);
+    public function respon(Request $request,$id){
+        // $diskusi = Diskusi::findOrFail($id);
         $respon = Respon::create([
             'user_id'       => Auth::id(),
             'diskusi_id'    => $id,
-            'respon'        => $request->input('respon'), 
+            'respon'        => $request->input('respon'),  
         ]);
 
         if ($respon) {
@@ -103,17 +104,15 @@ class DiskusiController extends Controller
             //redirect dengan pesan error
             return redirect()->route('diskusi.index')->with(['error' => 'Data Gagal Disimpan!']);
         }
-
-
-
         // return redirect()->back();
     }
+
 
     public function showDiskusi($id)
     {
         $diskusi = Diskusi::findOrFail($id);
         $respon = Respon::where('diskusi_id', $id)->get();
-        
-        return view('diskusi.showDiskusi', compact('diskusi', 'respon'));
+
+        return view('diskusi.showDiskusi', compact('diskusi','respon'));
     }
 }
