@@ -74,7 +74,7 @@
                             </thead>
                             <tbody>
                             @foreach ($absens as $no => $absensis)
-                            @if ($absensis->user->id == Auth::user()->id)
+                            @if ($absensis->name == Auth::user()->name)
                                 <tr>
                                     <th scope="row" style="text-align: center">{{ ++$no + ($absens->currentPage()-1) * $absens->perPage() }}</th>
                                     <td><img src="{{ asset('storage/public/absensis/'. $absensis->link) }}" width="150" ></td>
@@ -100,6 +100,18 @@
                 </div>
 
                 <div class="card-body">
+                    <form action="{{ route('absensi.index') }}" method="GET">
+                        <div class="form-group">
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" name="q"
+                                       placeholder="cari berdasarkan nama tentor">
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> CARI
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                     
                     <div class="table-responsive">
                         <table class="table table-bordered">
@@ -117,7 +129,7 @@
                             @foreach ($absens as $no => $absensis)
                                 <tr>
                                     <th scope="row" style="text-align: center">{{ ++$no + ($absens->currentPage()-1) * $absens->perPage() }}</th>
-                                    <td>{{ $absensis->user->name }}</td>
+                                    <td>{{ $absensis->name }}</td>
                                     <td><img src="{{ asset('storage/public/absensis/'. $absensis->link) }}" width="150" ></td>
                                     <td>{{ $absensis->keterangan }}</td>
                                     <td>{{ $absensis->created_at }}</td>

@@ -17,7 +17,7 @@ class CreateAbsensisTable extends Migration
             $table->id();
             $table->string('keterangan');
             $table->string('path');
-            $table->foreignId('user_id');
+            $table->string('name');
             $table->string('link');
             $table->timestamps();
         });

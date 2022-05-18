@@ -27,21 +27,22 @@ class AbsensiController extends Controller
     public function tentor()
     {
         $absens = Absensi::latest()->when(request()->q, function($absens) {
-            $absens = $absens->where('keterangan', 'like', '%'. request()->q . '%');
+            $absens = $absens->where('name', 'like', '%'. request()->q . '%');
         })->paginate(10);
         return view('absensi.tentor', compact('absens'));
     }
  
     public function riwayat()
     {
-        $absens = Absensi::with('user')->get();
-
+        $absens = Absensi::latest()->when(request()->q, function($absens) {
+            $absens = $absens->where('name', 'like', '%'. request()->q . '%');
+        })->paginate(10);
         return view('absensi.riwayat', compact('absens'));
     }
 
     public function index(){
         $absens = Absensi::latest()->when(request()->q, function($absens) {
-            $absens = $absens->where('keterangan', 'like', '%'. request()->q . '%');
+            $absens = $absens->where('name', 'like', '%'. request()->q . '%');
         })->paginate(10);
         return view('absensi.index', compact('absens'));
     }
@@ -62,14 +63,14 @@ class AbsensiController extends Controller
         $link = $request->file('image')->hashName();
         $path = $request->file('image')->store('public/absensis');
         $keterangan = $request->input('keterangan');
-        $user_id = Auth::user()->id;
+        $name = Auth::user()->name;
 
         $save = new Absensi;
  
         $save->link = $link;
         $save->path = $path;
         $save->keterangan = $keterangan;
-        $save->user_id = $user_id;
+        $save->name = $name;
  
         $save->save();
 
