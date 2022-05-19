@@ -119,6 +119,12 @@
                                 href="{{  route('penilaian.index') }}"><i class="fas fa-book-open"></i>
                                 <span>Penilaian Tentor</span></a></li>
                         @endcan
+                        @can('soalPenilaian.index')
+                        <li class="{{ setActive('/soalPenilaian') }}"><a class="nav-link"
+                                href="{{ route('soalPenilaian.index') }}"><i class="fas fa-question"></i> 
+                                <span>Soal Penilaian</span></a>
+                        </li>
+                        @endcan
                         @can('materi.index')
                         <li class="{{ setActive('/diskusi') }}"><a class="nav-link"
                                 href="{{  route('diskusi.index') }}"><i class="fas fa-question"></i>
