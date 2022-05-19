@@ -6,6 +6,9 @@ use App\Models\Absensi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use App\Exports\AbsensiExport;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Http\Controllers\Controller;
 
 class AbsensiController extends Controller
 {
@@ -98,4 +101,9 @@ class AbsensiController extends Controller
             ]);
         }
     }
+
+    public function export_excel()
+	{
+		return Excel::download(new AbsensiExport, 'absensi.xlsx');
+	}
 }

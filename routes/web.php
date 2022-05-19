@@ -133,6 +133,8 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('diskusi/showDiskusi/{id}', [DiskusiController::class, 'showDiskusi'])->name('diskusi.showDiskusi');
     Route::post('diskusi/respon/{id}', [DiskusiController::class, 'respon'])->name('diskusi.respon');
 
+    Route::get('/absensi/export_excel', [AbsensiController::class, 'export_excel'])->name('absensi.export_excel');
+
 
     //exams 
     Route::resource('exams', ExamController::class); 
