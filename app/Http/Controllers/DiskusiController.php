@@ -99,10 +99,11 @@ class DiskusiController extends Controller
 
         if ($respon) {
             //redirect dengan pesan sukses
-            return redirect()->route('diskusi.index')->with(['success' => 'Data Berhasil Disimpan!']);
+            
+            return redirect()->back()->with(['success' => 'Tanggapan Berhasil Dikirim!']);
         } else {
             //redirect dengan pesan error
-            return redirect()->route('diskusi.index')->with(['error' => 'Data Gagal Disimpan!']);
+            return redirect()->route('diskusi.index')->with(['error' => 'Tanggapan Gagal Dikirim!']);
         }
         // return redirect()->back();
     }
