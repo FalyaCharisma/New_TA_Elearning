@@ -114,6 +114,11 @@
                                 href="{{  route('exams.index') }}"><i class="fas fa-book-open"></i>
                                 <span>Exams</span></a></li>
                         @endcan
+                        @can('penilaian.index')
+                        <li class="{{ setActive('/penilaian') }}"><a class="nav-link"
+                                href="{{  route('penilaian.index') }}"><i class="fas fa-book-open"></i>
+                                <span>Penilaian Tentor</span></a></li>
+                        @endcan
                         @can('materi.index')
                         <li class="{{ setActive('/diskusi') }}"><a class="nav-link"
                                 href="{{  route('diskusi.index') }}"><i class="fas fa-question"></i>
@@ -152,13 +157,6 @@
                                 <span>Questions</span></a>
                         </li>
                         @endcan
-
-                        <!-- @can('ujian.index')
-                        <li class="{{ setActive('/ujian') }}"><a class="nav-link"
-                                href="{{ route('ujian.index') }}"><i class="fas fa-book-open"></i> 
-                                <span>Ujian</span></a>
-                        </li>
-                        @endcan -->
 
                         @can('subjects.index')
                         <li class="{{ setActive('/subject') }}"><a class="nav-link"

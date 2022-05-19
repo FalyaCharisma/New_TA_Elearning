@@ -20,8 +20,10 @@ use App\Http\Controllers\InformasiController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\FotoController;
 use App\Http\Controllers\DiskusiController;
-use App\Http\Controllers\UjianController;
+use App\Http\Controllers\PenilaianController;
+use App\Http\Controllers\SoalPenilaianController;
 use App\Models\Exam;
+use App\Models\Penilaian;
 
 /*
 |--------------------------------------------------------------------------
@@ -131,14 +133,20 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('diskusi/showDiskusi/{id}', [DiskusiController::class, 'showDiskusi'])->name('diskusi.showDiskusi');
     Route::post('diskusi/respon/{id}', [DiskusiController::class, 'respon'])->name('diskusi.respon');
 
-    //ujian
-    Route::resource('ujian', UjianController::class); 
-    //exams
-    
+
+    //exams 
     Route::resource('exams', ExamController::class); 
     Route::get('/exams/result/{score}/{user_id}/{exam_id}', [ExamController::class, 'result'])->name('exams.result');
     Route::get('/exams/start/{id}', [ExamController::class, 'start'])->name('exams.start');
     Route::get('exams/student/{id}', [ExamController::class, 'student'])->name('exams.student');
     Route::put('exams/assign/{id}', [ExamController::class, 'assign'])->name('exams.assign');
     Route::get('/exams/review/{user_id}/{exam_id}', [ExamController::class, 'review'])->name('exams.review');
+
+    //penilaian
+    Route::resource('penilaian', PenilaianController::class); 
+
+    //soal penilaian tentor
+    Route::resource('soalPenilaian', SoalPenilaianController::class)->except([
+        'show'
+    ]);
 });

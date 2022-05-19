@@ -50,6 +50,10 @@ class User extends Authenticatable
        return $this->belongsToMany(Exam::class)->withPivot('history_answer', 'score')->withTimestamps();
     }
 
+    public function penilaian(){
+        return $this->belongsToMany(Penilaian::class)->withPivot('riwayat_penilaian', 'nilai')->withTimestamps();
+     }
+
     public function getName($id){
         return $this->where('id',$id)->value('name');
     }
