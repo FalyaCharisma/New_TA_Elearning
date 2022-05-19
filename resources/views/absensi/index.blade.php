@@ -12,7 +12,7 @@
             @can('absensi.create')
                 <div class="card">
                     <div class="card-header">
-                        <h4><i class="fas fa-image"></i> Upload Image</h4>
+                        <h4><i class="fas fa-image"></i> Upload Imagee</h4>
                     </div>
 
                     <div class="card-body">
