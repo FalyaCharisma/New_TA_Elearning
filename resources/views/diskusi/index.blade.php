@@ -33,7 +33,7 @@
                     <div class="card card-default mb-2">
                     @if ($diskusi->user_id == Auth::user()->id)
                         <div class="card-header">
-                             <span class="">{{$diskusi->user->name}}, <b>{{$diskusi->created_at->diffForhumans()}}</b></span>
+                             <span class="">{{$diskusi->user->name}}, <b>{{$diskusi->created_at }}</b></span>
                         </div>
                         <div class="card-body">
                             <h5 class="">{{$diskusi->materi}}</h5>
@@ -55,7 +55,7 @@
                     <div class="card card-default mb-2">
                    
                         <div class="card-header">
-                             <span class="">{{$diskusi->user->name}}, <b>{{$diskusi->created_at->diffForhumans()}}</b></span>
+                             <span class="">{{$diskusi->user->name}}, <b>{{$diskusi->created_at }}</b></span>
                         </div>
                         <div class="card-body">
                             <h5 class="">{{$diskusi->materi}}</h5>
