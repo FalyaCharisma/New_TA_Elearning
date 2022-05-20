@@ -67,25 +67,26 @@ class SoalPenilaianController extends Controller
         ]);
 
         $soalPenilaian = SoalPenilaian::create([
-            'pilihan_A'      => $request->input('pilihan_A'),
-            'pilihan_B'      => $request->input('pilihan_B'),
-            'pilihan_C'      => $request->input('pilihan_C'),
-            'pilihan_D'      => $request->input('pilihan_D'),
-            'pilihan_E'      => $request->input('pilihan_E'),
-            'poin_A'         => $request->input('poin_A'),
-            'poin_B'         => $request->input('poin_B'),
-            'poin_C'         => $request->input('poin_C'),
-            'poin_D'         => $request->input('poin_D'),
-            'poin_E'         => $request->input('poin_E'),
+            'pertanyaan'    => $request->input('pertanyaan'),
+            'pilihan_A'     => $request->input('pilihan_A'),
+            'pilihan_B'     => $request->input('pilihan_B'),
+            'pilihan_C'     => $request->input('pilihan_C'),
+            'pilihan_D'     => $request->input('pilihan_D'),
+            'pilihan_E'     => $request->input('pilihan_E'),
+            'poin1'         => $request->input('poin1'),
+            'poin2'         => $request->input('poin2'),
+            'poin3'         => $request->input('poin3'),
+            'poin4'         => $request->input('poin4'),
+            'poin5'         => $request->input('poin5'),
         ]);
 
 
         if($soalPenilaian){
             //redirect dengan pesan sukses
-            return redirect()->route('soalPenilaian.index')->with(['success' => 'Data Berhasil Disimpan!']);
+            return redirect()->route('soalPenilaian.index')->with(['success' => 'Pertanyaan Berhasil Disimpan!']);
         }else{
             //redirect dengan pesan error
-            return redirect()->route('soalPenilaian.index')->with(['error' => 'Data Gagal Disimpan!']);
+            return redirect()->route('soalPenilaian.index')->with(['error' => 'Pertanyaan Gagal Disimpan!']);
         }
     }
 
@@ -107,43 +108,25 @@ class SoalPenilaianController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Question $question)
+    public function update(Request $request, SoalPenilaian $soalPenilaian)
     {
         $this->validate($request, [
             'pertanyaan'  => 'required',
-            'pilihan_A'   => 'required',
-            'pilihan_B'   => 'required',
-            'pilihan_C'   => 'required',
-            'pilihan_D'   => 'required',
-            'pilihan_E'   => 'required',
-            'poin1'       => 'required',
-            'poin2'       => 'required',
-            'poin3'       => 'required',
-            'poin4'       => 'required',
-            'poin5'       => 'required',
+        
         ]);
 
-        $question = Question::findOrFail($question->id);
+        $soalPenilaian = SoalPenilaian::findOrFail($soalPenilaian->id);
 
-        $question->update([
-            'pilihan_A'      => $request->input('pilihan_A'),
-            'pilihan_B'      => $request->input('pilihan_B'),
-            'pilihan_C'      => $request->input('pilihan_C'),
-            'pilihan_D'      => $request->input('pilihan_D'),
-            'pilihan_E'      => $request->input('pilihan_E'),
-            'poin_A'         => $request->input('poin_A'),
-            'poin_B'         => $request->input('poin_B'),
-            'poin_C'         => $request->input('poin_C'),
-            'poin_D'         => $request->input('poin_D'),
-            'poin_E'         => $request->input('poin_E'),
+        $soalPenilaian->update([
+            'pertanyaan'    => $request->input('pertanyaan'),
         ]);
 
         if($soalPenilaian){
             //redirect dengan pesan sukses
-            return redirect()->route('soalPenilaian.index')->with(['success' => 'Data Berhasil Diupdate!']);
+            return redirect()->route('soalPenilaian.index')->with(['error' => 'Pertanyaan Berhasil Diupdate!']);
         }else{
             //redirect dengan pesan error
-            return redirect()->route('soalPenilaian.index')->with(['error' => 'Data Gagal Diupdate!']);
+            return redirect()->route('soalPenilaian.index')->with(['error' => 'Pertanyaan Gagal Diupdate!']);
         }
     }
 

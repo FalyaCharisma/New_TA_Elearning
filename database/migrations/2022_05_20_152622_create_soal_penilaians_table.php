@@ -21,11 +21,11 @@ class CreateSoalPenilaiansTable extends Migration
             $table->string('pilihan_C')->nullable();
             $table->string('pilihan_D')->nullable();
             $table->string('pilihan_E')->nullable();
-            $table->text('poin1');
-            $table->text('poin2');
-            $table->text('poin3');
-            $table->text('poin4');
-            $table->text('poin5');
+            $table->integer('poin1');
+            $table->integer('poin2');
+            $table->integer('poin3'); 
+            $table->integer('poin4');
+            $table->integer('poin5');
             $table->timestamps();
         });
     }
