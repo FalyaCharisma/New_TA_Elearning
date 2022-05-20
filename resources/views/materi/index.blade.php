@@ -11,7 +11,7 @@
 
             <div class="card">
                 <div class="card-header">
-                    <h4><i class="fas fa-question"></i> Materi</h4>
+                    <h4><i class="fas fa-book"></i> Materi</h4>
                 </div>
 
                 <div class="card-body">
@@ -81,39 +81,28 @@
                     @endcan
 
                     @can('materi.showlist')
-                    <div class="table-responsive">
-                        <table class="table table-bordered">
-                            <thead>
-                            <tr>
-                                <th scope="col" style="text-align: center;width: 6%">NO.</th>
-                                <th scope="col">Mata Pelajaran</th>
-                                <th scope="col">JUDUL</th>
-                                <th scope="col">Aksi</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @foreach ($materis as $no => $materi)
-                            @if ($materi->kelas == Auth::user()->kelas)
-                                <tr>
-                                    <th scope="row" style="text-align: center">{{ ++$no + ($materis->currentPage()-1) * $materis->perPage() }}</th>
-                                    <td>{{ $materi->mapel }}</td>
-                                    <td>{{ $materi->judul }}</td>
-                                    <td>
-                                        <a href="materi/showMateri/{{ $materi->id }}" class="btn btn-sm btn-info">
-                                            <i class="fa fa-eye"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                            @endif
-                            @endforeach
-                            </tbody>
-                        </table>
-                        <div style="text-align: center">
-                            {{$materis->links("vendor.pagination.bootstrap-4")}}
+                    @foreach ($materis as $no => $materi)
+                    @if ($materi->kelas == Auth::user()->kelas)
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                        <div class="card card-statistic-1">
+                            <div class="card-icon bg-primary">
+                                <i class="fa fa-book-open text-white fa-2x"></i>
+                            </div>
+                            <div class="card-wrap">
+                                <div class="card-header">
+                                    <h4>{{ $materi->mapel }}</h4>
+                                </div>
+                                <div class="card-body">
+                                {{ $materi->judul }}
+                                </div>
+                                {{ $materi->created_at }}<br>
+                                <a href="materi/showMateri/{{ $materi->id }}">Selengkapnya</a>
+                            </div>
                         </div>
                     </div>
+                    @endif
+                    @endforeach
                     @endcan
-
                 </div>
             </div>
         </div>

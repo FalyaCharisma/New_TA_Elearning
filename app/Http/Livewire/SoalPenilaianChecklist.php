@@ -20,7 +20,7 @@ class SoalPenilaianChecklist extends Component
 
     public function mount($selectedPenilaian = null)
     {
-        if (is_null($selectedPenilaian)) {
+        if (is_null($selectedPenilaian)) { 
             $this->selectedPertanyaan = [];
         } else {
             $this->selectedPertanyaan = Penilaian::findOrFail($selectedPenilaian)->soal_penilaians()->pluck('pertanyaan_id')->toArray();
@@ -55,7 +55,7 @@ class SoalPenilaianChecklist extends Component
                 'soal_penilaians' => SoalPenilaian::latest()
                                 ->when($this->q != null, function($soal_penilaians) {
                                             $soal_penilaians = $soal_penilaians->where('name', 'like', '%'. $this->q . '%');})
-                                ->whereNotIn('id', $this->selectedQuestion)
+                                ->whereNotIn('id', $this->selectedPertanyaan)
                                 ->paginate(5),
                 'soalPenilaianAll' => SoalPenilaian::latest()->whereIn('id', $this->selectedPertanyaan)->get(),
                 ]);
