@@ -103,9 +103,9 @@ class PenilaianController extends Controller
      */
     public function edit(penilaian $penilaian)
     {
-        $soalPenilaian = $penilaian->soalPenilaian()->where('penilaian_id', $penilaian->id)->get();
+        $soal_penilaians = $penilaian->soal_penilaians()->where('penilaian_id', $penilaian->id)->get();
         
-        return view('penilaian.edit', compact('penilaian', 'soalPenilaian'));
+        return view('penilaian.edit', compact('penilaian', 'soal_penilaians'));
     }
 
     /**
@@ -134,7 +134,7 @@ class PenilaianController extends Controller
             'end'             => $request->input('end'),
         ]);
 
-        $penilaian->soalPenilaian()->sync($request->input('soal_penilaians'));
+        $penilaian->soal_penilaians()->sync($request->input('soal_penilaians'));
 
         if($penilaian){
             //redirect dengan pesan sukses
