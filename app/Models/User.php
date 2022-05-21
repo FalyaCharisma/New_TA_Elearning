@@ -66,6 +66,14 @@ class User extends Authenticatable
                     ->score;
     }
 
+    public function getNilai($user_id, $penilaian_id){
+        return $this->find($user_id)
+                    ->penilaian
+                    ->find($penilaian_id)
+                    ->pivot
+                    ->nilai;
+    }
+
     public function kelas(){
         return $this->belongsTo(Kelas::class);
     }

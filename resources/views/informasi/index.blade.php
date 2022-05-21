@@ -25,50 +25,33 @@
                                 @endcan
                                 <input type="text" class="form-control" name="q"
                                        placeholder="cari berdasarkan informasi">
-                                <div class="input-group-append">
+                                 <div class="input-group-append">
                                     <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> CARI
                                     </button>
                                 </div>
                             </div>
                         </div>
                     </form>
-                    <div class="table-responsive">
-                        <table class="table table-bordered">
-                            <thead>
-                            <tr>
-                                <th scope="col" style="text-align: center;width: 6%">NO.</th>
-                                <th scope="col">ISI INFORMASI</th>
-                                <th scope="col">TANGGAL</th>
-                                <th scope="col" style="width: 15%;text-align: center">AKSI</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @foreach ($infos as $no => $info)
-                                <tr>
-                                    <th scope="row" style="text-align: center">{{ ++$no + ($infos->currentPage()-1) * $infos->perPage() }}</th>
-                                    <td>{{ $info->isi_informasi }}</td>
-                                    <td>{{ $info->created_at }}</td>
-                                    <td class="text-center">
-                                        @can('informasi.edit')
+             
+                    @foreach ($infos as $info)
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                        <div class="card card-statistic-1">
+                            <div class="card-wrap">
+                                <div class="card-body">
+                                <h4>Isi Informasi  @can('informasi.edit')
                                             <a href="{{ route('informasi.edit', $info->id) }}" class="btn btn-sm btn-primary">
                                                 <i class="fa fa-pencil-alt"></i>
                                             </a>
-                                        @endcan
-                                        
-                                        @can('informasi.delete')
-                                            <button onClick="Delete(this.id)" class="btn btn-sm btn-danger" id="{{ $info->id }}">
-                                                <i class="fa fa-trash"></i>
-                                            </button>
-                                        @endcan
-                                    </td>
-                                </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
-                        <div style="text-align: center">
-                            {{$infos->links("vendor.pagination.bootstrap-4")}}
+                                @endcan</h4>
+                                <p>{{ $info->isi_informasi }}</p>
+                                </div>
+                                <div class="card-footer">
+                                {{ $info->created_at }}
+                                </div>
+                            </div>
                         </div>
                     </div>
+                    @endforeach
                 </div>
             </div>
         </div>

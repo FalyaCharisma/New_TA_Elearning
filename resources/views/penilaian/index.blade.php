@@ -44,6 +44,8 @@
                                 <th scope="col">TOTAL PERTANYAAN</th>
                                 @hasrole('admin')
                                 <th scope="col">ASSIGN STUDENT</th>
+                                @endhasrole
+                                @hasrole('student')
                                 <th scope="col">SCORE</th>
                                 @endhasrole
                                 <th scope="col">START</th>
@@ -57,10 +59,12 @@
                                     
                                     <td>{{ $penilaian->name }}</td>
                                     <td>{{ $penilaian->time }}</td>
-                                    <td>{{ $penilaian->soalPenilaian->count() }}</td>
+                                    <td>{{ $penilaian->soal_penilaians->count() }}</td>
                                     @hasrole('admin')
                                     <td>{{ $penilaian->users->count() }}</td>
-                                    <td>{{  $user->getScore(Auth()->id(), $penilaian->id) !== null ? $user->getScore(Auth()->id(), $exam->id) : "Belum dikerjakan"  }}</td>
+                                    @endhasrole
+                                    @hasrole('student')
+                                    <td>{{  $user->getNilai(Auth()->id(), $penilaian->id) !== null ? $user->getNilai(Auth()->id(), $penilaian->id) : "Belum dikerjakan"  }}</td>
                                     @endhasrole
                                     <td>{{ TanggalID($penilaian->start) }}</td>
                                     <td>{{ TanggalID($penilaian->end) }}</td>
@@ -90,9 +94,7 @@
                             @endforeach
                             </tbody>
                         </table>
-                        <div style="text-align: center">
-                            {{$penilaian->links("vendor.pagination.bootstrap-4")}}
-                        </div>
+                      
                     </div>
                 </div>
             </div>

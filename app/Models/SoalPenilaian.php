@@ -15,7 +15,7 @@ class SoalPenilaian extends Model
      */
     protected $guarded = [];
 
-    public function penilaian(){
+    public function penilaians(){
         return $this->belongsToMany(Penilaian::class)->withTimestamps();
     }
 }

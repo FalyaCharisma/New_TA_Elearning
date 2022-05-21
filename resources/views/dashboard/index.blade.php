@@ -6,16 +6,16 @@
         <div class="section-header">
             <h1>Dashboard</h1>
         </div>
-        @hasanyrole('teacher|admin')
+        @hasanyrole('teacher')
           <div class="row">
             <div class="col-lg-3 col-md-6 col-sm-6 col-12">
               <div class="card card-statistic-1">
-                <div class="card-icon bg-primary">
+                <div class="card-icon bg-danger">
                   <i class="fa fa-book-open text-white fa-2x"></i>
                 </div>
                 <div class="card-wrap">
                   <div class="card-header">
-                    <h4>EXAMS</h4>
+                    <h4>UJIAN</h4>
                   </div>
                   <div class="card-body">
                     {{ App\Models\Exam::count() ?? '0' }}
@@ -25,34 +25,39 @@
             </div>
             <div class="col-lg-3 col-md-6 col-sm-6 col-12">
               <div class="card card-statistic-1">
-                <div class="card-icon bg-danger">
-                  <i class="fa fa-bell text-white fa-2x"></i>
+                <div class="card-icon bg-warning">
+                  <i class="fa fa-book text-white fa-2x"></i>
                 </div>
                 <div class="card-wrap">
                   <div class="card-header">
-                    <h4>QUESTIONS</h4>
+                    <h4>MATERI</h4>
                   </div>
                   <div class="card-body">
-                    {{ App\Models\Question::count() ?? '0' }}
+                    {{ App\Models\Materi::count() ?? '0' }}
                   </div>
                 </div>
               </div>
             </div>
-            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+            
+          </div>
+        @endhasrole
+        @hasanyrole('admin')
+          <div class="row">
+          <div class="col-lg-3 col-md-6 col-sm-6 col-12">
               <div class="card card-statistic-1">
                 <div class="card-icon bg-warning">
-                  <i class="fa fa-tags text-white fa-2x"></i>
+                  <i class="fa fa-users text-white fa-2x"></i>
                 </div>
                 <div class="card-wrap">
                   <div class="card-header">
-                    <h4>SUBJECTS</h4>
+                    <h4>SISWA</h4>
                   </div>
                   <div class="card-body">
-                    {{ App\Models\Subject::count() ?? '0' }}
+                    {{ App\Models\User::role('student')->count() ?? '0' }}
                   </div>
                 </div>
               </div>
-            </div>
+            </div>   
             <div class="col-lg-3 col-md-6 col-sm-6 col-12">
               <div class="card card-statistic-1">
                 <div class="card-icon bg-success">
@@ -60,29 +65,74 @@
                 </div>
                 <div class="card-wrap">
                   <div class="card-header">
-                    <h4>STUDENTS</h4>
+                    <h4>TENTOR</h4>
                   </div>
                   <div class="card-body">
-                    {{ App\Models\User::role('student')->count() ?? '0' }}
+                    {{ App\Models\User::role('teacher')->count() ?? '0' }}
                   </div>
                 </div>
               </div>
-            </div>                  
+            </div>   
+          <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+              <div class="card card-statistic-1">
+                <div class="card-icon bg-primary">
+                  <i class="fa fa-book text-white fa-2x"></i>
+                </div>
+                <div class="card-wrap">
+                  <div class="card-header">
+                    <h4>MATA PELAJARAN</h4>
+                  </div>
+                  <div class="card-body">
+                    {{ App\Models\mataPelajaran::count() ?? '0' }}
+                  </div>
+                </div>
+              </div>
+            </div>  
+            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+              <div class="card card-statistic-1">
+                <div class="card-icon bg-danger">
+                  <i class="fa fa-graduation-cap text-white fa-2x"></i>
+                </div>
+                <div class="card-wrap">
+                  <div class="card-header">
+                    <h4>KELAS</h4>
+                  </div>
+                  <div class="card-body">
+                    {{ App\Models\Kelas::count() ?? '0' }}
+                  </div>
+                </div>
+              </div>
+            </div>              
           </div>
-        @endhasanyrole
+        @endhasrole
         @hasrole('student')
         <div class="row">
           <div class="col-lg-3 col-md-6 col-sm-6 col-12">
             <div class="card card-statistic-1">
-              <div class="card-icon bg-primary">
+              <div class="card-icon bg-danger">
                 <i class="fa fa-book-open text-white fa-2x"></i>
               </div>
               <div class="card-wrap">
                 <div class="card-header">
-                  <h4>MY EXAMS</h4>
+                  <h4>UJIAN</h4>
                 </div>
                 <div class="card-body">
                   {{ $exams->count() ?? '0' }}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+            <div class="card card-statistic-1">
+              <div class="card-icon bg-primary">
+                <i class="fa fa-book text-white fa-2x"></i>
+              </div>
+              <div class="card-wrap">
+                <div class="card-header">
+                  <h4>MATERI</h4>
+                </div>
+                <div class="card-body">
+                {{ App\Models\Materi::count() ?? '0' }}
                 </div>
               </div>
             </div>
