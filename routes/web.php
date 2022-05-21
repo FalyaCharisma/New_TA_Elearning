@@ -146,6 +146,7 @@ Route::group(['middleware' => 'auth'], function(){
 
     //penilaian
     Route::resource('penilaian', PenilaianController::class); 
+    Route::get('penilaian/student/{id}', [PenilaianController::class, 'student'])->name('penilaian.student');
 
     //soal penilaian tentor
     Route::resource('soalPenilaian', SoalPenilaianController::class)->except([

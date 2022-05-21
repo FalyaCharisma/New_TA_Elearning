@@ -4,13 +4,13 @@ namespace App\Http\Livewire;
 
 use App\Models\Penilaian;
 use Livewire\Component;
-use App\Models\SoalPenilaian;
+use App\Models\SoalPenilaian; 
 use Livewire\WithPagination;
 use Illuminate\Database\Eloquent\Builder;
 
 class SoalPenilaianChecklist extends Component
 {
-    use WithPagination;
+    use WithPagination; 
 
     protected $paginationTheme = 'bootstrap';
     public $q = null;
@@ -23,7 +23,7 @@ class SoalPenilaianChecklist extends Component
         if (is_null($selectedPenilaian)) { 
             $this->selectedPertanyaan = [];
         } else {
-            $this->selectedPertanyaan = Penilaian::findOrFail($selectedPenilaian)->soal_penilaians()->pluck('pertanyaan_id')->toArray();
+            $this->selectedPertanyaan = Penilaian::findOrFail($selectedPenilaian)->soal_penilaians()->pluck('soal_penilaian_id')->toArray();
         }
        
     }
@@ -54,7 +54,7 @@ class SoalPenilaianChecklist extends Component
             return view('livewire.soal-penilaian-checklist', [
                 'soal_penilaians' => SoalPenilaian::latest()
                                 ->when($this->q != null, function($soal_penilaians) {
-                                            $soal_penilaians = $soal_penilaians->where('name', 'like', '%'. $this->q . '%');})
+                                            $soal_penilaians = $soal_penilaians->where('pertanyaan', 'like', '%'. $this->q . '%');})
                                 ->whereNotIn('id', $this->selectedPertanyaan)
                                 ->paginate(5),
                 'soalPenilaianAll' => SoalPenilaian::latest()->whereIn('id', $this->selectedPertanyaan)->get(),

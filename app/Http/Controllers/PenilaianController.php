@@ -84,7 +84,7 @@ class PenilaianController extends Controller
             'end'             => $request->input('end'),
         ]);
 
-        $penilaian->soalPenilaian()->sync($request->input('soal_penilaians'));
+        $penilaian->soal_penilaians()->sync($request->input('soal_penilaians'));
 
         if($penilaian){
             //redirect dengan pesan sukses
@@ -124,7 +124,7 @@ class PenilaianController extends Controller
             'start'           => 'required',
             'end'             => 'required'
         ]);
-
+ 
         $penilaian->update([
             'name'            => $request->input('name'),
             'time'            => $request->input('time'),
