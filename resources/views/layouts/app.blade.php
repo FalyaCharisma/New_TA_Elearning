@@ -40,8 +40,7 @@
 
                     <li class="dropdown"><a href="#" data-toggle="dropdown"
                             class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-                            <img alt="image" src="{{ asset('assets/img/avatar/avatar-1.png') }}"
-                                class="rounded-circle mr-1">
+                            <i class="fas fa-user"></i>            
                             <div class="d-sm-none d-lg-inline-block">Hi, {{ auth()->user()->name }}</div>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
@@ -64,10 +63,10 @@
                 <aside id="sidebar-wrapper">
                     <div class="sidebar-brand">
                     <img src="asset/images/logo.jpeg" height="40px" width="40px"  style="margin-right: 25px; margin-top: 10px">
-                        <a href="index.html">E-Learning</a>
+                        <a href="{{ route('dashboard.index') }}">E-Learning</a>
                     </div>
                     <div class="sidebar-brand sidebar-brand-sm">
-                        <a href="index.html">UJIAN</a>
+                        <a href="{{ route('dashboard.index') }}">LMS</a>
                     </div>
                     <ul class="sidebar-menu">
                         <li class="menu-header">MAIN MENU</li>
@@ -83,53 +82,43 @@
                                 href="#"><i class="fas fa-laptop"></i>
                                 <span>Sliders</span></a></li>
                         @endcan
-
-                        @can('roles.index')
-                        <li class="{{ setActive('admin/role') }}"><a class="nav-link"
-                                href="{{  route('roles.index') }}"><i class="fas fa-unlock"></i>
-                                <span>Roles</span></a></li>
-                        @endcan 
-                        @can('permissions.index')
-                        <li class="{{ setActive('/permission') }}"><a class="nav-link"
-                                href="{{  route('permissions.index') }}"><i class="fas fa-key"></i>
-                                <span>Permission</span></a></li>
-                        @endcan 
-                        @can('users.tentor')
-                        <li class="{{ setActive('/user') }}"><a class="nav-link"
-                                href="{{  url('users/tentor') }}"><i class="fas fa-users"></i>
-                                <span>Data Tentor</span></a></li>
-                        @endcan 
-                        @can('users.siswa')
-                        <li class="{{ setActive('/user') }}"><a class="nav-link"
-                                href="{{  url('users/siswa') }}"><i class="fas fa-users"></i>
-                                <span>Data Siswa</span></a></li>
-                        @endcan 
-                        @can('informasi.index')
-                        <li class="{{ setActive('/informasi') }}"><a class="nav-link"
-                                href="{{  route('informasi.index') }}"><i class="fas fa-info"></i>
-                                <span>Informasi</span></a></li>
-                        @endcan 
-                        @can('exams.index')
-                        <li class="{{ setActive('/exam') }}"><a class="nav-link"
-                                href="{{  route('exams.index') }}"><i class="fas fa-book-open"></i>
-                                <span>Exams</span></a></li>
-                        @endcan
-                        @can('penilaian.index')
-                        <li class="{{ setActive('/penilaian') }}"><a class="nav-link"
-                                href="{{  route('penilaian.index') }}"><i class="fas fa-book-open"></i>
-                                <span>Penilaian Tentor</span></a></li>
-                        @endcan
-                        @can('soalPenilaian.index')
-                        <li class="{{ setActive('/soalPenilaian') }}"><a class="nav-link"
-                                href="{{ route('soalPenilaian.index') }}"><i class="fas fa-question"></i> 
-                                <span>Soal Penilaian</span></a>
+                        @hasrole('admin')
+                        <li
+                            class="dropdown {{ setActive('admin/role'). setActive('admin/permission') }}">       
+                            <a href="#" class="nav-link has-dropdown"><i class="fas fa-lock"></i><span>Roles</span></a> 
+                            <ul class="dropdown-menu">
+                                @can('roles.index')
+                                <li class="{{ setActive('admin/role') }}"><a class="nav-link"
+                                        href="{{  route('roles.index') }}"><i class="fas fa-unlock"></i>
+                                        <span>Roles</span></a></li>
+                                @endcan 
+                                @can('permissions.index')
+                                <li class="{{ setActive('/permission') }}"><a class="nav-link"
+                                        href="{{  route('permissions.index') }}"><i class="fas fa-key"></i>
+                                        <span>Permission</span></a></li>
+                                @endcan 
+                            </ul>
                         </li>
-                        @endcan
-                        @can('materi.index')
-                        <li class="{{ setActive('/diskusi') }}"><a class="nav-link"
-                                href="{{  route('diskusi.index') }}"><i class="fas fa-question"></i>
-                                <span>Forum Diskusi</span></a></li>
-                        @endcan
+                        @endhasrole
+
+                        @hasrole('admin')
+                        <li
+                            class="dropdown {{ setActive('admin/user') }}">
+                                <a href="#" class="nav-link has-dropdown"><i class="fas fa-users"></i><span>Data User</span></a>                   
+                            <ul class="dropdown-menu">
+                            @can('users.tentor')
+                                <li class="{{ setActive('/user') }}"><a class="nav-link"
+                                        href="{{  url('users/tentor') }}"><i class="fas fa-users"></i>
+                                        <span>Data Tentor</span></a></li>
+                                @endcan 
+                                @can('users.siswa')
+                                <li class="{{ setActive('/user') }}"><a class="nav-link"
+                                        href="{{  url('users/siswa') }}"><i class="fas fa-users"></i>
+                                        <span>Data Siswa</span></a></li>
+                                @endcan 
+                            </ul>
+                        </li>
+                        @endhasrole
                         @can('kelas.index')
                         <li class="{{ setActive('/kelas') }}"><a class="nav-link"
                                 href="{{ route('kelas.index') }}"><i class="fas fa-graduation-cap"></i> 
@@ -143,24 +132,62 @@
                         </li>
                         @endcan
 
+                        @hasrole('admin')
+                        <li
+                            class="dropdown {{ setActive('admin/penilaian'). setActive('admin/soalPenilaian') }}">  
+                                <a href="#" class="nav-link has-dropdown"><i class="fas fa-book-open"></i><span>Evaluasi Tentor</span></a>                    
+                            <ul class="dropdown-menu">
+                                @can('penilaian.index')
+                                <li class="{{ setActive('/penilaian') }}"><a class="nav-link"
+                                        href="{{  route('penilaian.index') }}"><i class="fas fa-book-open"></i>
+                                        <span>Penilaian Tentor</span></a></li>
+                                @endcan
+                                @can('soalPenilaian.index')
+                                <li class="{{ setActive('/soalPenilaian') }}"><a class="nav-link"
+                                        href="{{ route('soalPenilaian.index') }}"><i class="fas fa-question"></i> 
+                                        <span>Soal Penilaian</span></a>
+                                </li>
+                                @endcan
+                            </ul>
+                        </li>
+                        @endhasrole
+
                         @can('materi.index')
                         <li class="{{ setActive('/materi') }}"><a class="nav-link"
                                 href="{{ route('materi.index') }}"><i class="fas fa-journal-whills"></i> 
                                 <span>Materi</span></a>
                         </li>
                         @endcan
+                        
+                        @can('exams.index')
+                        <li class="{{ setActive('/exam') }}"><a class="nav-link"
+                                href="{{  route('exams.index') }}"><i class="fas fa-book-open"></i>
+                                <span>Ujian</span></a></li>
+                        @endcan
+
+                        @can('questions.index')
+                        <li class="{{ setActive('/question') }}"><a class="nav-link"
+                                href="{{ route('questions.index') }}"><i class="fas fa-list"></i> 
+                                <span>Bank Soal</span></a>
+                        </li>
+                        @endcan
+        
+                        @can('diskusi.index')
+                        <li class="{{ setActive('/diskusi') }}"><a class="nav-link"
+                                href="{{  route('diskusi.index') }}"><i class="fas fa-question"></i>
+                                <span>Forum Diskusi</span></a></li>
+                        @endcan
+
+                        @can('informasi.index')
+                        <li class="{{ setActive('/informasi') }}"><a class="nav-link"
+                                href="{{  route('informasi.index') }}"><i class="fas fa-info"></i>
+                                <span>Informasi</span></a></li>
+                        @endcan 
 
                         @can('absensi.index')
                         <li class="{{ setActive('/absensi') }}"><a class="nav-link"
                                 href="{{ route('absensi.index') }}"><i class="fas fa-clipboard-list"></i> 
                                 <span>Absensi</span></a>
-                        </li>
-                        @endcan
-
-                        @can('questions.index')
-                        <li class="{{ setActive('/question') }}"><a class="nav-link"
-                                href="{{ route('questions.index') }}"><i class="fas fa-question"></i> 
-                                <span>Questions</span></a>
                         </li>
                         @endcan
 
@@ -204,7 +231,6 @@
                                 <span>Document</span></a></li>
                         @endcan
 
-                       
                     </ul>
                 </aside>
             </div>
