@@ -41,7 +41,7 @@
 
                         <div class="form-group">
                             <label>TOTAL PERTANYAAN</label>
-                            <input type="number" name="total_pertanyaan" value="{{ old('total_pertanyaan', $penilaian->total_pertanyaan) }}" class="form-control" >
+                            <input type="number" name="total_pertanyaan" value=3 class="form-control" >
 
                             @error('total_pertanyaan')
                             <div class="invalid-feedback" style="display: block">
@@ -71,9 +71,6 @@
                             </div>
                             @enderror
                         </div>
-
-                        @livewire('soal-penilaian-checklist', ['selectedPertanyaan' => $penilaian->id])
-
 
                         <button class="btn btn-primary mr-1 btn-submit" type="submit"><i class="fa fa-paper-plane"></i>
                             SIMPAN</button>

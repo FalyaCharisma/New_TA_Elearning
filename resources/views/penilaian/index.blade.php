@@ -45,9 +45,6 @@
                                 @hasrole('admin')
                                 <th scope="col">ASSIGN STUDENT</th>
                                 @endhasrole
-                                @hasrole('student')
-                                <th scope="col">SCORE</th>
-                                @endhasrole
                                 <th scope="col">START</th>
                                 <th scope="col">END</th>
                                 <th scope="col" style="width: 15%;text-align: center">AKSI</th>
@@ -59,12 +56,9 @@
                                     
                                     <td>{{ $penilaian->name }}</td>
                                     <td>{{ $penilaian->time }}</td>
-                                    <td>{{ $penilaian->soal_penilaians->count() }}</td>
+                                    <td>{{ $penilaian->total_pertanyaan }}</td>
                                     @hasrole('admin')
                                     <td>{{ $penilaian->users->count() }}</td>
-                                    @endhasrole
-                                    @hasrole('student')
-                                    <td>{{  $user->getNilai(Auth()->id(), $penilaian->id) !== null ? $user->getNilai(Auth()->id(), $penilaian->id) : "Belum dikerjakan"  }}</td>
                                     @endhasrole
                                     <td>{{ TanggalID($penilaian->start) }}</td>
                                     <td>{{ TanggalID($penilaian->end) }}</td>

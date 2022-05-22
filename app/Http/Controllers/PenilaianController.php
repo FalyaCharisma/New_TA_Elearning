@@ -84,8 +84,6 @@ class PenilaianController extends Controller
             'end'             => $request->input('end'),
         ]);
 
-        $penilaian->soal_penilaians()->sync($request->input('soal_penilaians'));
-
         if($penilaian){
             //redirect dengan pesan sukses
             return redirect()->route('penilaian.index')->with(['success' => 'Data Berhasil Disimpan!']);
@@ -103,9 +101,9 @@ class PenilaianController extends Controller
      */
     public function edit(penilaian $penilaian)
     {
-        $soal_penilaians = $penilaian->soal_penilaians()->where('penilaian_id', $penilaian->id)->get();
+      
         
-        return view('penilaian.edit', compact('penilaian', 'soal_penilaians'));
+        return view('penilaian.edit', compact('penilaian'));
     }
 
     /**
@@ -134,8 +132,6 @@ class PenilaianController extends Controller
             'end'             => $request->input('end'),
         ]);
 
-        $penilaian->soal_penilaians()->sync($request->input('soal_penilaians'));
-
         if($penilaian){
             //redirect dengan pesan sukses
             return redirect()->route('penilaian.index')->with(['success' => 'Data Berhasil Diupdate!']);
@@ -153,9 +149,8 @@ class PenilaianController extends Controller
      */
     public function show(penilaian $penilaian)
     {
-        $soalPenilaian = $penilaian->soalPenilaian()->where('penilaian_id', $penilaian->id)->get();
         
-        return view('penilaian.show', compact('penilaian', 'soalPenilaian'));
+        return view('penilaian.show', compact('penilaian'));
     }
 
     /**
@@ -183,12 +178,8 @@ class PenilaianController extends Controller
     public function start($id)
     {
         $penilaian = Penilaian::findOrFail($id);
-        $soal_penilaians = $penilaian->soalPenilaian;
-
-        if ($soal_penilaians->count() == 0) {
-            return back()->with(['error' => 'Belum ada Pertanyaan']);
-        }
-        return view('penilaian.start', compact('id'));
+        $users = User::latest()->get();
+        return view('penilaian.start', compact('penilaian','id', 'users'));
     }
 
     public function result($nilai, $userId, $penilaianId)
