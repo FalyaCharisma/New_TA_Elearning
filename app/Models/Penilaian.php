@@ -15,12 +15,12 @@ class Penilaian extends Model
      */ 
     protected $guarded = [];
 
-    public function users(){
-        return $this->belongsToMany(User::class)->withPivot('riwayat_penilaian', 'nilai')->withTimestamps();
+    public function user(){
+        return $this->belongsToMany(User::class);
     }
 
-    public function soal_penilaians(){
-        return $this->belongsToMany(SoalPenilaian::class)->withTimestamps();
+    public function evaluasis(){
+        return $this->hasMany(Evaluasi::class);
     }
 
 }

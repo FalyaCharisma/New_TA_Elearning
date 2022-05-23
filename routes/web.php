@@ -115,6 +115,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::resource('absensi', AbsensiController::class)->except([
         'show', 'create', 'edit', 'update'
     ]);
+    Route::get('/absensi/export_excel', [AbsensiController::class, 'export_excel'])->name('absensi.export_excel');
 
     //informasi
      Route::resource('informasi', InformasiController::class)->except([
@@ -133,8 +134,6 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('diskusi/showDiskusi/{id}', [DiskusiController::class, 'showDiskusi'])->name('diskusi.showDiskusi');
     Route::post('diskusi/respon/{id}', [DiskusiController::class, 'respon'])->name('diskusi.respon');
 
-    Route::get('/absensi/export_excel', [AbsensiController::class, 'export_excel'])->name('absensi.export_excel');
-
 
     //exams 
     Route::resource('exams', ExamController::class); 
@@ -148,9 +147,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::resource('penilaian', PenilaianController::class); 
     Route::get('penilaian/student/{id}', [PenilaianController::class, 'student'])->name('penilaian.student');
     Route::get('/penilaian/start/{id}', [PenilaianController::class, 'start'])->name('penilaian.start');
+    Route::post('/penilaian/evaluasi/{id}', [PenilaianController::class, 'evaluasi'])->name('penilaian.evaluasi');
+   
 
-    //soal penilaian tentor
-    Route::resource('soalPenilaian', SoalPenilaianController::class)->except([
-        'show'
-    ]);
 });

@@ -58,7 +58,7 @@
                                     <td>{{ $penilaian->time }}</td>
                                     <td>{{ $penilaian->total_pertanyaan }}</td>
                                     @hasrole('admin')
-                                    <td>{{ $penilaian->users->count() }}</td>
+                                    <td>{{ $penilaian->user->count() }}</td>
                                     @endhasrole
                                     <td>{{ TanggalID($penilaian->start) }}</td>
                                     <td>{{ TanggalID($penilaian->end) }}</td>

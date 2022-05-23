@@ -132,25 +132,11 @@
                         </li>
                         @endcan
 
-                        @hasrole('admin')
-                        <li
-                            class="dropdown {{ setActive('admin/penilaian'). setActive('admin/soalPenilaian') }}">  
-                                <a href="#" class="nav-link has-dropdown"><i class="fas fa-book-open"></i><span>Evaluasi Tentor</span></a>                    
-                            <ul class="dropdown-menu">
-                                @can('penilaian.index')
-                                <li class="{{ setActive('/penilaian') }}"><a class="nav-link"
-                                        href="{{  route('penilaian.index') }}"><i class="fas fa-book-open"></i>
-                                        <span>Penilaian Tentor</span></a></li>
-                                @endcan
-                                @can('soalPenilaian.index')
-                                <li class="{{ setActive('/soalPenilaian') }}"><a class="nav-link"
-                                        href="{{ route('soalPenilaian.index') }}"><i class="fas fa-question"></i> 
-                                        <span>Soal Penilaian</span></a>
-                                </li>
-                                @endcan
-                            </ul>
-                        </li>
-                        @endhasrole
+                        @can('penilaian.index')
+                            <li class="{{ setActive('/penilaian') }}"><a class="nav-link"
+                                href="{{  route('penilaian.index') }}"><i class="fas fa-book-open"></i>
+                                <span>Penilaian Tentor</span></a></li>
+                        @endcan
 
                         @can('materi.index')
                         <li class="{{ setActive('/materi') }}"><a class="nav-link"

@@ -5,10 +5,11 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\Penilaian;
 use App\Models\User;
-use App\Models\SoalPenilaian;
+use App\Models\Evaluasi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Auth;
 
 class PenilaianController extends Controller
 {
@@ -35,7 +36,7 @@ class PenilaianController extends Controller
                 $penilaian = $penilaian->where('name', 'like', '%'. request()->q . '%');
             })->paginate(10);
         }elseif($currentUser->hasRole('student')){
-            $penilaian = Penilaian::whereHas('users', function (Builder $query) {
+            $penilaian = Penilaian::whereHas('user', function (Builder $query) {
                 $query->where('user_id', Auth()->id());
             })->paginate(10);
         }elseif($currentUser->hasRole('teacher')){
@@ -142,7 +143,7 @@ class PenilaianController extends Controller
     }
 
     /**
-     * Show the form for detailing the specified resource.
+     * Show the form for detailing the specified resource. 
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -180,6 +181,36 @@ class PenilaianController extends Controller
         $penilaian = Penilaian::findOrFail($id);
         $users = User::latest()->get();
         return view('penilaian.start', compact('penilaian','id', 'users'));
+    }
+
+    public function evaluasi(Request $request, $id)
+    {
+        // $this->validate($request, [
+        //     'nama_tentor'  => 'required',
+        //     'nama_siswa' => 'required',
+        //     'penilaian_id' => 'required',
+        //     'kualitas'  => 'required',
+        //     'pembelajaran'  => 'required',
+        //     'isi'    => 'required', 
+        // ]);
+
+        $evaluasis = Evaluasi::create([
+            'nama_tentor'     => $request->input('nama_tentor'),
+            'nama_siswa'      => Auth::user()->name,
+            'penilaian_id'    => $id,
+            'kualitas'        => $request->input('kualitas'),
+            'pembelajaran'    => $request->input('pembelajaran'),
+            'isi'             => $request->input('isi'),
+        ]);
+
+ 
+        if ($evaluasis) {
+            //redirect dengan pesan sukses
+            return redirect('/penilaian')->with(['success' => 'Penilaian Berhasil Dikirim!']);
+        } else {
+            //redirect dengan pesan error
+            return redirect()->back()->with(['error' => 'Penilaian Gagal Dikirim!']);
+        }
     }
 
     public function result($nilai, $userId, $penilaianId)

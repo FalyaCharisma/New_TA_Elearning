@@ -24,6 +24,8 @@
     </div>
 
     <div class="card-body">
+    <form action="{{ url('penilaian/evaluasi', $penilaian->id) }}" method="POST" enctype="multipart/form-data">
+        @csrf
         <div class="form-group">
             <label>Pilih Nama Tentor</label>
             <select class="form-control select-nama_tentor @error('nama_tentor') is-invalid @enderror" name="nama_tentor">
@@ -85,11 +87,11 @@
             </div>
         @enderror
         </div> 
+        <button class="btn btn-primary mr-1 btn-submit" type="submit"><i class="fa fa-paper-plane"></i>
+                            SUBMIT</button>
+    </form>
     </div>
 
-    <div class="card-footer">
-            <button wire:click="submitAnswers" class="btn btn-primary btn-lg btn-block">Submit</button>
-    </div>
 </div>
 
 <script>
