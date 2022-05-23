@@ -17,8 +17,6 @@ class CreatePenilaianUserTable extends Migration
             $table->id();
             $table->foreignId('penilaian_id');
             $table->foreignId('user_id');
-            $table->string('riwayat_penilaian');
-            $table->double('nilai');
             $table->timestamps();
         });
     }

@@ -148,6 +148,8 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('penilaian/student/{id}', [PenilaianController::class, 'student'])->name('penilaian.student');
     Route::get('/penilaian/start/{id}', [PenilaianController::class, 'start'])->name('penilaian.start');
     Route::post('/penilaian/evaluasi/{id}', [PenilaianController::class, 'evaluasi'])->name('penilaian.evaluasi');
+    Route::get('penilaian/siswa/{id}', [PenilaianController::class, 'siswa'])->name('penilaian.siswa');
+    Route::put('penilaian/assign/{id}', [PenilaianController::class, 'assign'])->name('penilaian.assign');
    
 
 });

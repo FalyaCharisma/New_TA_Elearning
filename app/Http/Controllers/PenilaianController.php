@@ -230,7 +230,7 @@ class PenilaianController extends Controller
     {
         $penilaian = Penilaian::findOrFail($id);
 
-        $penilaian->users()->sync($request->input('students'));
+        $penilaian->user()->sync($request->input('students'));
 
         return redirect('/penilaian');
 
