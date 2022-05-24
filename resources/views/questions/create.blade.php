@@ -33,80 +33,22 @@
                             @enderror
                         </div>
 
-                        <div class="row">
-                            <div class="col-3">
-                                <div class="form-group">
-                                    <label>VIDEO</label>
-                                    <select class="form-control select-video @error('video_id') is-invalid @enderror" name="video_id">
-                                        <option value="">- SELECT VIDEO -</option>
-                                        @foreach ($videos as $video)
-                                            <option value="{{ $video->id }}">{{ $video->title }}</option>
-                                        @endforeach
-                                    </select>
-                                    @error('video_id')
-                                    <div class="invalid-feedback" style="display: block">
-                                        {{ $message }}
-                                    </div>
-                                    @enderror
-                                </div>
-                            </div>
+                        <div class="form-group">
+                            <label>FILE</label>
+                            <input type="file" name="document" id="document" class="form-control @error('document') is-invalid @enderror">
 
-                            <div class="col-3">
-                                <div class="form-group">
-                                    <label>AUDIO</label>
-                                    <select class="form-control select-audio @error('audio_id') is-invalid @enderror" name="audio_id">
-                                        <option value="">- SELECT AUDIO -</option>
-                                        @foreach ($audios as $audio)
-                                            <option value="{{ $audio->id }}">{{ $audio->title }}</option>
-                                        @endforeach
-                                    </select>
-                                    @error('audio_id')
-                                    <div class="invalid-feedback" style="display: block">
-                                        {{ $message }}
-                                    </div>
-                                    @enderror
-                                </div>
+                            @error('document')
+                            <div class="invalid-feedback" style="display: block">
+                                    {{ $message }}
                             </div>
-
-                            <div class="col-3">
-                                <div class="form-group">
-                                    <label>IMAGE</label>
-                                    <select class="form-control select-image @error('image_id') is-invalid @enderror" name="image_id">
-                                        <option value="">- SELECT IMAGE -</option>
-                                        @foreach ($images as $image)
-                                            <option value="{{ $image->id }}">{{ $image->title }}</option>
-                                        @endforeach
-                                    </select>
-                                    @error('image_id')
-                                    <div class="invalid-feedback" style="display: block">
-                                        {{ $message }}
-                                    </div>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="col-3">
-                                <div class="form-group">
-                                    <label>DOCUMENT</label>
-                                    <select class="form-control select-document @error('document_id') is-invalid @enderror" name="document_id">
-                                        <option value="">- SELECT DOCUMENT -</option>
-                                        @foreach ($documents as $document)
-                                            <option value="{{ $document->id }}">{{ $document->title }}</option>
-                                        @endforeach
-                                    </select>
-                                    @error('document_id')
-                                    <div class="invalid-feedback" style="display: block">
-                                        {{ $message }}
-                                    </div>
-                                    @enderror
-                                </div>
-                            </div>
+                            @enderror
                         </div>
 
+
                         <div class="form-group">
-                            <label>DETAIL</label>
-                            <textarea name="detail" cols="30" rows="30" class="form-control">{{ old('detail') }}</textarea>
-                            @error('detail')
+                            <label>PERTANYAAN</label>
+                            <textarea name="pertanyaan" cols="30" rows="30" class="form-control">{{ old('pertanyaan') }}</textarea>
+                            @error('pertanyaan')
                             <div class="invalid-feedback" style="display: block">
                                 {{ $message }}
                             </div>
@@ -169,10 +111,10 @@
                         </div>
 
                         <div class="form-group">
-                            <label>ANSWER</label>
-                            <input type="text" name="answer" value="{{ old('answer') }}" class="form-control" >
+                            <label>JAWABAN</label>
+                            <input type="text" name="jawaban" value="{{ old('jawaban') }}" class="form-control" >
 
-                            @error('answer')
+                            @error('jawaban')
                             <div class="invalid-feedback" style="display: block">
                                 {{ $message }}
                             </div>
@@ -180,9 +122,9 @@
                         </div>
 
                         <div class="form-group">
-                            <label>EXPLANATION</label>
-                            <textarea name="explanation" cols="30" rows="30" class="form-control">{{ old('explanation') }}</textarea>
-                            @error('explanation')
+                            <label>PENJELASAN</label>
+                            <textarea name="penjelasan" cols="30" rows="30" class="form-control">{{ old('penjelasan') }}</textarea>
+                            @error('penjelasan')
                             <div class="invalid-feedback" style="display: block">
                                 {{ $message }}
                             </div>
