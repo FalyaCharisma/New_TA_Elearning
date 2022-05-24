@@ -71,7 +71,10 @@
                                                 <i class="fa fa-pencil-alt"></i>
                                             </a>
                                         @endcan
-                                        
+
+                                        @can('penilaian.riwayat')
+                                        <a href="penilaian/riwayat/{{ $penilaian->id }}" class="btn btn-sm btn-primary"><i class="fa fa-list"></i></a>
+                                        @endcan
                                         @hasrole('admin')
                                         <a href="{{ route('penilaian.student', $penilaian->id) }}" class="btn btn-sm btn-primary">
                                             <i class="fa fa-door-open"></i>

@@ -20,7 +20,7 @@ class PenilaianController extends Controller
      */
     public function __construct()
     {
-        $this->middleware(['permission:penilaian.index|penilaian.create|penilaian.edit|penilaian.delete']);
+        $this->middleware(['permission:penilaian.index|penilaian.create|penilaian.edit|penilaian.delete|penilaian.riwayat']);
     }
 
     /**
@@ -185,14 +185,6 @@ class PenilaianController extends Controller
 
     public function evaluasi(Request $request, $id)
     {
-        // $this->validate($request, [
-        //     'nama_tentor'  => 'required',
-        //     'nama_siswa' => 'required',
-        //     'penilaian_id' => 'required',
-        //     'kualitas'  => 'required',
-        //     'pembelajaran'  => 'required',
-        //     'isi'    => 'required', 
-        // ]);
 
         $evaluasis = Evaluasi::create([
             'nama_tentor'     => $request->input('nama_tentor'),
@@ -213,13 +205,6 @@ class PenilaianController extends Controller
         }
     }
 
-    public function result($nilai, $userId, $penilaianId)
-    {
-        $user = User::findOrFail($userId);
-        $penilaian = Penilaian::findOrFail($penilaianId);
-        return view('penilaian.result', compact('nilai', 'user', 'penilaian'));
-    }
-
     public function student($id)
     {
         $penilaian = Penilaian::findOrFail($id);
@@ -236,9 +221,15 @@ class PenilaianController extends Controller
 
     }
 
-    public function review($userId, $penilaianId)
+    public function riwayat($id)
     {
-        return view('penilaian.review', compact('userId', 'penilaianId'));
+        $penilaian = Penilaian::findOrFail($id);
+        $evaluasis = Evaluasi::where('penilaian_id', $id)->get();
+        $evaluasis = Evaluasi::latest()->when(request()->q, function($evaluasis) {
+            $evaluasis = $evaluasis->where('nama_tentor', 'like', '%'. request()->q . '%');
+        })->paginate(10);
+
+        return view('penilaian.riwayat', compact('penilaian','evaluasis'));
     }
 
 }
