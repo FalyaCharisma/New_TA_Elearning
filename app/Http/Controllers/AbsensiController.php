@@ -19,7 +19,7 @@ class AbsensiController extends Controller
      */
     public function __construct()
     {
-        $this->middleware(['permission:absensi.index|absensi.create|absensi.delete|absensi.tentor|absensi.riwayat']);
+        $this->middleware(['permission:absensi.index|absensi.create|absensi.delete|absensi.tentor|absensi.riwayat|absensi.export_excel|']);
     }
 
     /**

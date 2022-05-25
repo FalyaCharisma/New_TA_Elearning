@@ -100,6 +100,10 @@
                 </div>
 
                 <div class="card-body">
+                @can('absensi.export_excel')
+                                <a href="/absensi/export_excel" class="btn btn-primary" style="padding-top: 10px;"> Cetak Excel</a>
+                                @endcan
+                                
                     <form action="{{ route('absensi.index') }}" method="GET">
                         <div class="form-group">
                             <div class="input-group mb-3">
@@ -125,6 +129,8 @@
                                 <th scope="col">AKSI</th>
                             </tr>
                             </thead>
+                           
+
                             <tbody>
                             @foreach ($absens as $no => $absensis)
                                 <tr>
