@@ -62,7 +62,7 @@
             <div class="main-sidebar sidebar-style-2">
                 <aside id="sidebar-wrapper">
                     <div class="sidebar-brand">
-                    <img src="asset/images/logo.jpeg" height="40px" width="40px"  style="margin-right: 25px; margin-top: 10px">
+                    <img src="{{asset('asset/images/logo.jpeg')}}" height="40px" width="40px"  style="margin-right: 25px; margin-top: 10px">
                         <a href="{{ route('dashboard.index') }}">E-Learning</a>
                     </div>
                     <div class="sidebar-brand sidebar-brand-sm">
