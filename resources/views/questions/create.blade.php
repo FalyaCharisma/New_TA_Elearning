@@ -4,46 +4,89 @@
 <div class="main-content">
     <section class="section">
         <div class="section-header">
-            <h1>Tambah Question</h1>
+            <h1>Tambah Pertanyaan</h1>
         </div>
 
         <div class="section-body">
 
             <div class="card">
                 <div class="card-header">
-                    <h4><i class="fas fa-question"></i> Tambah Question</h4>
+                    <h4><i class="fas fa-question"></i> Tambah Pertanyaan</h4>
                 </div>
 
                 <div class="card-body">
                     <form action="{{ route('questions.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
 
-                        <div class="form-group">
-                            <label>SUBJECT</label>
-                            <select class="form-control select-subject @error('subject_id') is-invalid @enderror" name="subject_id">
-                                <option value="">- SELECT SUBJECT -</option>
-                                @foreach ($subjects as $subject)
-                                    <option value="{{ $subject->id }}">{{ $subject->name }}</option>
-                                @endforeach
-                            </select>
-                            @error('subject_id')
-                            <div class="invalid-feedback" style="display: block">
-                                {{ $message }}
+                        <div class="row">
+                            <div class="col-3">
+                                <div class="form-group">
+                                    <label>VIDEO</label>
+                                    <select class="form-control select-video @error('video_id') is-invalid @enderror" name="video_id">
+                                        <option value="">- SELECT VIDEO -</option>
+                                        @foreach ($videos as $video)
+                                            <option value="{{ $video->id }}">{{ $video->title }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('video_id')
+                                    <div class="invalid-feedback" style="display: block">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                </div>
                             </div>
-                            @enderror
-                        </div>
 
-                        <div class="form-group">
-                            <label>FILE</label>
-                            <input type="file" name="document" id="document" class="form-control @error('document') is-invalid @enderror">
-
-                            @error('document')
-                            <div class="invalid-feedback" style="display: block">
-                                    {{ $message }}
+                            <div class="col-3">
+                                <div class="form-group">
+                                    <label>AUDIO</label>
+                                    <select class="form-control select-audio @error('audio_id') is-invalid @enderror" name="audio_id">
+                                        <option value="">- SELECT AUDIO -</option>
+                                        @foreach ($audios as $audio)
+                                            <option value="{{ $audio->id }}">{{ $audio->title }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('audio_id')
+                                    <div class="invalid-feedback" style="display: block">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                </div>
                             </div>
-                            @enderror
-                        </div>
 
+                            <div class="col-3">
+                                <div class="form-group">
+                                    <label>IMAGE</label>
+                                    <select class="form-control select-image @error('image_id') is-invalid @enderror" name="image_id">
+                                        <option value="">- SELECT IMAGE -</option>
+                                        @foreach ($images as $image)
+                                            <option value="{{ $image->id }}">{{ $image->title }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('image_id')
+                                    <div class="invalid-feedback" style="display: block">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="col-3">
+                                <div class="form-group">
+                                    <label>DOCUMENT</label>
+                                    <select class="form-control select-document @error('document_id') is-invalid @enderror" name="document_id">
+                                        <option value="">- SELECT DOCUMENT -</option>
+                                        @foreach ($documents as $document)
+                                            <option value="{{ $document->id }}">{{ $document->title }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('document_id')
+                                    <div class="invalid-feedback" style="display: block">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
 
                         <div class="form-group">
                             <label>PERTANYAAN</label>
@@ -112,9 +155,9 @@
 
                         <div class="form-group">
                             <label>JAWABAN</label>
-                            <input type="text" name="jawaban" value="{{ old('jawaban') }}" class="form-control" >
+                            <input type="text" name="answer" value="{{ old('answer') }}" class="form-control" >
 
-                            @error('jawaban')
+                            @error('answer')
                             <div class="invalid-feedback" style="display: block">
                                 {{ $message }}
                             </div>

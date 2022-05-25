@@ -16,10 +16,6 @@ class Question extends Model
      */
     protected $guarded = [];
 
-    public function subject(){
-        return $this->belongsTo(Subject::class);
-    }
-
     public function exams(){
         return $this->belongsToMany(Exam::class)->withTimestamps();
     }

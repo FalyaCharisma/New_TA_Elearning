@@ -7,7 +7,6 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AudioController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\VideoController;
-use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\DashboardController;
@@ -84,11 +83,6 @@ Route::group(['middleware' => 'auth'], function(){
 
     //documents
     Route::resource('documents', DocumentController::class)->except([
-        'show', 'create', 'edit', 'update'
-    ]);
-
-    //subjects
-    Route::resource('subjects', SubjectController::class)->except([
         'show', 'create', 'edit', 'update'
     ]);
 

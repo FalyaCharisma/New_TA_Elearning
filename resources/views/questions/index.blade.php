@@ -37,9 +37,8 @@
                             <thead>
                             <tr>
                                 <th scope="col" style="text-align: center;width: 6%">NO.</th>
-                                <th scope="col">SUBJECT</th>
                                 <th scope="col">PERTANYAAN</th>
-                              
+                                <th scope="col">ATTACHMENT</th>
                                 <th scope="col">OPTION A</th>
                                 <th scope="col">OPTION B</th>
                                 <th scope="col">OPTION C</th>
@@ -55,15 +54,26 @@
                             @foreach ($questions as $no => $question)
                                 <tr>
                                     <th scope="row" style="text-align: center">{{ ++$no + ($questions->currentPage()-1) * $questions->perPage() }}</th>
-                                    <td>{{ $subject->getName($question->subject_id) }}</td>
                                     <td>{{ $question->pertanyaan }}</td>
-                                  
+                                    <td>
+                                        @if ($question->video_id)
+                                            <a href=" {{ Storage::url('public/videos/'.$video->getLink($question->video_id)) }}">VIDEO</a>
+                                        @elseif($question->audio_id)
+                                            <a href=" {{ Storage::url('public/audios/'.$audio->getLink($question->audio_id)) }}">AUDIO</a>
+                                        @elseif($question->document_id)
+                                            <a href=" {{ Storage::url('public/documents/'.$document->getLink($question->document_id)) }}">DOCUMENT</a>
+                                        @elseif($question->image_id)
+                                            <a href=" {{ Storage::url('public/images/'.$image->getLink($question->image_id)) }}">IMAGE</a>
+                                        @else
+                                            NO
+                                        @endif
+                                    </td>
                                     <td>{{ $question->option_A }}</td>
                                     <td>{{ $question->option_B }}</td>
                                     <td>{{ $question->option_C }}</td>
                                     <td>{{ $question->option_D }}</td>
                                     <td>{{ $question->option_E }}</td>
-                                    <td>{{ $question->jawaban }}</td>
+                                    <td>{{ $question->answer }}</td>
                                     <td>{{ $question->penjelasan }}</td>
                                     <td>{{ $user->getName($question->created_by) }}</td>
                                     <td class="text-center">

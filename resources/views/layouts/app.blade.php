@@ -177,12 +177,6 @@
                         </li>
                         @endcan
 
-                        @can('subjects.index')
-                        <li class="{{ setActive('/subject') }}"><a class="nav-link"
-                                href="{{ route('subjects.index') }}"><i class="fas fa-atlas"></i>
-                                <span>Subject</span></a></li>
-                        @endcan
-
                         @can('events.index')
                         <li class="{{ setActive('admin/event') }}"><a class="nav-link"
                                 href="#"><i class="fas fa-bell"></i>

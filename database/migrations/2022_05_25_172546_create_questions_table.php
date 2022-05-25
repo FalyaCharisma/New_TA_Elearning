@@ -15,15 +15,17 @@ class CreateQuestionsTable extends Migration
     {
         Schema::create('questions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('subject_id');
             $table->text('pertanyaan');
-            $table->string('link')->nullable();
+            $table->string('video_id')->nullable();
+            $table->string('audio_id')->nullable();
+            $table->string('image_id')->nullable();
+            $table->string('document_id')->nullable();
             $table->string('option_A')->nullable();
             $table->string('option_B')->nullable();
             $table->string('option_C')->nullable();
             $table->string('option_D')->nullable();
             $table->string('option_E')->nullable();
-            $table->text('jawaban');
+            $table->text('answer');
             $table->text('penjelasan')->nullable();
             $table->string('created_by');
             $table->timestamps();

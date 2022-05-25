@@ -4,38 +4,20 @@
 <div class="main-content">
     <section class="section">
         <div class="section-header">
-            <h1>Edit Question</h1>
+            <h1>Edit Pertanyaan</h1>
         </div>
 
         <div class="section-body">
 
             <div class="card">
                 <div class="card-header">
-                    <h4><i class="fas fa-question"></i> Edit Question</h4>
+                    <h4><i class="fas fa-question"></i> Edit Pertanyaan</h4>
                 </div>
 
                 <div class="card-body">
                     <form action="{{ route('questions.update', $question->id) }}" method="POST" enctype="multipart/form-data">
                         @method('PUT')
                         @csrf
-                        <div class="form-group">
-                            <label>SUBJECT</label>
-                            <select class="form-control select-subject @error('subject_id') is-invalid @enderror" name="subject_id">
-                                <option value="">- SELECT SUBJECT -</option>
-                                @foreach ($subjects as $subject)
-                                    @if ($question->subject_id == $subject->id )
-                                    <option value="{{ $subject->id }}" selected>{{ $subject->name }}</option>
-                                    @else
-                                        <option value="{{ $subject->id }}">{{ $subject->name }}</option>
-                                    @endif
-                                @endforeach
-                            </select>
-                            @error('subject_id')
-                            <div class="invalid-feedback" style="display: block">
-                                {{ $message }}
-                            </div>
-                            @enderror
-                        </div>
 
                         <div class="row">
                             <div class="col-3">
@@ -124,9 +106,9 @@
                         </div>
 
                         <div class="form-group">
-                            <label>DETAIL</label>
-                            <textarea name="detail" cols="30" rows="30" class="form-control">{{ old('detail', $question->detail) }}</textarea>
-                            @error('detail')
+                            <label>PERTANYAAN</label>
+                            <textarea name="pertanyaan" cols="30" rows="30" class="form-control">{{ old('pertanyaan', $question->pertanyaan) }}</textarea>
+                            @error('pertanyaan')
                             <div class="invalid-feedback" style="display: block">
                                 {{ $message }}
                             </div>
@@ -189,7 +171,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label>ANSWER</label>
+                            <label>JAWABAN</label>
                             <input type="text" name="answer" value="{{ old('answer', $question->answer) }}" class="form-control" >
 
                             @error('answer')
@@ -200,9 +182,9 @@
                         </div>
 
                         <div class="form-group">
-                            <label>EXPLANATION</label>
-                            <textarea name="explanation" cols="30" rows="30" class="form-control">{{ old('explanation', $question->explanation) }}</textarea>
-                            @error('explanation')
+                            <label>PENJELASAN</label>
+                            <textarea name="penjelasan" cols="30" rows="30" class="form-control">{{ old('penjelasan', $question->penjelasan) }}</textarea>
+                            @error('penjelasan')
                             <div class="invalid-feedback" style="display: block">
                                 {{ $message }}
                             </div>
