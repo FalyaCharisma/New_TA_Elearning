@@ -46,7 +46,7 @@
                                 <th scope="col">ASSIGN STUDENT</th>
                                 @endhasanyrole
                                 @hasrole('student')
-                                <th scope="col">SCORE</th>
+                                <th scope="col">NILAI</th>
                                 @endhasrole
                                 <th scope="col">START</th>
                                 <th scope="col">END</th>
@@ -69,9 +69,16 @@
                                     <td>{{ TanggalID($exam->start) }}</td>
                                     <td>{{ TanggalID($exam->end) }}</td>
                                     <td class="text-center">
-                                        <a href="{{ route('exams.show', $exam->id) }}" class="btn btn-sm btn-info">
+                                    @hasrole('student')
+                                    @if($user->getScore(Auth()->id(), $exam->id) !== null)
+                                    <a href="{{ route('exams.review', [Auth()->id(), $exam->id]) }}" class="btn btn-sm btn-info"> <i class="fa fa-eye"></i></a>          
+                                    @elseif($user->getScore(Auth()->id(), $exam->id) === null)
+                                    <a href="{{ route('exams.show', $exam->id) }}" class="btn btn-sm btn-info">
                                             <i class="fa fa-eye"></i>
                                         </a>
+                                    @endif
+                                    
+                                    @endhasrole
                                         @can('exams.edit')
                                             <a href="{{ route('exams.edit', $exam->id) }}" class="btn btn-sm btn-primary">
                                                 <i class="fa fa-pencil-alt"></i>

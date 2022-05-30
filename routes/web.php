@@ -65,6 +65,10 @@ Route::group(['middleware' => 'auth'], function(){
 
     Route::get('users/siswa', [UserController::class, 'siswa'])->name('users.siswa');
     Route::get('users/tentor', [UserController::class, 'tentor'])->name('users.tentor');
+    Route::get('users/showSiswa/{id}', [UserController::class, 'showSiswa'])->name('usera.showSiswa');
+    Route::post('users/dataSiswa/{id}', [UserController::class, 'dataSiswa'])->name('users.dataSiswa');
+    Route::get('users/showTentor/{id}', [UserController::class, 'showTentor'])->name('usera.showTentor');
+    Route::post('users/dataTentor/{id}', [UserController::class, 'dataTentor'])->name('users.dataTentor');
     
     //images
     Route::resource('images', ImageController::class)->except([
@@ -143,7 +147,6 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/penilaian/start/{id}', [PenilaianController::class, 'start'])->name('penilaian.start');
     Route::post('/penilaian/evaluasi/{id}', [PenilaianController::class, 'evaluasi'])->name('penilaian.evaluasi');
     Route::get('penilaian/siswa/{id}', [PenilaianController::class, 'siswa'])->name('penilaian.siswa');
-    Route::put('penilaian/assign/{id}', [PenilaianController::class, 'assign'])->name('penilaian.assign');
     Route::get('penilaian/riwayat/{id}', [PenilaianController::class, 'riwayat'])->name('penilaian.riwayat');
 
 });

@@ -57,13 +57,31 @@
                                     <td>{{ $question->pertanyaan }}</td>
                                     <td>
                                         @if ($question->video_id)
-                                            <a href=" {{ Storage::url('public/videos/'.$video->getLink($question->video_id)) }}">VIDEO</a>
+                                            <a href=" {{  asset('storage/public/videos/'.$video->getLink($question->video_id)) }}">VIDEO</a>
                                         @elseif($question->audio_id)
-                                            <a href=" {{ Storage::url('public/audios/'.$audio->getLink($question->audio_id)) }}">AUDIO</a>
+                                            <a href=" {{  asset('storage/public/audios/'.$audio->getLink($question->audio_id)) }}">AUDIO</a>
                                         @elseif($question->document_id)
-                                            <a href=" {{ Storage::url('public/documents/'.$document->getLink($question->document_id)) }}">DOCUMENT</a>
+                                            <a href=" {{  asset('storage/public/documents/'.$document->getLink($question->document_id)) }}">DOCUMENT</a>
                                         @elseif($question->image_id)
-                                            <a href=" {{ Storage::url('public/images/'.$image->getLink($question->image_id)) }}">IMAGE</a>
+                                            <a href=" {{  asset('storage/public/images/'.$image->getLink($question->image_id)) }}">IMAGE</a>
+                                        @if ($question->video_id && $question->audio_id)
+                                            <a href=" {{  asset('storage/public/videos/'.$video->getLink($question->video_id)) }}">VIDEO</a>
+                                            <a href=" {{  asset('storage/public/audios/'.$audio->getLink($question->audio_id)) }}">AUDIO</a>
+                                        @if ($question->video_id && $question->document_id)
+                                            <a href=" {{  asset('storage/public/videos/'.$video->getLink($question->video_id)) }}">VIDEO</a>
+                                            <a href=" {{  asset('storage/public/documents/'.$document->getLink($question->document_id)) }}">DOCUMENT</a>
+                                        @if ($question->video_id && $question->image_id)
+                                            <a href=" {{  asset('storage/public/videos/'.$video->getLink($question->video_id)) }}">VIDEO</a>
+                                            <a href=" {{  asset('storage/public/images/'.$image->getLink($question->image_id)) }}">IMAGE</a>
+                                        @if ($question->audio_id && $question->document_id)
+                                            <a href=" {{  asset('storage/public/audios/'.$audio->getLink($question->audio_id)) }}">AUDIO</a>
+                                            <a href=" {{  asset('storage/public/documents/'.$document->getLink($question->document_id)) }}">DOCUMENT</a>
+                                        @if ($question->audio_id && $question->image_id)
+                                            <a href=" {{  asset('storage/public/audios/'.$audio->getLink($question->audio_id)) }}">AUDIO</a>
+                                            <a href=" {{  asset('storage/public/images/'.$image->getLink($question->image_id)) }}">IMAGE</a>
+                                        @if ($question->document_id && $question->image_id)
+                                            <a href=" {{  asset('storage/public/documents/'.$document->getLink($question->document_id)) }}">DOCUMENT</a>
+                                            <a href=" {{  asset('storage/public/images/'.$image->getLink($question->image_id)) }}">IMAGE</a>
                                         @else
                                             NO
                                         @endif

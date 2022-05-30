@@ -19,7 +19,7 @@
                         enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <label>NAMA USER</label>
                             <input type="text" name="name" value="{{ old('name', $user->name) }}"
                                 placeholder="Masukkan Nama User"
@@ -30,7 +30,7 @@
                                 {{ $message }}
                             </div>
                             @enderror
-                        </div>
+                        </div> -->
 
                         <div class="form-group">
                             <label>USERNAME</label>
@@ -57,7 +57,7 @@
                             @enderror
                         </div>
 
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <label>KELAS</label>
                             <select class="form-control select-kelas @error('kelas') is-invalid @enderror" name="kelas">
                                 <option value="">- SELECT KELAS -</option>
@@ -74,9 +74,9 @@
                                 {{ $message }}
                             </div>
                             @enderror
-                        </div>
+                        </div> -->
 
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <label>NO. WA</label>
                             <input type="text" name="no_wa" value="{{ old('no_wa', $user->no_wa) }}" placeholder="Masukkan Nomor WhatsApp"
                                 class="form-control @error('no_wa') is-invalid @enderror">
@@ -86,9 +86,9 @@
                                 {{ $message }}
                             </div>
                             @enderror
-                        </div>
+                        </div> -->
 
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <label>ALAMAT</label>
                             <input type="text" name="alamat" value="{{ old('alamat', $user->alamat) }}" placeholder="Masukkan Alamat"
                                 class="form-control @error('alamat') is-invalid @enderror">
@@ -98,14 +98,14 @@
                                 {{ $message }}
                             </div>
                             @enderror
-                        </div>
+                        </div> -->
 
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>PASSWORD</label>
-                                    <input type="password" name="password" value="{{ old('password') }}"
-                                        placeholder="Masukkan Password"
+                                    <input type="password" id="password" name="password" value="{{ old('password', $user->password) }}"
+                                    tabindex="2"
                                         class="form-control @error('password') is-invalid @enderror">
 
                                 </div>

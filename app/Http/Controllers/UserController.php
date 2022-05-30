@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Siswa;
+use App\Models\Tentor;
 use App\Models\Kelas;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
@@ -16,7 +18,7 @@ class UserController extends Controller
      */
     public function __construct()
     {
-        $this->middleware(['permission:users.index|users.create|users.edit|users.delete|users.tentor|users.siswa']);
+        $this->middleware(['permission:users.index|users.create|users.edit|users.delete|users.tentor|users.siswa|users.showSiswa|users.dataSiswa|users.showTentor|users.dataTentor']);
     }
 
     /**
@@ -80,18 +82,14 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name'      => 'required',
+            'username'      => 'required',
             'email'     => 'required|email|unique:users',
             'password'  => 'required|confirmed'
         ]);
 
         $user = User::create([
-            'name'      => $request->input('name'),
             'username'  => $request->input('username'),
             'email'     => $request->input('email'),
-            'kelas'     => $request->input('kelas'),
-            'alamat'    => $request->input('alamat'),
-            'no_wa'     => $request->input('no_wa'),
             'password'  => bcrypt($request->input('password'))
         ]);
 
@@ -130,7 +128,7 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         $this->validate($request, [
-            'name'      => 'required',
+            'username'      => 'required',
             'email'     => 'required|email|unique:users,email,'.$user->id
         ]);
 
@@ -138,21 +136,13 @@ class UserController extends Controller
 
         if($request->input('password') == "") {
             $user->update([
-                'name'      => $request->input('name'),
                 'username'  => $request->input('username'),
                 'email'     => $request->input('email'),
-                'kelas'     => $request->input('kelas'),
-                'alamat'    => $request->input('alamat'),
-                'no_wa'     => $request->input('no_wa'),
             ]);
         } else {
             $user->update([
-                'name'      => $request->input('name'),
                 'username'  => $request->input('username'),
                 'email'     => $request->input('email'),
-                'kelas'     => $request->input('kelas'),
-                'alamat'    => $request->input('alamat'),
-                'no_wa'     => $request->input('no_wa'),
                 'password'  => bcrypt($request->input('password'))
             ]);
         }
@@ -169,6 +159,60 @@ class UserController extends Controller
         }
     }
 
+    public function showSiswa($id)
+    {
+        $tentor = Tentor::latest()->get();
+        $user = User::findOrFail($id);
+        $kelass = Kelas::latest()->get();
+        $siswa = Siswa::where('user_id', $id)->get();
+
+        return view('users.showSiswa', compact('user','siswa', 'kelass', 'tentor'));
+    }
+
+    public function showTentor($id)
+    {
+        $user = User::findOrFail($id);
+        $tentor = Tentor::where('user_id', $id)->get();
+
+        return view('users.showTentor', compact('user','tentor'));
+    }
+
+    public function dataSiswa(Request $request,$id){
+    
+        $siswa = Siswa::create([
+            'user_id'    => $id,
+            'name'      => $request->input('name'),
+            'kelas'     => $request->input('kelas'),
+            'no_wa'     => $request->input('no_wa'),
+            'alamat'    => $request->input('alamat'),
+            'nama_tentor'=> $request->input('nama_tentor'),
+        ]);
+
+        if ($siswa) {
+            return redirect()->route('users.index')->with(['success' => 'Data Berhasil Disimpan!']);
+        }else{
+            //redirect dengan pesan error
+            return redirect()->route('users.index')->with(['error' => 'Data Gagal Disimpan!']);
+        }
+    }
+
+    
+    public function dataTentor(Request $request,$id){
+    
+        $tentor = Tentor::create([
+            'user_id'    => $id,
+            'name'      => $request->input('name'),
+            'no_wa'     => $request->input('no_wa'),
+            'alamat'    => $request->input('alamat'),
+        ]);
+
+        if ($tentor) {
+            return redirect()->route('users.index')->with(['success' => 'Data Berhasil Disimpan!']);
+        }else{
+            //redirect dengan pesan error
+            return redirect()->route('users.index')->with(['error' => 'Data Gagal Disimpan!']);
+        }
+    }
     /**
      * Remove the specified resource from storage.
      *

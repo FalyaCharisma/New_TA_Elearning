@@ -17,7 +17,12 @@ class Penilaian extends Model
 
     public function user(){
         return $this->belongsToMany(User::class);
-    }
+    } 
+
+    public function siswa(){
+        return $this->belongsToMany(Siswa::class);
+    } 
+
 
     public function evaluasis(){
         return $this->hasMany(Evaluasi::class);

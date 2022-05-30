@@ -3,7 +3,6 @@
 namespace App\Http\Livewire;
 
 use App\Models\Exam;
-use App\Models\Subject;
 use Livewire\Component;
 use App\Models\Question;
 use Livewire\WithPagination;
@@ -48,28 +47,18 @@ class QuestionChecklist extends Component
             return view('livewire.question-checklist', [
                 'questions' => Question::latest()
                                 ->when($this->q != null, function($questions) {
-                                            $questions = $questions->where('detail', 'like', '%'. $this->q . '%');})
-                                ->when($this->p != null, function($questions) {
-                                    $questions = $questions->whereHas('subject', function (Builder $query) {
-                                        $query->where('name', 'like', '%'. $this->p . '%');
-                                    })->get();
-                                    })
-                                ->paginate(5),
-                'subject' => new Subject()
+                                            $questions = $questions->where('pertanyaan', 'like', '%'. $this->q . '%');})
+                                ->paginate(5)
                 ]);
         } else {
             return view('livewire.question-checklist', [
                 'questions' => Question::latest()
                                 ->when($this->q != null, function($questions) {
-                                            $questions = $questions->where('detail', 'like', '%'. $this->q . '%');})
-                                ->when($this->p != null, function($questions) {
-                                    $questions = $questions->whereHas('subject', function (Builder $query) {
-                                        $query->where('name', 'like', '%'. $this->p . '%');
-                                    })->get();
-                                    })->whereNotIn('id', $this->selectedQuestion)
+                                            $questions = $questions->where('pertanyaan', 'like', '%'. $this->q . '%');})
+                                ->whereNotIn('id', $this->selectedQuestion)
                                 ->paginate(5),
-                'questionsAll' => Question::latest()->whereIn('id', $this->selectedQuestion)->get(),
-                'subject' => new Subject()
+                'questionsAll' => Question::latest()->whereIn('id', $this->selectedQuestion)->get()
+               
                 ]);
         }
         

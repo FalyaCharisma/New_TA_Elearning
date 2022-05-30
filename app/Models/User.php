@@ -18,12 +18,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name',
         'username',
         'email',
-        'kelas',
-        'no_wa',
-        'alamat',
         'password',
     ];
 
@@ -50,10 +46,6 @@ class User extends Authenticatable
        return $this->belongsToMany(Exam::class)->withPivot('history_answer', 'score')->withTimestamps();
     }
 
-    public function penilaian(){
-        return $this->belongsToMany(Penilaian::class)->withPivot('riwayat_penilaian', 'nilai')->withTimestamps();
-     }
-
     public function getName($id){
         return $this->where('id',$id)->value('name');
     }
@@ -64,14 +56,6 @@ class User extends Authenticatable
                     ->find($exam_id)
                     ->pivot
                     ->score;
-    }
-
-    public function getNilai($user_id, $penilaian_id){
-        return $this->find($user_id)
-                    ->penilaian
-                    ->find($penilaian_id)
-                    ->pivot
-                    ->nilai;
     }
 
     public function kelas(){
@@ -93,5 +77,15 @@ class User extends Authenticatable
         return $this
             ->belongsToMany(mataPelajaran::class)
             ->withTimestamps();
+    }
+
+    public function siswa()
+    {
+    	return $this->hasOne(Siswa::class);
+    }
+
+    public function tentor()
+    {
+    	return $this->hasOne(Tentor::class);
     }
 }

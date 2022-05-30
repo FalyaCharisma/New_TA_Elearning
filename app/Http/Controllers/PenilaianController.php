@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\Penilaian;
 use App\Models\User;
+use App\Models\Siswa;
+use App\Models\Tentor;
 use App\Models\Evaluasi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -36,18 +38,15 @@ class PenilaianController extends Controller
                 $penilaian = $penilaian->where('name', 'like', '%'. request()->q . '%');
             })->paginate(10);
         }elseif($currentUser->hasRole('student')){
-            $penilaian = Penilaian::whereHas('user', function (Builder $query) {
-                $query->where('user_id', Auth()->id());
-            })->paginate(10);
-        }elseif($currentUser->hasRole('teacher')){
             $penilaian = Penilaian::latest()->when(request()->q, function($penilaian) {
                 $penilaian = $penilaian->where('name', 'like', '%'. request()->q . '%');
             })->paginate(10);
         }
         
         $user = new User();
+        $evaluasis = new Evaluasi(); 
 
-        return view('penilaian.index', compact('penilaian','user'));
+        return view('penilaian.index', compact('penilaian','user', 'evaluasis'));
     }
 
     /**
@@ -178,22 +177,23 @@ class PenilaianController extends Controller
 
     public function start($id)
     {
-        $penilaian = Penilaian::findOrFail($id);
         $users = User::latest()->get();
-        return view('penilaian.start', compact('penilaian','id', 'users'));
+        $penilaian = Penilaian::findOrFail($id);
+        $siswa = Siswa::latest()->get();
+        return view('penilaian.start', compact('penilaian','id', 'users', 'siswa'));
     }
 
-    public function evaluasi(Request $request, $id)
-    {
-
+    public function evaluasi(Request $request, $id, Siswa $siswa)
+    { 
+ 
         $evaluasis = Evaluasi::create([
             'nama_tentor'     => $request->input('nama_tentor'),
-            'nama_siswa'      => Auth::user()->name,
+            'nama_siswa'      => Auth::user()->username,
             'penilaian_id'    => $id,
             'kualitas'        => $request->input('kualitas'),
             'pembelajaran'    => $request->input('pembelajaran'),
             'isi'             => $request->input('isi'),
-        ]);
+        ]); 
 
  
         if ($evaluasis) {
@@ -205,29 +205,10 @@ class PenilaianController extends Controller
         }
     }
 
-    public function student($id)
-    {
-        $penilaian = Penilaian::findOrFail($id);
-        return view('penilaian.student', compact('penilaian'));
-    }
-
-    public function assign(Request $request, $id)
-    {
-        $penilaian = Penilaian::findOrFail($id);
-
-        $penilaian->user()->sync($request->input('students'));
-
-        return redirect('/penilaian');
-
-    }
-
     public function riwayat($id)
     {
         $penilaian = Penilaian::findOrFail($id);
         $evaluasis = Evaluasi::where('penilaian_id', $id)->get();
-        $evaluasis = Evaluasi::latest()->when(request()->q, function($evaluasis) {
-            $evaluasis = $evaluasis->where('nama_tentor', 'like', '%'. request()->q . '%');
-        })->paginate(10);
 
         return view('penilaian.riwayat', compact('penilaian','evaluasis'));
     }

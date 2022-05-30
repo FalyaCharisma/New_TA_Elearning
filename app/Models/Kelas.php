@@ -23,6 +23,10 @@ class Kelas extends Model
     public function users(){
         return $this->hasMany(User::class);
     }
+
+    public function siswas(){
+        return $this->hasMany(Siswa::class);
+    }
     
     /**
      * This is For CRUD

@@ -26,26 +26,22 @@
     <div class="card-body">
     <form action="{{ url('penilaian/evaluasi', $penilaian->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
+
         <div class="form-group">
-            <label>Pilih Nama Tentor</label>
-            <select class="form-control select-nama_tentor @error('nama_tentor') is-invalid @enderror" name="nama_tentor">
-                <option value="">- SELECT TENTOR -</option>
-                @foreach ($users as $no => $user)
-                @if(!empty($user->getRoleNames()))
-                @foreach($user->getRoleNames() as $role)
-                @if($role=='teacher')
-                <option value="{{ $user->name }}">{{ $user->name }}</option>
-                @endif
-                @endforeach
-                @endif
-                @endforeach
-            </select>
-            @error('kelas')
-            <div class="invalid-feedback" style="display: block">
-                {{ $message }}
-            </div>
+            <label>NAMA TENTOR</label>
+            @foreach ($siswa as $no => $siswa)
+            @if(Auth::user()->id == $siswa->user_id)
+                <input type="text" name="nama_tentor" value="{{ $siswa->nama_tentor }}" class="form-control" >
+            @endif
+            @endforeach
+            @error('nama_tentor')
+                <div class="invalid-feedback" style="display: block">
+                    {{ $message }}
+                </div>
             @enderror
         </div>
+        <div class="form-group">
+  
         <b>Pertanyaan No. 1</b>
         <div class="form-group">
         <p>Bagaimanakah kualitas tentor yang mengajar?</p>

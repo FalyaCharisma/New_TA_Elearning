@@ -6,7 +6,7 @@
         <div class="section-header">
             <h1>Riwayat Penilaian Evaluasi Tentor</h1>
         </div>
-
+ 
         <div class="section-body">
             @can('penilaian.riwayat')
             <div class="card">
@@ -32,7 +32,7 @@
                         <table class="table table-bordered">
                             <thead>
                             <tr>
-                                <th scope="col" style="text-align: center;width: 6%">NO.</th>
+                               
                                 <th scope="col">NAMA TENTOR</th>
                                 <th scope="col">KUALITAS</th>
                                 <th scope="col">PEMBELAJARAN</th>
@@ -44,7 +44,7 @@
                             <tbody>
                             @foreach ($evaluasis as $no => $evaluasi)
                                 <tr>
-                                    <th scope="row" style="text-align: center">{{ ++$no + ($evaluasis->currentPage()-1) * $evaluasis->perPage() }}</th>
+                                    
                                     <td>{{ $evaluasi->nama_tentor }}</td>
                                     <td>{{ $evaluasi->kualitas }}</td>
                                     <td>{{ $evaluasi->pembelajaran }}</td>
@@ -55,9 +55,7 @@
                             @endforeach
                             </tbody>
                         </table>
-                        <div style="text-align: center">
-                            {{$evaluasis->links("vendor.pagination.bootstrap-4")}}
-                        </div>
+                       
                     </div>
                 </div>
             </div>

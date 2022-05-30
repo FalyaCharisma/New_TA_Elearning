@@ -51,7 +51,7 @@
                             @if($role=='teacher')
                                 <tr>
                                     <th scope="row" style="text-align: center">{{ ++$no + ($users->currentPage()-1) * $users->perPage() }}</th>
-                                    <td>{{ $user->name }}</td>
+                                    <td>{{ $user->username }}</td>
                                     <td>
                                         @if(!empty($user->getRoleNames()))
                                             @foreach($user->getRoleNames() as $role)
@@ -60,11 +60,14 @@
                                         @endif
                                     </td>
                                     <td class="text-center">
-                                        @can('users.edit')
+                                        <a href="showTentor/{{ $user->id }}" class="btn btn-sm btn-primary">
+                                                <i class="fa fa-pencil-alt"></i>
+                                            </a>    
+                                        <!-- @can('users.edit')
                                             <a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-primary">
                                                 <i class="fa fa-pencil-alt"></i>
                                             </a>
-                                        @endcan
+                                        @endcan -->
                                         
                                         @can('users.delete')
                                             <button onClick="Delete(this.id)" class="btn btn-sm btn-danger" id="{{ $user->id }}">

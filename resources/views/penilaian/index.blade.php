@@ -34,6 +34,7 @@
                         </div>
                         @endhasanyrole
                     </form>
+                    @hasanyrole('admin|student')
                     <div class="table-responsive">
                         <table class="table table-bordered">
                             <thead>
@@ -42,9 +43,6 @@
                                 <th scope="col">NAME</th>
                                 <th scope="col">TIME</th>
                                 <th scope="col">TOTAL PERTANYAAN</th>
-                                @hasrole('admin')
-                                <th scope="col">ASSIGN STUDENT</th>
-                                @endhasrole
                                 <th scope="col">START</th>
                                 <th scope="col">END</th>
                                 <th scope="col" style="width: 15%;text-align: center">AKSI</th>
@@ -57,15 +55,17 @@
                                     <td>{{ $penilaian->name }}</td>
                                     <td>{{ $penilaian->time }}</td>
                                     <td>{{ $penilaian->total_pertanyaan }}</td>
-                                    @hasrole('admin')
-                                    <td>{{ $penilaian->user->count() }}</td>
-                                    @endhasrole
                                     <td>{{ TanggalID($penilaian->start) }}</td>
                                     <td>{{ TanggalID($penilaian->end) }}</td>
                                     <td class="text-center">
-                                        <a href="{{ route('penilaian.show', $penilaian->id) }}" class="btn btn-sm btn-info">
-                                            <i class="fa fa-eye"></i>
-                                        </a>
+                                    @hasrole('student')
+                                    @if($evaluasis->nama_siswa == Auth::user()->username && $penilaian->id==$evaluasis->penilaian_id)
+                                    Sudah Dikerjakan
+                                    @else
+                                    <a href="{{ route('penilaian.show', $penilaian->id) }}" class="btn btn-sm btn-info"> <i class="fa fa-eye"></i></a>
+                                    @endif               
+                                    @endhasrole
+                                       
                                         @can('penilaian.edit')
                                             <a href="{{ route('penilaian.edit', $penilaian->id) }}" class="btn btn-sm btn-primary">
                                                 <i class="fa fa-pencil-alt"></i>
@@ -75,11 +75,6 @@
                                         @can('penilaian.riwayat')
                                         <a href="penilaian/riwayat/{{ $penilaian->id }}" class="btn btn-sm btn-primary"><i class="fa fa-list"></i></a>
                                         @endcan
-                                        @hasrole('admin')
-                                        <a href="{{ route('penilaian.student', $penilaian->id) }}" class="btn btn-sm btn-primary">
-                                            <i class="fa fa-door-open"></i>
-                                        </a>
-                                        @endhasrole
                                         
                                         @can('penilaian.delete')
                                             <button onClick="Delete(this.id)" class="btn btn-sm btn-danger" id="{{ $penilaian->id }}">
@@ -93,6 +88,8 @@
                         </table>
                       
                     </div>
+                    @endhasanyrole
+                   
                 </div>
             </div>
         </div>

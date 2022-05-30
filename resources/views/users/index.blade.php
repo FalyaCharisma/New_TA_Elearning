@@ -39,7 +39,7 @@
                             <thead>
                             <tr>
                                 <th scope="col" style="text-align: center;width: 6%">NO.</th>
-                                <th scope="col">NAMA USER</th>
+                                <th scope="col">USERNAME</th>
                                 <th scope="col">ROLE</th>
                                 <th scope="col" style="width: 15%;text-align: center">AKSI</th>
                             </tr>
@@ -51,7 +51,7 @@
                             @if($role=='teacher')
                                 <tr>
                                     <th scope="row" style="text-align: center">{{ ++$no + ($users->currentPage()-1) * $users->perPage() }}</th>
-                                    <td>{{ $user->name }}</td>
+                                    <td>{{ $user->username }}</td>
                                     <td>
                                         @if(!empty($user->getRoleNames()))
                                             @foreach($user->getRoleNames() as $role)
@@ -91,7 +91,7 @@
                             <thead>
                             <tr>
                                 <th scope="col" style="text-align: center;width: 6%">NO.</th>
-                                <th scope="col">NAMA USER</th>
+                                <th scope="col">USERNAME</th>
                                 <th scope="col">ROLE</th>
                                 <th scope="col" style="width: 15%;text-align: center">AKSI</th>
                             </tr>
@@ -103,7 +103,7 @@
                             @if($role=='student')
                                 <tr>
                                     <th scope="row" style="text-align: center">{{ ++$no + ($users->currentPage()-1) * $users->perPage() }}</th>
-                                    <td>{{ $user->name }}</td>
+                                    <td>{{ $user->username }}</td>
                                     <td>
                                         @if(!empty($user->getRoleNames()))
                                             @foreach($user->getRoleNames() as $role)

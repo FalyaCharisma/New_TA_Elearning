@@ -18,7 +18,7 @@
                     <form action="{{ route('users.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
 
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <label>NAMA USER</label>
                             <input type="text" name="name" value="{{ old('name') }}" placeholder="Masukkan Nama User"
                                 class="form-control @error('name') is-invalid @enderror">
@@ -28,8 +28,8 @@
                                 {{ $message }}
                             </div>
                             @enderror
-                        </div>
-
+                        </div> -->
+ 
                         <div class="form-group">
                             <label>USERNAME</label>
                             <input type="text" name="username" value="{{ old('username') }}" placeholder="Masukkan Username"
@@ -53,8 +53,8 @@
                             </div>
                             @enderror
                         </div>
-
-                        <div class="form-group">
+ 
+                        <!-- <div class="form-group">
                             <label>KELAS</label>
                             <select class="form-control select-kelas @error('kelas') is-invalid @enderror" name="kelas">
                                 <option value="">- SELECT KELAS -</option>
@@ -68,6 +68,7 @@
                             </div>
                             @enderror
                         </div>
+
 
                         <div class="form-group">
                             <label>NO. WA</label>
@@ -91,7 +92,7 @@
                                 {{ $message }}
                             </div>
                             @enderror
-                        </div>
+                        </div> -->
 
                         <div class="row">
                             <div class="col-md-6">
