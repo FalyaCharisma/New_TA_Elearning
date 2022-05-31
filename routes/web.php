@@ -114,6 +114,7 @@ Route::group(['middleware' => 'auth'], function(){
         'show', 'create', 'edit', 'update'
     ]);
     Route::get('/absensi/export_excel', [AbsensiController::class, 'export_excel'])->name('absensi.export_excel');
+    Route::get('/absensi/exportPDF', [AbsensiController::class, 'exportPDF'])->name('absensi.exportPDF');
 
     //informasi
      Route::resource('informasi', InformasiController::class)->except([

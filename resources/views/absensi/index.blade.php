@@ -101,8 +101,12 @@
 
                 <div class="card-body">
                 @can('absensi.export_excel')
-                                <a href="/absensi/export_excel" class="btn btn-primary" style="padding-top: 10px;"> Cetak Excel</a>
+                                <a href="/absensi/export_excel" class="btn btn-danger" style="padding-top: 8px;"> Cetak Excel</a>
                                 @endcan
+                @can('absensi.exportPDF')
+                                <a href="/absensi/exportPDF" class="btn btn-info" style="padding-top: 10px;"> Cetak PDF</a>
+                                @endcan
+                
                                 
                     <form action="{{ route('absensi.index') }}" method="GET">
                         <div class="form-group">
