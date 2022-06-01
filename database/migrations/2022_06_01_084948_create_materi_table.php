@@ -19,9 +19,9 @@ class CreateMateriTable extends Migration
             $table->string('kelas');
             $table->string('judul');
             $table->longText('isi');
-            $table->string('kesimpulan')->nullable();
-            $table->string('keterangan')->nullable();
-            $table->bigInteger('user_id_teacher')->unsigned();
+            $table->string('ringkasan')->nullable();
+            $table->unsignedBigInteger('user_id');
+            $table->string('siswa'); 
             $table->string('link');
             $table->timestamps();
         });

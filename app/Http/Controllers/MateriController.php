@@ -5,6 +5,8 @@ use App\Models\User;
 use App\Models\mataPelajaran;
 use App\Models\Kelas;
 use App\Models\Materi;
+use App\Models\Siswa;
+use App\Models\Tentor;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Auth;
@@ -31,11 +33,11 @@ class MateriController extends Controller
         $materis = Materi::latest()->when(request()->q, function($materis) {
             $materis = $materis->where('judul', 'like', '%'. request()->q . '%');
         })->paginate(10);
-
+        $siswa = Siswa::latest()->get();
         $mataPelajaran = new mataPelajaran();
         $kelass = new Kelas();
         $user = new User();
-        return view('materi.index', compact('materis', 'mataPelajaran', 'kelass', 'user'));
+        return view('materi.index', compact('materis', 'mataPelajaran', 'kelass', 'user', 'siswa'));
     }
 
      /**
@@ -48,10 +50,9 @@ class MateriController extends Controller
         $materis = Materi::latest()->when(request()->q, function($materis) {
             $materis = $materis->where('judul', 'like', '%'. request()->q . '%');
         })->paginate(10);
-
         $mataPelajaran = new mataPelajaran();
         $kelass = new Kelas();
-        $user = new User();
+        $user = Auth::user();
         return view('materi.index', compact('materis', 'mataPelajaran', 'kelass', 'user'));
     }
 
@@ -64,8 +65,11 @@ class MateriController extends Controller
     {
         $mataPelajaran = mataPelajaran::latest()->get();
         $kelass = Kelas::latest()->get();
-        $user = User::latest()->get();
-        return view('materi.create', compact('mataPelajaran', 'kelass', 'user'));
+        $user = Auth::user();
+        $tentor = Tentor::latest()->get();
+        $siswa = Siswa::latest()->get();
+        
+        return view('materi.create', compact('mataPelajaran', 'kelass', 'user','siswa','tentor'));
     }
 
     /**
@@ -93,9 +97,9 @@ class MateriController extends Controller
             'mapel'           => $request->input('mapel'),
             'judul'           => $request->input('judul'),
             'isi'             => $request->input('isi'),
-            'keterangan'      => $request->input('keterangan'),
-            'kesimpulan'      => $request->input('kesimpulan'),
-            'user_id_teacher' => Auth()->id(),
+            'ringkasan'       => $request->input('ringkasan'),
+            'siswa'           => $request->input('siswa'), 
+            'user_id'         => Auth()->id(),
             'link'            => $document->getClientOriginalName(),
         ]);
 
@@ -146,7 +150,7 @@ class MateriController extends Controller
             'isi'             => $request->input('isi'),
             'keterangan'      => $request->input('keterangan'),
             'kesimpulan'      => $request->input('kesimpulan'),
-            'user_id_teacher' => Auth()->id()
+            'username'        => Auth::user()->username,
         ]);
 
         if($materi){
@@ -183,12 +187,12 @@ class MateriController extends Controller
     
     public function showlist()
     {     
-
         $user = Auth::user();
+        $siswa = Siswa::latest()->get();
         $mataPelajaran = mataPelajaran::get();
         $materis = Materi::where('kelas', $user->kelas)->where('mapel', $mataPelajaran->mata_pelajaran)->get();
 
-        return view('materi.showlist', compact('materis', 'mataPelajaran', 'user'));
+        return view('materi.showlist', compact('materis', 'mataPelajaran', 'user', 'siswa'));
     }
 
     public function showMateri($id)

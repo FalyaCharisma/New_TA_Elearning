@@ -48,7 +48,7 @@
                             </thead>
                             <tbody>
                             @foreach ($materis as $no => $materi)
-                            @if ($materi->user_id_teacher == Auth::user()->id)
+                            @if ($materi->user_id == Auth::user()->id)
                                 <tr>
                                     <th scope="row" style="text-align: center">{{ ++$no + ($materis->currentPage()-1) * $materis->perPage() }}</th>
                                     <td>{{ $materi->judul }}</td>
@@ -81,8 +81,9 @@
                     @endcan
 
                     @can('materi.showlist')
+                
                     @foreach ($materis as $no => $materi)
-                    @if ($materi->kelas == Auth::user()->kelas)
+                    @if ($materi->siswa ==  Auth::user()->siswa->name) 
                     <div class="col-lg-12 col-md-12 col-sm-12 col-12">
                         <div class="card card-statistic-1">
                             <div class="card-icon bg-primary">

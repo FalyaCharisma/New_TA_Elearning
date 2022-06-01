@@ -28,4 +28,8 @@ class Siswa extends Model
         return $this->belongsTo(Kelas::class);
     } 
 
+    public function tentor(){
+        return $this->belongsTo(Tentor::class);
+    } 
+
 }

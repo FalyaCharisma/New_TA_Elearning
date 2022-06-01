@@ -16,7 +16,7 @@ class Materi extends Model
      * @var array
      */
     protected $fillable = [
-        'mapel', 'kelas', 'judul', 'isi', 'kesimpulan', 'keterangan', 'user_id_teacher', 'link',
+        'mapel', 'kelas', 'judul', 'isi', 'ringkasan', 'siswa', 'user_id', 'link',
     ];
 
     // link 
@@ -34,5 +34,14 @@ class Materi extends Model
     public function user()
     {
        return $this->belongsTo(User::class);
+    }
+
+    public function siswas(){
+        return $this->hasMany(Siswa::class);
+    }
+    
+    public function tentor()
+    {
+       return $this->belongsTo(Tentor::class);
     }
 }

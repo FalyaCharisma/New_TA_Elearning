@@ -46,8 +46,9 @@ class UserController extends Controller
             $users = $users->where('name', 'like', '%'. request()->q . '%');
         })->paginate(10);
         $roles = new Role();
+        $tentor = new Tentor();
         $kelas = new Kelas();
-        return view('users.tentor', compact('users','roles', 'kelas'));
+        return view('users.tentor', compact('users','roles', 'kelas','tentor'));
     }
 
     public function siswa()

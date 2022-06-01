@@ -73,11 +73,11 @@
                         </div>
 
                         <div class="form-group">
-                            <label>KETERANGAN</label>
-                            <input type="text" name="keterangan" value="{{ old('keterangan') }}" placeholder="Masukkan Keterangan"
-                                class="form-control @error('keterangan') is-invalid @enderror">
+                            <label>Ringkasan</label>
+                            <input type="text" name="ringkasan" value="{{ old('ringkasan') }}" placeholder="Masukkan Ringkasan"
+                                class="form-control @error('ringkasan') is-invalid @enderror">
 
-                            @error('keterangan')
+                            @error('ringkasan')
                             <div class="invalid-feedback" style="display: block">
                                 {{ $message }}
                             </div>
@@ -85,11 +85,19 @@
                         </div>
 
                         <div class="form-group">
-                            <label>KESIMPULAN</label>
-                            <input type="text" name="kesimpulan" value="{{ old('kesimpulan') }}" placeholder="Masukkan Kesimpulan"
-                                class="form-control @error('kesimpulan') is-invalid @enderror">
-
-                            @error('kesimpulan')
+                            <label class="font-weight-bold">Siswa</label>
+                            
+                            @foreach ($siswa as $siswa)
+                            @if($siswa->nama_tentor==Auth::user()->tentor->name)
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" name="siswa" value="{{ $siswa->name }}">
+                                <label class="form-check-label" for="check-{{ $siswa->id }}">
+                                    {{ $siswa->name }}
+                                </label>
+                            </div>
+                            @endif
+                            @endforeach
+                            @error('siswa')
                             <div class="invalid-feedback" style="display: block">
                                 {{ $message }}
                             </div>
