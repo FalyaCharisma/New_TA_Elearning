@@ -32,4 +32,12 @@ class Siswa extends Model
         return $this->belongsTo(Tentor::class);
     } 
 
+    public function diskusi(){
+        return $this->hasMany(Diskusi::class);
+    } 
+
+    public function respon(){
+        return $this->hasMany(Respon::class);
+    } 
+
 }

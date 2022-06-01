@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Materi;
+use App\Models\Siswa;
+use App\Models\Tentor;
 use App\Models\Diskusi;
 use App\Models\Respon;
 use Illuminate\Http\Request;
@@ -57,13 +59,17 @@ class DiskusiController extends Controller
         })->paginate(10);
         $materi = Materi::latest()->get();
         $user = User::latest()->get();
-        return view('diskusi.index', compact('diskusi', 'materi', 'user'));
+        $tentor = Tentor::latest()->get();
+        $siswa = Siswa::latest()->get();
+        return view('diskusi.index', compact('diskusi', 'materi', 'user', 'tentor','siswa'));
     }
 
-    public function create(){
+    public function create(){ 
         $materi = Materi::latest()->get();
-        $user = User::latest()->get();
-        return view('diskusi.create', compact('materi','user'));
+        $user = Auth::user();
+        $tentor = Tentor::latest()->get();
+        $siswa = Siswa::latest()->get();
+        return view('diskusi.create', compact('materi','user','tentor','siswa'));
     }
 
     public function store(Request $request)

@@ -18,6 +18,14 @@ class Diskusi extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function siswa(){
+        return $this->belongsTo(Siswa::class);
+    }
+
+    public function tentor(){
+        return $this->belongsTo(Tentor::class);
+    }
+
     public function respon(){
         return $this->hasMany(Respon::class);
     }

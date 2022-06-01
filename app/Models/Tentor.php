@@ -25,4 +25,12 @@ class Tentor extends Model
     public function siswa(){
         return $this->hasMany(Siswa::class);
     } 
+
+    public function diskusi(){
+        return $this->hasMany(Diskusi::class);
+    } 
+
+    public function respon(){
+        return $this->hasMany(Respon::class);
+    } 
 }
