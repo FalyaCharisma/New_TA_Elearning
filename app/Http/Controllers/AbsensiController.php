@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Absensi;
+use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Exports\AbsensiExport;
+use App\Exports\Absensis;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\Controller;
 
@@ -19,7 +21,7 @@ class AbsensiController extends Controller
      */
     public function __construct()
     {
-        $this->middleware(['permission:absensi.index|absensi.create|absensi.delete|absensi.tentor|absensi.riwayat|absensi.export_excel|']);
+        $this->middleware(['permission:absensi.index|absensi.create|absensi.delete|absensi.tentor|absensi.riwayat|absensi.export_excel|absensi.ExportPDF|']);
     }
 
     /**
@@ -106,4 +108,12 @@ class AbsensiController extends Controller
 	{
 		return Excel::download(new AbsensiExport, 'absensi.xlsx');
 	}
+
+    public function ExportPDF()
+    {
+        $absens = Absensi::orderBy('name')->get();
+        $pdf = PDF::loadView('absensi.absensi', compact('absens'));
+        $pdf->download('rekapan.pdf');
+        return $pdf->stream();
+    }
 }
