@@ -3,16 +3,25 @@
 namespace App\Exports;
 
 use App\Models\Absensi;
-use Maatwebsite\Excel\Concerns\FromCollection;
-use Barryvdh\DomPDF\Facade;
+use Illuminate\Contracts\View\View;
+use Maatwebsite\Excel\Concerns\FromView;
 
-class AbsensiExport implements FromCollection
+class AbsensiExport implements FromView
 {
     /**
     * @return \Illuminate\Support\Collection
     */
-    public function collection()
-    {
-        return Absensi::all();
+
+    // public function __construct(string $keyword)
+    // {
+    //     $this->nama= $keyword;
+    // }
+
+    public function view(): View
+    { 
+        return view('absensi.export', [
+            // 'data' => Absensi::where('name', 'like', '%'. $this->nama . '%')->get()
+            'absens'=> Absensi::all()
+        ]);
     }
 }
