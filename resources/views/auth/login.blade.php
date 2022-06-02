@@ -38,12 +38,12 @@
                                     novalidate="">
                                     @csrf
                                     <div class="form-group">
-                                        <label for="email">Email</label>
-                                        <input id="email" type="email"
-                                            class="form-control @error('email') is-invalid @enderror" name="email"
-                                            placeholder="Masukkan Alamat Email" value="{{ old('email') }}" tabindex="1"
+                                        <label for="username">Username</label>
+                                        <input id="username" type="username"
+                                            class="form-control @error('username') is-invalid @enderror" name="username"
+                                            placeholder="Masukkan Username" value="{{ old('username') }}" tabindex="1"
                                             required autofocus>
-                                        @error('email')
+                                        @error('username')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
