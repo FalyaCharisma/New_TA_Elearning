@@ -38,16 +38,23 @@
                         <div class="card card-statistic-1">
                             <div class="card-wrap">
                                 <div class="card-body">
-                                <h4>Isi Informasi  @can('informasi.edit')
-                                            <a href="{{ route('informasi.edit', $info->id) }}" class="btn btn-sm btn-primary">
-                                                <i class="fa fa-pencil-alt"></i>
-                                            </a>
-                                @endcan</h4>
+                                <h4>Isi Informasi </h4>
                                 <p>{{ $info->isi_informasi }}</p>
                                 </div>
                                 <div class="card-footer">
-                                {{ $info->created_at }}
+                                {{ $info->created_at }}<br>
+                                @can('informasi.edit')
+                                            <a href="{{ route('informasi.edit', $info->id) }}" class="btn btn-sm btn-primary">
+                                                <i class="fa fa-pencil-alt"></i>
+                                            </a>
+                                @endcan 
+                                @can('informasi.delete')
+                                            <button onClick="Delete(this.id)" class="btn btn-sm btn-danger" id="{{ $info->id }}">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
+                                @endcan
                                 </div>
+                                
                             </div>
                         </div>
                     </div>
