@@ -118,8 +118,60 @@ class DiskusiController extends Controller
     public function showDiskusi($id)
     {
         $diskusi = Diskusi::findOrFail($id);
-        $respon = Respon::where('diskusi_id', $id)->get();
+        $respon = Respon::latest()->where('diskusi_id', $id)->get();
 
         return view('diskusi.showDiskusi', compact('diskusi','respon'));
+    }
+
+    public function destroy($id)
+    {
+        $diskusi = Diskusi::findOrFail($id);
+        $diskusi->delete();
+
+        $respon = Respon::findOrFail($id);
+        $respon->delete();
+
+        if($diskusi){
+            return response()->json([
+                'status' => 'success'
+            ]);
+        }else if($respon){
+            return response()->json([
+                'status' => 'success'
+            ]);
+        }
+        else{
+            return response()->json([
+                'status' => 'error'
+            ]);
+        }
+    }
+
+    public function edit($id)
+    {
+        $diskusi = Diskusi::find($id);
+        $materi = Materi::latest()->get();
+        return view('diskusi.edit', compact('diskusi','materi'));
+    }
+    public function update(Request $request,$id)
+    {
+        $this->validate($request, [
+            'pertanyaan'  => 'required',
+            'materi'  => 'required'
+        ]); 
+
+        $diskusi = Diskusi::find($id);
+
+         $diskusi->pertanyaan = $request->input('pertanyaan');
+         $diskusi->materi = $request->input('materi');
+         $diskusi->update();
+    
+        if($diskusi){
+            //redirect dengan pesan sukses
+            return redirect()->route('diskusi.index')->with(['success' => 'Data Berhasil Diupdate!']);
+        }else{
+            //redirect dengan pesan error
+            return redirect()->route('diskusi.index')->with(['error' => 'Data Gagal Diupdate!']);
+        }
     }
 }
