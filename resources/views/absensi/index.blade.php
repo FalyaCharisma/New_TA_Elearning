@@ -106,7 +106,6 @@
                 @can('absensi.exportPDF')
                                 <a href="/absensi/exportPDF" class="btn btn-info" style="padding-top: 10px;"> Cetak PDF</a>
                                 @endcan
-                
                                 
                     <form action="{{ route('absensi.index') }}" method="GET">
                         <div class="form-group">
