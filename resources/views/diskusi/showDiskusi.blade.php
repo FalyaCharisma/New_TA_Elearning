@@ -35,13 +35,17 @@
                                     </div>
                                     <div class="card-body">
                                         <p class="">{{ $item->respon }} </p>
-                                        <a href="{{ route('diskusi.edit', $diskusi->id) }}" class="btn btn-sm btn-primary">Edit</a>
-                                        <button onClick="Delete(this.id)" class="btn btn-sm btn-danger" style="margin-left: 5px;" id="{{ $item->id }}">
-                                             Hapus
-                                        </button>
+                                        <div class="input-group-prepend">
+                                            <a href="{{ route('editRespon', $item->id) }}"  class="btn btn-sm btn-primary">Edit</a>
+                                            <form method="POST" action="{{ url('diskusi/respon/delete', $item->id) }}" style="margin-left:5px">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button class="btn btn-sm btn-danger">Hapus</button>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
-                            @endcan
+                            @endcan 
                         @endforeach
 
                         @can('diskusi.respon')
@@ -71,66 +75,5 @@
             </div>
         </section>
     </div>
-    <script>
-    //ajax delete
-    function Delete(id)
-        {
-            var id = id;
-            var token = $("meta[name='csrf-token']").attr("content");
 
-            swal({
-                title: "APAKAH KAMU YAKIN ?",
-                text: "INGIN MENGHAPUS DATA INI!",
-                icon: "warning",
-                buttons: [
-                    'TIDAK',
-                    'YA'
-                ],
-                dangerMode: true,
-            }).then(function(isConfirm) { 
-                if (isConfirm) {
-
-                    //ajax delete
-                    jQuery.ajax({
-                        url: "{{ route("diskusi.index") }}/"+id,
-                        data:   {
-                            "id": id,
-                            "_token": token
-                        },
-                        type: 'DELETE',
-                        success: function (response) {
-                            if (response.status == "success") {
-                                swal({
-                                    title: 'BERHASIL!',
-                                    text: 'DATA BERHASIL DIHAPUS!',
-                                    icon: 'success',
-                                    timer: 1000,
-                                    showConfirmButton: false,
-                                    showCancelButton: false,
-                                    buttons: false,
-                                }).then(function() {
-                                    location.reload();
-                                });
-                            }else{
-                                swal({
-                                    title: 'GAGAL!',
-                                    text: 'DATA GAGAL DIHAPUS!',
-                                    icon: 'error',
-                                    timer: 1000,
-                                    showConfirmButton: false,
-                                    showCancelButton: false,
-                                    buttons: false,
-                                }).then(function() {
-                                    location.reload();
-                                });
-                            }
-                        }
-                    });
-
-                } else {
-                    return true;
-                }
-            })
-        }
-</script>
 @stop

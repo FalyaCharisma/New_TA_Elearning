@@ -67,7 +67,8 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('users/tentor', [UserController::class, 'tentor'])->name('users.tentor');
     Route::get('users/showSiswa/{id}', [UserController::class, 'showSiswa'])->name('usera.showSiswa');
     Route::post('users/dataSiswa/{id}', [UserController::class, 'dataSiswa'])->name('users.dataSiswa');
-    Route::get('users/showTentor/{id}', [UserController::class, 'showTentor'])->name('usera.showTentor');
+    Route::get('users/editSiswa/{id}', [UserController::class, 'editSiswa'])->name('users.editSiswa');
+    Route::get('users/showTentor/{id}', [UserController::class, 'showTentor'])->name('users.showTentor');
     Route::post('users/dataTentor/{id}', [UserController::class, 'dataTentor'])->name('users.dataTentor');
     
     //images
@@ -132,7 +133,9 @@ Route::group(['middleware' => 'auth'], function(){
     ]);
     Route::get('diskusi/showDiskusi/{id}', [DiskusiController::class, 'showDiskusi'])->name('diskusi.showDiskusi');
     Route::post('diskusi/respon/{id}', [DiskusiController::class, 'respon'])->name('diskusi.respon');
-
+    Route::delete('/diskusi/respon/delete/{id}', [DiskusiController::class, 'destroy2']);
+    Route::get('/diskusi/respon/editRespon/{id}', [DiskusiController::class, 'editRespon'])->name('editRespon');
+    Route::post('/diskusi/respon/responUpdate/{id}', [DiskusiController::class, 'responUpdate'])->name('responUpdate');
 
     //exams 
     Route::resource('exams', ExamController::class); 
