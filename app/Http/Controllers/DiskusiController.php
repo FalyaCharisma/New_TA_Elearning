@@ -128,14 +128,7 @@ class DiskusiController extends Controller
         $diskusi = Diskusi::findOrFail($id);
         $diskusi->delete();
 
-        $respon = Respon::findOrFail($id);
-        $respon->delete();
-
         if($diskusi){
-            return response()->json([
-                'status' => 'success'
-            ]);
-        }else if($respon){
             return response()->json([
                 'status' => 'success'
             ]);
@@ -145,6 +138,13 @@ class DiskusiController extends Controller
                 'status' => 'error'
             ]);
         }
+    }
+
+    public function destroy2($id)
+    {
+        $respon = Respon::findOrFail($id);
+        $respon->delete(); 
+        return redirect()->back()->with(['success' => 'Tanggapan Berhasil Dihapus!']);
     }
 
     public function edit($id)
@@ -173,5 +173,15 @@ class DiskusiController extends Controller
             //redirect dengan pesan error
             return redirect()->route('diskusi.index')->with(['error' => 'Data Gagal Diupdate!']);
         }
+    }
+    
+    public function editRespon($id){ 
+        $respon = Respon::findOrFail($id);
+        $diskusi = Diskusi::latest()->get();
+        return view('diskusi.editRespon', compact('respon','diskusi'));
+    }
+    public function responUpdate(Request $request, $id){ 
+        $respon = Respon::find($id)->update($request->all());
+        return redirect()->route('diskusi.index')->with(['success' => 'Tanggapan Berhasil Diupdate!']);
     }
 }

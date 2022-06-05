@@ -6,6 +6,7 @@ use App\Models\Exam;
 use Illuminate\Support\Facades\Auth;
 use App\Models\mataPelajaran;
 use App\Models\User;
+use App\Models\Informasi;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -24,6 +25,7 @@ class DashboardController extends Controller
         })->get();
         $user = Auth::user();
         $mapels = mataPelajaran::get();
-        return view('dashboard.index', compact('exams', 'mapels', 'user'));
+        $informasi = Informasi::latest()->paginate(1);
+        return view('dashboard.index', compact('exams', 'mapels', 'user','informasi')); 
     }
 }
