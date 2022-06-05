@@ -14,21 +14,11 @@ use App\Http\Controllers\Controller;
 
 class AbsensiController extends Controller
 {
-    /**
-     * __construct
-     *
-     * @return void
-     */
     public function __construct()
     {
-        $this->middleware(['permission:absensi.index|absensi.create|absensi.delete|absensi.tentor|absensi.riwayat|absensi.export_excel|absensi.ExportPDF|']);
+        $this->middleware(['permission:absensi.index|absensi.create|absensi.delete|absensi.tentor|absensi.riwayat|absensi.export_excel|absensi.ExportPDF']);
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function tentor()
     {
         $absens = Absensi::latest()->when(request()->q, function($absens) {
@@ -52,12 +42,6 @@ class AbsensiController extends Controller
         return view('absensi.index', compact('absens'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $validateData = $request->validate([
@@ -76,18 +60,11 @@ class AbsensiController extends Controller
         $save->path = $path;
         $save->keterangan = $keterangan;
         $save->name = $name;
- 
         $save->save();
 
         return redirect()->route('absensi.index')->with(['success' => 'Data Berhasil Disimpan!']);
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function destroy($id)
     {
         $absens = Absensi::findOrFail($id);

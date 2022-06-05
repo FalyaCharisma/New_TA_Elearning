@@ -23,6 +23,7 @@ use App\Http\Controllers\PenilaianController;
 use App\Http\Controllers\SoalPenilaianController;
 use App\Models\Exam;
 use App\Models\Penilaian;
+use App\Http\Controllers\ExportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -113,7 +114,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::resource('absensi', AbsensiController::class)->except([
         'show', 'create', 'edit', 'update'
     ]);
-    Route::get('/absensi/export_excel', [AbsensiController::class, 'export_excel'])->name('absensi.export_excel');
+    Route::get('/absensi/export_excel', [ExportController::class, 'export_excel'])->name('absensi.export_excel');
     Route::get('/absensi/exportPDF', [AbsensiController::class, 'exportPDF'])->name('absensi.exportPDF');
 
     //informasi
