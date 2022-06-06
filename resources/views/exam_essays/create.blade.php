@@ -11,13 +11,13 @@
 
             <div class="card">
                 <div class="card-header">
-                    <h4><i class="fas fa-exam"></i> Tambah Exam</h4>
+                    <h4><i class="fas fa-exam"></i> Tambah Exam Essay</h4>
                 </div>
 
                 <div class="card-body">
-                    <form action="{{ route('exams.store') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('exam_essays.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
-                        <input type="text" name="type_exam" value="ganda" class="form-control" hidden >
+                        <input type="text" name="type_exam" value="essay" class="form-control" hidden >
                         <div class="form-group">
                             <label>NAME</label>
                             <input type="text" name="name" value="{{ old('name') }}" class="form-control" >
@@ -71,9 +71,8 @@
                             </div>
                             @enderror
                         </div>
-
-                        <livewire:question-checklist />
-
+                        
+                        <livewire:question-essay-checklist />                        
 
                         <button class="btn btn-primary mr-1 btn-submit" type="submit"><i class="fa fa-paper-plane"></i>
                             SIMPAN</button>

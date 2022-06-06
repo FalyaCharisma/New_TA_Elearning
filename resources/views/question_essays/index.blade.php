@@ -132,7 +132,7 @@
                                 <tr>
                                     <th scope="row" style="text-align: center">{{ ++$no + ($questions->currentPage()-1) * $questions->perPage() }}</th>
                                     <td>{{ $subject->getName($question->subject_id) }}</td>
-                                    <td>{{ $question->detail }}</td>
+                                    <td>{{ $question->soal }}</td>
                                     <td>{{ $user->getName($question->created_by) }}</td>
                                     <td class="text-center">
                                         @can('question_essays.edit')

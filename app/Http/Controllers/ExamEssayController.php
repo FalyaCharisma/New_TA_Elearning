@@ -8,13 +8,14 @@ use App\Models\User;
 use App\Models\Audio;
 use App\Models\Image;
 use App\Models\Video;
+use App\Models\Subject;
 use App\Models\Document;
-use App\Models\Question;
+use App\Models\QuestionEssay;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Database\Eloquent\Builder;
 
-class ExamController extends Controller
+class ExamEssayController extends Controller
 {
      /**
      * __construct
@@ -23,7 +24,7 @@ class ExamController extends Controller
      */
     public function __construct()
     {
-        $this->middleware(['permission:exams.index|exams.create|exams.edit|exams.delete']);
+        $this->middleware(['permission:exam_essays.index|exam_essays.create|exam_essays.edit|exam_essays.delete']);
     }
 
     /**
@@ -33,44 +34,26 @@ class ExamController extends Controller
      */
     public function index()
     {
-        // $currentUser = User::findOrFail(Auth()->id());
-        // if($currentUser->hasRole('admin')){
-        //     $exams = Exam::latest()->when(request()->q, function($exams) {
-        //         $exams = $exams->where('name', 'like', '%'. request()->q . '%');
-        //     })->paginate(10);
-        //     $exam_essays = Exam::where('type_exam','essay')->paginate(10);
-        // }elseif($currentUser->hasRole('student')){
-        //     $exams = Exam::whereHas('users', function (Builder $query) {
-        //         $query->where('user_id', Auth()->id());
-        //     })->paginate(10);
-        // }elseif($currentUser->hasRole('teacher')){
-        //     $exams = Exam::where('created_by', Auth()->id())->latest()->when(request()->q, function($exams) {
-        //         $exams = $exams->where('created_by', Auth()->id())->where('name', 'like', '%'. request()->q . '%');
-        //     })->paginate(10);
-        // }
-        
-        // $user = new User();
-
-        // return view('exams.index', compact('exams','user'));
-
         $currentUser = User::findOrFail(Auth()->id());
         if($currentUser->hasRole('admin')){
-            $exams = Exam::latest()->when(request()->q, function($exams) {
-                $exams = $exams->where('name', 'like', '%'. request()->q . '%');
+            $exam_essays = Exam::latest()->when(request()->q, function($exam_essays) {
+                $exam_essays = $exam_essays->where('name', 'like', '%'. request()->q . '%');
             })->paginate(10);
-            $exam_essays = Exam::where('type_exam','essay')->paginate(10);        
         }elseif($currentUser->hasRole('student')){
-            $exams = Exam::where('type_exam','ganda')->paginate(10);
-            $exam_essays = Exam::where('type_exam','essay')->paginate(10);            
+            $exam_essays = Exam::whereHas('users', function (Builder $query) {
+                $query->where('user_id', Auth()->id());
+            })->paginate(10);
         }elseif($currentUser->hasRole('teacher')){
-            // perlu ada perbaikan query hanya soal yang dibuat oleh akun perorangan
-            $exams = Exam::where('type_exam','ganda')->paginate(10);
-            $exam_essays = Exam::where('type_exam','essay')->paginate(10);            
+            $exam_essays = Exam::where('created_by', Auth()->id())->latest()->when(request()->q, function($exam_essays) {
+                // $exam_essays = $exam_essays->where('created_by', Auth()->id())->where('name', 'like', '%'. request()->q . '%');
+                $exam_essays = Exam::where('type_exam','essay');
+            })->paginate(10);
+            // $exam_essays = Exam::where('type_exam','essay');
         }
         
         $user = new User();
 
-        return view('exams.index', compact('exams','exam_essays','user'));
+        return view('exam_essays.index', compact('exam_essays','user'));
     }
 
     /**
@@ -80,7 +63,7 @@ class ExamController extends Controller
      */
     public function create()
     {
-        return view('exams.create');
+        return view('exam_essays.create');
     }
 
     /**
@@ -96,7 +79,8 @@ class ExamController extends Controller
             'time'          => 'required',
             'total_question'=> 'required',
             'start'         => 'required',
-            'end'           => 'required'
+            'end'           => 'required',
+            'type_exam'     => 'required'
         ]);
 
         $exam = Exam::create([
@@ -110,7 +94,7 @@ class ExamController extends Controller
             'created_by'    => Auth()->id()
         ]);
 
-        $exam->questions()->sync($request->input('questions'));
+        $exam->questionEssays()->sync($request->input('questions'));
 
         if($exam){
             //redirect dengan pesan sukses
@@ -130,8 +114,9 @@ class ExamController extends Controller
     public function edit(exam $exam)
     {
         $questions = $exam->questions()->where('exam_id', $exam->id)->get();
+        $questionEssays = $exam->questionEssays()->where('exam_id', $exam->id)->get();
         
-        return view('exams.edit', compact('exam', 'questions'));
+        return view('exam_essays.edit', compact('exam', 'questions','questionEssays'));
     }
 
     /**
@@ -160,14 +145,14 @@ class ExamController extends Controller
             'created_by'    => Auth()->id()
         ]);
 
-        $exam->questions()->sync($request->input('questions'));
+        $exam->questionEssays()->sync($request->input('questions'));
 
         if($exam){
             //redirect dengan pesan sukses
-            return redirect()->route('exams.index')->with(['success' => 'Data Berhasil Diupdate!']);
+            return redirect()->route('exam_essays.index')->with(['success' => 'Data Berhasil Diupdate!']);
         }else{
             //redirect dengan pesan error
-            return redirect()->route('exams.index')->with(['error' => 'Data Gagal Diupdate!']);
+            return redirect()->route('exam_essays.index')->with(['error' => 'Data Gagal Diupdate!']);
         }
     }
 
@@ -177,11 +162,14 @@ class ExamController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(exam $exam)
+    public function show(exam $exam_essay)
     {
-        $questions = $exam->questions()->where('exam_id', $exam->id)->get();
+        $questions = $exam_essay->questionEssays()->where('exam_id', $exam_essay->id)->get();
+        // $questionEssays = $exam->questionEssays()->where('exam_id', $exam->id)->get();
+        // $questions = $exam->questionEssays()->where('exam_id', $exam->id)->get();
         
-        return view('exams.show', compact('exam', 'questions'));
+        // return view('exam_essays.show', compact('exam', 'questions','questionEssays'));
+        return view('exam_essays.show', compact('exam_essay', 'questions'));
     }
 
     /**
@@ -209,25 +197,25 @@ class ExamController extends Controller
     public function start($id)
     {
         $exam = Exam::findOrFail($id);
-        $exam_questions = $exam->questions;
+        $exam_question_essays = $exam->questionEssays;
 
-        if ($exam_questions->count() == 0) {
+        if ($exam_question_essays->count() == 0) {
             return back()->with(['error' => 'Belum ada Pertanyaan']);
         }
-        return view('exams.start', compact('id'));
+        return view('exam_essays.start', compact('id'));
     }
 
     public function result($score, $userId, $examId)
     {
         $user = User::findOrFail($userId);
         $exam = Exam::findOrFail($examId);
-        return view('exams.result', compact('score', 'user', 'exam'));
+        return view('exam_essays.result', compact('score', 'user', 'exam'));
     }
 
     public function student($id)
     {
         $exam = Exam::findOrFail($id);
-        return view('exams.student', compact('exam'));
+        return view('exam_essays.student', compact('exam'));
     }
 
     public function assign(Request $request, $id)
@@ -236,13 +224,13 @@ class ExamController extends Controller
 
         $exam->users()->sync($request->input('students'));
 
-        return redirect('/exams');
+        return redirect('/exam_essays');
 
     }
 
     public function review($userId, $examId)
     {
-        return view('exams.review', compact('userId', 'examId'));
+        return view('exam_essays.review', compact('userId', 'examId'));
     }
 
 }

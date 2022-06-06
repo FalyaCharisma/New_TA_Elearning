@@ -7,7 +7,9 @@ use App\Models\Image;
 use App\Models\Video;
 use App\Models\Document;
 use App\Models\Question;
+use App\Models\QuestionEssay;
 use App\Models\User;
+use App\Models\Subject;
 use Illuminate\Http\Request;
 
 class QuestionController extends Controller
@@ -29,17 +31,21 @@ class QuestionController extends Controller
      */
     public function index()
     {
+        $questionEssays = QuestionEssay::latest()->when(request()->q, function($questions) {
+            $questions = $questions->where('detail', 'like', '%'. request()->q . '%');
+        })->paginate(10);
         $questions = Question::latest()->when(request()->q, function($questions) {
             $questions = $questions->where('detail', 'like', '%'. request()->q . '%');
         })->paginate(10);
 
+        $subject = new Subject();
         $video = new Video();
         $audio = new Audio();
         $document = new Document();
         $image = new Image();
         $user = new User();
 
-        return view('questions.index', compact('questions', 'video', 'audio', 'document', 'image', 'user'));
+        return view('questions.index', compact('questions','questionEssays', 'video', 'audio', 'document', 'image', 'user','subject'));
     }
 
     /**
