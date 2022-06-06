@@ -39,8 +39,9 @@
                             <thead>
                             <tr>
                                 <th scope="col" style="text-align: center;width: 6%">NO.</th>
-                                <th scope="col">NAMA USER</th>
-                                <th scope="col">ROLE</th>
+                                <th scope="col">NAMA</th>
+                                <th scope="col">NO. WA</th>
+                                <th scope="col">ALAMAT</th>
                                 <th scope="col" style="width: 15%;text-align: center">AKSI</th>
                             </tr>
                             </thead>
@@ -51,24 +52,25 @@
                             @if($role=='teacher')
                                 <tr>
                                     <th scope="row" style="text-align: center">{{ ++$no + ($users->currentPage()-1) * $users->perPage() }}</th>
-                                    <td>{{ $user->username }}</td>
-                                    <td>
-                                        @if(!empty($user->getRoleNames()))
-                                            @foreach($user->getRoleNames() as $role)
-                                                <label class="badge badge-success">{{ $role }}</label>
-                                            @endforeach
+                                    @if(!empty($user->tentor->user_id))
+                                        <td>{{ $user->tentor->name }}</td>
+                                        <td>{{ $user->tentor->no_wa }}</td>
+                                        <td>{{ $user->tentor->alamat }}</td>
+                                        @elseif(empty($user->tentor->user_id))
+                                        <td>{{ $user->username }}</td>
+                                        <td></td>
+                                        <td></td>   
                                         @endif
-                                    </td>
                                     <td class="text-center">
-                                        <a href="showTentor/{{ $user->id }}" class="btn btn-sm btn-primary">
+                                        @if(!empty($user->tentor->user_id))
+                                            <a href="{{ route('edittTentor', $user->tentor->id) }}"  class="btn btn-sm btn-primary">
                                                 <i class="fa fa-pencil-alt"></i>
-                                            </a>    
-                                        <!-- @can('users.edit')
-                                            <a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-primary">
+                                            </a>  
+                                            @elseif(empty($user->tentor->user_id))
+                                            <a href="showTentor/{{ $user->id }}" class="btn btn-sm btn-primary">
                                                 <i class="fa fa-pencil-alt"></i>
-                                            </a>
-                                        @endcan -->
-                                        
+                                            </a>              
+                                            @endif                 
                                         @can('users.delete')
                                             <button onClick="Delete(this.id)" class="btn btn-sm btn-danger" id="{{ $user->id }}">
                                                 <i class="fa fa-trash"></i>

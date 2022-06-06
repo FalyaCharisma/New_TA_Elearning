@@ -40,8 +40,11 @@
                             <thead>
                             <tr>
                                 <th scope="col" style="text-align: center;width: 6%">NO.</th>
-                                <th scope="col">NAMA USER</th>
-                                <th scope="col">ROLE</th>
+                                <th scope="col">NAMA</th>
+                                <th scope="col">NAMA TENTOR</th>
+                                <th scope="col">KELAS</th>
+                                <th scope="col">NO. WA</th>
+                                <th scope="col">ALAMAT</th>
                                 <th scope="col" style="width: 15%;text-align: center">AKSI</th>
                             </tr>
                             </thead>
@@ -52,25 +55,32 @@
                             @if($role=='student')
                                 <tr>
                                     <th scope="row" style="text-align: center">{{ ++$no + ($users->currentPage()-1) * $users->perPage() }}</th>
-                                    <td>{{ $user->username }}</td>
-                                    <td>
-                                        @if(!empty($user->getRoleNames()))
-                                            @foreach($user->getRoleNames() as $role)
-                                                <label class="badge badge-success">{{ $role }}</label>
-                                            @endforeach
+                                        @if(!empty($user->siswa->user_id))
+                                        <td>{{ $user->siswa->name }}</td>
+                                        <td>{{ $user->siswa->nama_tentor }}</td>
+                                        <td>{{ $user->siswa->kelas }}</td>
+                                        <td>{{ $user->siswa->no_wa }}</td>
+                                        <td>{{ $user->siswa->alamat }}</td>
+                                        @elseif(empty($user->siswa->user_id))
+                                        <td>{{ $user->username }}</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>   
                                         @endif
+                                    
                                     </td>
                                     <td class="text-center">
-                                        
+                                      
+                                            @if(!empty($user->siswa->user_id))
+                                            <a href="{{ route('edittSiswa', $user->siswa->id) }}" class="btn btn-sm btn-primary">
+                                                <i class="fa fa-pencil-alt"></i>
+                                            </a>  
+                                            @elseif(empty($user->siswa->user_id))
                                             <a href="showSiswa/{{ $user->id }}" class="btn btn-sm btn-primary">
                                                 <i class="fa fa-pencil-alt"></i>
                                             </a>              
-
-                                        <!-- @can('users.edit')
-                                            <a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-primary">
-                                                <i class="fa fa-pencil-alt"></i>
-                                            </a>
-                                        @endcan -->
+                                            @endif
                                         
                                         @can('users.delete')
                                             <button onClick="Delete(this.id)" class="btn btn-sm btn-danger" id="{{ $user->id }}">

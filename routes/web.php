@@ -71,6 +71,10 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('users/editSiswa/{id}', [UserController::class, 'editSiswa'])->name('users.editSiswa');
     Route::get('users/showTentor/{id}', [UserController::class, 'showTentor'])->name('users.showTentor');
     Route::post('users/dataTentor/{id}', [UserController::class, 'dataTentor'])->name('users.dataTentor');
+    Route::get('/users/tentor/edittTentor/{id}', [UserController::class, 'edittTentor'])->name('edittTentor');
+    Route::post('/users/tentor/updateTentor/{id}', [UserController::class, 'updateTentor'])->name('updateTentor');
+    Route::get('/users/siswa/edittSiswa/{id}', [UserController::class, 'edittSiswa'])->name('edittSiswa');
+    Route::post('/users/siswa/updateSiswa/{id}', [UserController::class, 'updateSiswa'])->name('updateSiswa');
     
     //images
     Route::resource('images', ImageController::class)->except([

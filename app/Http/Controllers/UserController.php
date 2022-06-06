@@ -11,21 +11,13 @@ use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
-    /**
-     * __construct
-     *
-     * @return void
-     */
+   
     public function __construct()
     {
-        $this->middleware(['permission:users.index|users.create|users.edit|users.delete|users.tentor|users.siswa|users.showSiswa|users.dataSiswa|users.showTentor|users.dataTentor']);
+        $this->middleware(['permission:users.index|users.create|users.edit|users.delete|users.tentor|users.siswa|users.showSiswa|users.dataSiswa|users.showTentor|users.dataTentor
+        |users.editSiswa']);
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $users = User::latest()->when(request()->q, function($users) {
@@ -35,11 +27,7 @@ class UserController extends Controller
         $kelas = new Kelas();
         return view('users.index', compact('users','roles', 'kelas'));
     }
-     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function tentor()
     { 
         $users = User::latest()->when(request()->q, function($users) {
@@ -58,14 +46,10 @@ class UserController extends Controller
         })->paginate(10);
         $roles = new Role();
         $kelas = new Kelas();
-        return view('users.siswa', compact('users','roles', 'kelas'));
+        $siswa = Siswa::latest()->get();
+        return view('users.siswa', compact('users','roles', 'kelas','siswa'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         $roles = Role::latest()->get();
@@ -74,12 +58,6 @@ class UserController extends Controller
 
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $this->validate($request, [
@@ -99,19 +77,13 @@ class UserController extends Controller
 
         if($user){
             //redirect dengan pesan sukses
-            return redirect()->route('users.index')->with(['success' => 'Data Berhasil Disimpan!']);
+            return redirect()->back()->with(['success' => 'Data Berhasil Disimpan!']);
         }else{
             //redirect dengan pesan error
-            return redirect()->route('users.index')->with(['error' => 'Data Gagal Disimpan!']);
+            return redirect()->back()->with(['error' => 'Data Gagal Disimpan!']);
         }
     }
 
-    /** 
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit(User $user)
     {
         $roles = Role::latest()->get();
@@ -119,13 +91,6 @@ class UserController extends Controller
         return view('users.edit', compact('user','kelass','roles'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, User $user)
     {
         $this->validate($request, [
@@ -165,7 +130,7 @@ class UserController extends Controller
         $tentor = Tentor::latest()->get();
         $user = User::findOrFail($id);
         $kelass = Kelas::latest()->get();
-        $siswa = Siswa::where('user_id', $id)->get();
+        $siswa = Siswa::latest()->get();
 
         return view('users.showSiswa', compact('user','siswa', 'kelass', 'tentor'));
     }
@@ -197,6 +162,27 @@ class UserController extends Controller
         }
     }
 
+    public function edittTentor($id){ 
+        $tentor = Tentor::findOrFail($id);
+        $user = User::latest()->get();
+        return view('users.edittTentor', compact('tentor','user'));
+    }
+    public function updateTentor(Request $request, $id){ 
+        $tentor = Tentor::find($id)->update($request->all());
+        return redirect()->route('users.tentor')->with(['success' => 'Data Berhasil Diupdate!']);
+    }
+
+    public function edittSiswa($id){ 
+        $siswa = Siswa::findOrFail($id);
+        $user = User::latest()->get();
+        $tentor = Tentor::latest()->get();
+        $kelass = Kelas::latest()->get();
+        return view('users.edittSiswa', compact('tentor','user','siswa','kelass'));
+    }
+    public function updateSiswa(Request $request, $id){ 
+        $siswa = Siswa::find($id)->update($request->all());
+        return redirect()->route('users.siswa')->with(['success' => 'Data Berhasil Diupdate!']);
+    }
     
     public function dataTentor(Request $request,$id){
     
@@ -214,12 +200,7 @@ class UserController extends Controller
             return redirect()->route('users.index')->with(['error' => 'Data Gagal Disimpan!']);
         }
     }
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy($id)
     {
         $user = User::findOrFail($id);

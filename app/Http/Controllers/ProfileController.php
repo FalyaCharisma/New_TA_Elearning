@@ -18,19 +18,8 @@ class ProfileController extends Controller
         return view('profile.index', compact('user'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request)
     {
-        // $this->validate($request, [
-        //     'name'      => 'required',
-        // ]);
-
         $user = User::where('id',Auth::user()->id)->first();
 
         if($request->input('password') == "") {
