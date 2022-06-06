@@ -38,15 +38,23 @@
                 </form>
                 <ul class="navbar-nav navbar-right">
 
-                    <li class="dropdown"><a href="#" data-toggle="dropdown"
+                    <li class="dropdown">
+                        <a href="#" data-toggle="dropdown"
                             class="nav-link dropdown-toggle nav-link-lg nav-link-user">
                             <i class="fas fa-user"></i>            
                             <div class="d-sm-none d-lg-inline-block">Hi, {{ auth()->user()->username }}</div>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
+                        @can('profile.edit')
                         <a href="{{ url('profile') }}" class="dropdown-item has-icon text-danger">
                                 <i class="fas fa-pencil-alt"></i> Edit Profil
                         </a>
+                        @endcan
+                        @can('profile.editTentor')
+                        <a href="{{ url('profile') }}" class="dropdown-item has-icon text-danger">
+                                <i class="fas fa-pencil-alt"></i> Edit Profil
+                        </a>
+                        @endcan
                             <a href="{{ route('logout') }}" style="cursor: pointer" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();"
                                 class="dropdown-item has-icon text-danger">
