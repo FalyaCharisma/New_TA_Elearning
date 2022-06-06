@@ -15,13 +15,7 @@ class CreateEvaluasisTable extends Migration
     {
         Schema::create('evaluasis', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_tentor');
-            $table->string('nama_siswa');
-            $table->integer('penilaian_id')->unsigned();
-            $table->string('kualitas');
-            $table->string('pembelajaran');
-            $table->string('isi');
-            $table->timestamps(); 
+            $table->timestamps();
         });
     }
 

@@ -56,12 +56,12 @@
                                     <td>{{ $penilaian->time }}</td>
                                     <td>{{ $penilaian->total_pertanyaan }}</td>
                                     <td>{{ TanggalID($penilaian->start) }}</td>
-                                    <td>{{ TanggalID($penilaian->end) }}</td>
+                                    <td>{{ TanggalID($penilaian->end) }}</td> 
                                     <td class="text-center">
                                     @hasrole('student')
-                                    @if($evaluasis->nama_siswa == Auth::user()->username && $penilaian->id==$evaluasis->penilaian_id)
-                                    Sudah Dikerjakan
-                                    @else
+                                    @if($evaluasis->nama_siswa == Auth::user()->siswa->name)
+                                    Sudah Dikerjakan 
+                                    @elseif($evaluasis->nama_siswa != Auth::user()->siswa->name)
                                     <a href="{{ route('penilaian.show', $penilaian->id) }}" class="btn btn-sm btn-info"> <i class="fa fa-eye"></i></a>
                                     @endif               
                                     @endhasrole

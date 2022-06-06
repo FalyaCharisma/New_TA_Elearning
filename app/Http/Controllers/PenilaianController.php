@@ -44,9 +44,10 @@ class PenilaianController extends Controller
         }
         
         $user = new User();
+        $siswa = Siswa::latest()->get();
         $evaluasis = new Evaluasi(); 
 
-        return view('penilaian.index', compact('penilaian','user', 'evaluasis'));
+        return view('penilaian.index', compact('penilaian','user', 'evaluasis','siswa'));
     }
 
     /**
