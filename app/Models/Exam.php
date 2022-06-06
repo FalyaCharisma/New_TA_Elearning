@@ -23,6 +23,10 @@ class Exam extends Model
     public function questions(){
         return $this->belongsToMany(Question::class)->withTimestamps();
     }
+    
+    public function questionEssays(){
+        return $this->belongsToMany(QuestionEssay::class)->withTimestamps();
+    }
 
 
 }

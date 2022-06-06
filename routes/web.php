@@ -2,13 +2,16 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ExamController;
+use App\Http\Controllers\ExamEssayController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AudioController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\VideoController;
+use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\QuestionController;
+use App\Http\Controllers\QuestionEssayController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\KelasController;
@@ -21,9 +24,10 @@ use App\Http\Controllers\FotoController;
 use App\Http\Controllers\DiskusiController;
 use App\Http\Controllers\PenilaianController;
 use App\Http\Controllers\SoalPenilaianController;
+use App\Http\Controllers\ExportController;
 use App\Models\Exam;
 use App\Models\Penilaian;
-use App\Http\Controllers\ExportController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -111,6 +115,9 @@ Route::group(['middleware' => 'auth'], function(){
         'show'
     ]);
 
+    //question essays
+    Route::resource('question_essays', QuestionEssayController::class);
+
     //materi
     Route::resource('materi', MateriController::class);
     Route::get('materi/showMateri/{id}', [MateriController::class, 'showMateri'])->name('materi.showMateri');
@@ -153,6 +160,16 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('exams/student/{id}', [ExamController::class, 'student'])->name('exams.student');
     Route::put('exams/assign/{id}', [ExamController::class, 'assign'])->name('exams.assign');
     Route::get('/exams/review/{user_id}/{exam_id}', [ExamController::class, 'review'])->name('exams.review');
+
+    //exams essay
+    Route::resource('exam_essays', ExamEssayController::class)->except([
+        'index'
+    ]); 
+    Route::get('/exam_essays/result/{score}/{user_id}/{exam_id}', [ExamEssayController::class, 'result'])->name('exam_essays.result');
+    Route::get('/exam_essays/start/{id}', [ExamEssayController::class, 'start'])->name('exam_essays.start');
+    Route::get('exam_essays/student/{id}', [ExamEssayController::class, 'student'])->name('exam_essays.student');
+    Route::put('exam_essays/assign/{id}', [ExamEssayController::class, 'assign'])->name('exam_essays.assign');
+    Route::get('/exam_essays/review/{user_id}/{exam_id}', [ExamEssayController::class, 'review'])->name('exam_essays.review');
 
     //penilaian
     Route::resource('penilaian', PenilaianController::class); 

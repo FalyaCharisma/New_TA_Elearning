@@ -47,7 +47,7 @@ class User extends Authenticatable
     }
 
     public function getName($id){
-        return $this->where('id',$id)->value('name');
+        return $this->where('id',$id)->value('username');
     }
 
     public function getScore($user_id, $exam_id){

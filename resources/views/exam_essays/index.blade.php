@@ -15,13 +15,13 @@
                 </div>
 
                 <div class="card-body">
-                    <form action="{{ route('exams.index') }}" method="GET">
+                    <form action="{{ route('exam_essays.index') }}" method="GET">
                         @hasanyrole('teacher|admin')
                         <div class="form-group">
                             <div class="input-group mb-3">
-                                @can('exams.create')
+                                @can('exam_essays.create')
                                     <div class="input-group-prepend">
-                                        <a href="{{ route('exams.create') }}" class="btn btn-primary" style="padding-top: 10px;"><i class="fa fa-plus-circle"></i> TAMBAH</a>
+                                        <a href="{{ route('exam_essays.create') }}" class="btn btn-primary" style="padding-top: 10px;"><i class="fa fa-plus-circle"></i> TAMBAH</a>
                                     </div>
                                 @endcan
                                 <input type="text" class="form-control" name="q"
@@ -54,9 +54,9 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach ($exams as $no => $exam)
+                            @foreach ($exam_essays as $no => $exam)
                                 <tr>
-                                    <th scope="row" style="text-align: center">{{ ++$no + ($exams->currentPage()-1) * $exams->perPage() }}</th>
+                                    <th scope="row" style="text-align: center">{{ ++$no + ($exam_essays->currentPage()-1) * $exam_essays->perPage() }}</th>
                                     <td>{{ $exam->name }}</td>
                                     <td>{{ $exam->time }}</td>
                                     <td>{{ $exam->questions->count() }}</td>
@@ -64,27 +64,27 @@
                                     <td>{{ $exam->users->count() }}</td>
                                     @endhasanyrole
                                     @hasrole('student')
-                                    {{-- <td>{{  $user->getScore(Auth()->id(), $exam->id) !== null ? $user->getScore(Auth()->id(), $exam->id) : "Belum dikerjakan"  }}</td> --}}
+                                    <td>{{  $user->getScore(Auth()->id(), $exam->id) !== null ? $user->getScore(Auth()->id(), $exam->id) : "Belum dikerjakan"  }}</td>
                                     @endhasrole
                                     <td>{{ TanggalID($exam->start) }}</td>
                                     <td>{{ TanggalID($exam->end) }}</td>
                                     <td class="text-center">
-                                        <a href="{{ route('exams.show', $exam->id) }}" class="btn btn-sm btn-info">
+                                        <a href="{{ route('exam_essays.show', $exam->id) }}" class="btn btn-sm btn-info">
                                             <i class="fa fa-eye"></i>
                                         </a>
-                                        @can('exams.edit')
-                                            <a href="{{ route('exams.edit', $exam->id) }}" class="btn btn-sm btn-primary">
+                                        @can('exam_essays.edit')
+                                            <a href="{{ route('exam_essays.edit', $exam->id) }}" class="btn btn-sm btn-primary">
                                                 <i class="fa fa-pencil-alt"></i>
                                             </a>
                                         @endcan
                                         
                                         @hasanyrole('teacher|admin')
-                                        <a href="{{ route('exams.student', $exam->id) }}" class="btn btn-sm btn-primary">
+                                        <a href="{{ route('exam_essays.student', $exam->id) }}" class="btn btn-sm btn-primary">
                                             <i class="fa fa-door-open"></i>
                                         </a>
                                         @endhasanyrole
                                         
-                                        @can('exams.delete')
+                                        @can('exam_essays.delete')
                                             <button onClick="Delete(this.id)" class="btn btn-sm btn-danger" id="{{ $exam->id }}">
                                                 <i class="fa fa-trash"></i>
                                             </button>
@@ -95,13 +95,12 @@
                             </tbody>
                         </table>
                         <div style="text-align: center">
-                            {{$exams->links("vendor.pagination.bootstrap-4")}}
+                            {{$exam_essays->links("vendor.pagination.bootstrap-4")}}
                         </div>
                     </div>
                 </div>
-                
                 <div class="card-body">
-                    <form action="{{ route('exams.index') }}" method="GET">
+                    <form action="{{ route('exam_essays.index') }}" method="GET">
                         @hasanyrole('teacher|admin')
                         <div class="form-group">
                             <div class="input-group mb-3">
@@ -140,38 +139,38 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach ($exam_essays as $no => $exam_essay)
+                            @foreach ($exam_essays as $no => $exam)
                                 <tr>
                                     <th scope="row" style="text-align: center">{{ ++$no + ($exam_essays->currentPage()-1) * $exam_essays->perPage() }}</th>
-                                    <td>{{ $exam_essay->name }}</td>
-                                    <td>{{ $exam_essay->time }}</td>
-                                    <td>{{ $exam_essay->questions->count() }}</td>
+                                    <td>{{ $exam->name }}</td>
+                                    <td>{{ $exam->time }}</td>
+                                    <td>{{ $exam->questions->count() }}</td>
                                     @hasanyrole('teacher|admin')
-                                    <td>{{ $exam_essay->users->count() }}</td>
+                                    <td>{{ $exam->users->count() }}</td>
                                     @endhasanyrole
                                     @hasrole('student')
-                                    <td>{{  $user->getScore(Auth()->id(), $exam_essay->id) !== null ? $user->getScore(Auth()->id(), $exam_essay->id) : "Belum dikerjakan"  }}</td>
+                                    <td>{{  $user->getScore(Auth()->id(), $exam->id) !== null ? $user->getScore(Auth()->id(), $exam->id) : "Belum dikerjakan"  }}</td>
                                     @endhasrole
-                                    <td>{{ TanggalID($exam_essay->start) }}</td>
-                                    <td>{{ TanggalID($exam_essay->end) }}</td>
+                                    <td>{{ TanggalID($exam->start) }}</td>
+                                    <td>{{ TanggalID($exam->end) }}</td>
                                     <td class="text-center">
-                                        <a href="{{ route('exam_essays.show', $exam_essay->id) }}" class="btn btn-sm btn-info">
+                                        <a href="{{ route('exam_essays.show', $exam->id) }}" class="btn btn-sm btn-info">
                                             <i class="fa fa-eye"></i>
                                         </a>
                                         @can('exam_essays.edit')
-                                            <a href="{{ route('exam_essays.edit', $exam_essay->id) }}" class="btn btn-sm btn-primary">
+                                            <a href="{{ route('exam_essays.edit', $exam->id) }}" class="btn btn-sm btn-primary">
                                                 <i class="fa fa-pencil-alt"></i>
                                             </a>
                                         @endcan
                                         
                                         @hasanyrole('teacher|admin')
-                                        <a href="{{ route('exam_essays.student', $exam_essay->id) }}" class="btn btn-sm btn-primary">
+                                        <a href="{{ route('exam_essays.student', $exam->id) }}" class="btn btn-sm btn-primary">
                                             <i class="fa fa-door-open"></i>
                                         </a>
                                         @endhasanyrole
                                         
                                         @can('exam_essays.delete')
-                                            <button onClick="Delete(this.id)" class="btn btn-sm btn-danger" id="{{ $exam_essay->id }}">
+                                            <button onClick="Delete(this.id)" class="btn btn-sm btn-danger" id="{{ $exam->id }}">
                                                 <i class="fa fa-trash"></i>
                                             </button>
                                         @endcan
