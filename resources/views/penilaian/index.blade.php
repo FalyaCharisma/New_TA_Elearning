@@ -34,7 +34,7 @@
                         </div>
                         @endhasanyrole
                     </form>
-                    @hasanyrole('admin|student')
+                    @hasrole('admin')
                     <div class="table-responsive">
                         <table class="table table-bordered">
                             <thead>
@@ -56,16 +56,8 @@
                                     <td>{{ $penilaian->time }}</td>
                                     <td>{{ $penilaian->total_pertanyaan }}</td>
                                     <td>{{ TanggalID($penilaian->start) }}</td>
-                                    <td>{{ TanggalID($penilaian->end) }}</td> 
-                                    <td class="text-center">
-                                    @hasrole('student')
-                                    @if($evaluasis->nama_siswa == Auth::user()->siswa->name)
-                                    Sudah Dikerjakan 
-                                    @elseif($evaluasis->nama_siswa != Auth::user()->siswa->name)
-                                    <a href="{{ route('penilaian.show', $penilaian->id) }}" class="btn btn-sm btn-info"> <i class="fa fa-eye"></i></a>
-                                    @endif               
-                                    @endhasrole
-                                       
+                                    <td>{{ TanggalID($penilaian->end) }}</td>
+                                    <td class="text-center">                   
                                         @can('penilaian.edit')
                                             <a href="{{ route('penilaian.edit', $penilaian->id) }}" class="btn btn-sm btn-primary">
                                                 <i class="fa fa-pencil-alt"></i>
@@ -88,8 +80,43 @@
                         </table>
                       
                     </div>
-                    @endhasanyrole
-                   
+                    @endhasrole
+                    @can('penilaian.lihat')
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                          
+                                <th scope="col">NAME</th>
+                                <th scope="col">TIME</th>
+                                <th scope="col">TOTAL PERTANYAAN</th>
+                                <th scope="col">START</th>
+                                <th scope="col">END</th>
+                                <th scope="col" style="width: 15%;text-align: center">AKSI</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach ($penilaian as $no => $penilaian)
+                                <tr>
+                                    
+                                    <td>{{ $penilaian->name }}</td>
+                                    <td>{{ $penilaian->time }}</td>
+                                    <td>{{ $penilaian->total_pertanyaan }}</td>
+                                    <td>{{ TanggalID($penilaian->start) }}</td>
+                                    <td>{{ TanggalID($penilaian->end) }}</td>
+                                    <td class="text-center">
+                           
+                              
+                                    <a href="{{ route('penilaian.show', $penilaian->id) }}" class="btn btn-sm btn-info"> <i class="fa fa-eye"></i></a>
+                       
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                      
+                    </div>
+                    @endcan
                 </div>
             </div>
         </div>

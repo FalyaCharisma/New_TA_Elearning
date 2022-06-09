@@ -31,7 +31,7 @@
             <label>NAMA TENTOR</label>
             @foreach ($siswa as $no => $siswa)
             @if(Auth::user()->id == $siswa->user_id)
-                <input type="text" name="nama_tentor" value="{{ $siswa->nama_tentor }}" class="form-control" >
+                <input type="text" name="nama_tentor" value="{{ $siswa->nama_tentor }}" class="form-control" disabled>
             @endif
             @endforeach
             @error('nama_tentor')

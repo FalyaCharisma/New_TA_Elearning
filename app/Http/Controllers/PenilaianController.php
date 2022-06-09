@@ -22,7 +22,7 @@ class PenilaianController extends Controller
      */
     public function __construct()
     {
-        $this->middleware(['permission:penilaian.index|penilaian.create|penilaian.edit|penilaian.delete|penilaian.riwayat']);
+        $this->middleware(['permission:penilaian.index|penilaian.create|penilaian.edit|penilaian.delete|penilaian.riwayat|penilaian.lihat|penilaian.admin']);
     }
 
     /**
@@ -44,10 +44,9 @@ class PenilaianController extends Controller
         }
         
         $user = new User();
-        $siswa = Siswa::latest()->get();
-        $evaluasis = new Evaluasi(); 
+        $evaluasis = Evaluasi::where('penilaian_id','user_id')->get();
 
-        return view('penilaian.index', compact('penilaian','user', 'evaluasis','siswa'));
+        return view('penilaian.index', compact('penilaian','user','evaluasis'));
     }
 
     /**
@@ -150,8 +149,7 @@ class PenilaianController extends Controller
      */
     public function show(penilaian $penilaian)
     {
-        
-        return view('penilaian.show', compact('penilaian'));
+           return view('penilaian.show', compact('penilaian'));
     }
 
     /**
@@ -189,7 +187,7 @@ class PenilaianController extends Controller
  
         $evaluasis = Evaluasi::create([
             'nama_tentor'     => $request->input('nama_tentor'),
-            'nama_siswa'      => Auth::user()->username,
+            'user_id'      => Auth()->id(), 
             'penilaian_id'    => $id,
             'kualitas'        => $request->input('kualitas'),
             'pembelajaran'    => $request->input('pembelajaran'),
@@ -206,12 +204,24 @@ class PenilaianController extends Controller
         }
     }
 
+
     public function riwayat($id)
     {
         $penilaian = Penilaian::findOrFail($id);
         $evaluasis = Evaluasi::where('penilaian_id', $id)->get();
+        $siswa = Siswa::where('user_id', $id)->get();
 
-        return view('penilaian.riwayat', compact('penilaian','evaluasis'));
+        return view('penilaian.riwayat', compact('penilaian','evaluasis','siswa'));
+    }
+
+    public function lihat()
+    {
+        $penilaian = Penilaian::latest()->get();
+        $user=  User::latest()->get();
+        // $evaluasis = Evaluasi::where('penilaian_id', $penilaian_id, 'user_id', $user_id)->get();
+        $evaluasis = Evaluasi::latest()->get();
+
+        return view('penilaian.lihat', compact('penilaian','evaluasis','user'));
     }
 
 }

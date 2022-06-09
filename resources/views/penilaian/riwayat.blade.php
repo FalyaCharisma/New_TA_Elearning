@@ -49,7 +49,7 @@
                                     <td>{{ $evaluasi->kualitas }}</td>
                                     <td>{{ $evaluasi->pembelajaran }}</td>
                                     <td>{{ $evaluasi->isi }}</td>
-                                    <td>{{ $evaluasi->nama_siswa }}</td>
+                                    <td>{{ $evaluasi->user->siswa->name }}</td>
                                     <td>{{ $evaluasi->created_at }}</td>
                                 </tr>
                             @endforeach
