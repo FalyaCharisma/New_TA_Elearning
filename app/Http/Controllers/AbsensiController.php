@@ -86,9 +86,8 @@ class AbsensiController extends Controller
 		return Excel::download(new AbsensiExport, 'absensi.xlsx');
 	}
 
-    public function ExportPDF()
-    {
-        $absens = Absensi::orderBy('name')->get();
+    public function cetakAbsensiPertanggalPDF($start_date, $end_date){
+        $absens = Absensi::latest()->get()->whereBetween('created_at',[$start_date, $end_date]);
         $pdf = PDF::loadView('absensi.absensi', compact('absens'));
         $pdf->download('rekapan.pdf');
         return $pdf->stream();
