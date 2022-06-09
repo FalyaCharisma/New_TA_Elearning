@@ -16,11 +16,10 @@ class CreateAbsensisTable extends Migration
         Schema::create('absensis', function (Blueprint $table) {
             $table->id();
             $table->string('keterangan');
-            $table->string('path');
-            $table->string('name');
+            $table->unsignedBigInteger('user_id');
             $table->string('link');
             $table->timestamps();
-        });
+        }); 
     }
 
     /**

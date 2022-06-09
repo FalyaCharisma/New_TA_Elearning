@@ -23,7 +23,7 @@ class AbsensiController extends Controller
     {
         $absens = Absensi::latest()->when(request()->q, function($absens) {
             $absens = $absens->where('name', 'like', '%'. request()->q . '%');
-        })->paginate(10);
+        })->paginate(10); 
         return view('absensi.tentor', compact('absens'));
     }
  
@@ -31,8 +31,9 @@ class AbsensiController extends Controller
     {
         $absens = Absensi::latest()->when(request()->q, function($absens) {
             $absens = $absens->where('name', 'like', '%'. request()->q . '%');
-        })->paginate(10);
-        return view('absensi.riwayat', compact('absens'));
+        })->paginate(10); 
+        $tentor = Tentor::where('user_id', $id)->get();
+        return view('absensi.riwayat', compact('absens','tentor'));
     }
 
     public function index(){
@@ -44,26 +45,29 @@ class AbsensiController extends Controller
 
     public function store(Request $request)
     {
-        $validateData = $request->validate([
+        $this->validate($request, [
             'keterangan'   => 'required',
             'image'        => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
         ]);
-     
-        $link = $request->file('image')->hashName();
-        $path = $request->file('image')->store('public/absensis');
-        $keterangan = $request->input('keterangan');
-        $name = Auth::user()->name;
 
-        $save = new Absensi;
- 
-        $save->link = $link;
-        $save->path = $path;
-        $save->keterangan = $keterangan;
-        $save->name = $name;
-        $save->save();
+        $image = $request->file('image');
+        $image->storeAs('public/absensis', $image->hashName());
+        // $path = $request->file('image')->store('public/absensis');
 
-        return redirect()->route('absensi.index')->with(['success' => 'Data Berhasil Disimpan!']);
-    }
+        $image = Absensi::create([
+            'keterangan' => $request->input('keterangan'),
+            'link'      => $image->hashName(),
+            'user_id'   => Auth()->id(),
+        ]);
+
+        if($image){
+            //redirect dengan pesan sukses
+            return redirect()->route('absensi.index')->with(['success' => 'Data Berhasil Disimpan!']);
+        }else{
+            //redirect dengan pesan error
+            return redirect()->route('absensi.index')->with(['error' => 'Data Gagal Disimpan!']);
+        }
+    } 
     
     public function destroy($id)
     {

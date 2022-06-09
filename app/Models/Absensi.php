@@ -17,7 +17,6 @@ class Absensi extends Model
      */
     protected $guarded = [];
     protected $table = 'absensis';
-    public $timestamps = false;
 
     public function getLink($id){
         return $this->where('id',$id)->value('link');
