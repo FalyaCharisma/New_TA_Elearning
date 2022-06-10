@@ -186,7 +186,6 @@ class PenilaianController extends Controller
     { 
  
         $evaluasis = Evaluasi::create([
-            'nama_tentor'     => $request->input('nama_tentor'),
             'user_id'      => Auth()->id(), 
             'penilaian_id'    => $id,
             'kualitas'        => $request->input('kualitas'),

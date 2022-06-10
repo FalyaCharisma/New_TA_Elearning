@@ -13,7 +13,7 @@ class Evaluasi extends Model
      *
      * @var array
      */
-    protected $fillable = ['nama_tentor', 'user_id', 'penilaian_id', 'pembelajaran', 'kualitas', 'isi'];
+    protected $fillable = ['user_id', 'penilaian_id', 'pembelajaran', 'kualitas', 'isi'];
 
     public function penilaian(){
         return $this->belongsTo(Penilaian::class)->withTimestamps();

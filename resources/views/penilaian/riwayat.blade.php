@@ -45,7 +45,7 @@
                             @foreach ($evaluasis as $no => $evaluasi)
                                 <tr>
                                     
-                                    <td>{{ $evaluasi->nama_tentor }}</td>
+                                    <td>{{ $evaluasi->user->siswa->nama_tentor }}</td>
                                     <td>{{ $evaluasi->kualitas }}</td>
                                     <td>{{ $evaluasi->pembelajaran }}</td>
                                     <td>{{ $evaluasi->isi }}</td>
