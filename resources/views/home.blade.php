@@ -1,23 +1,107 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
-
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    {{ __('You are logged in!') }}
-                </div>
-            </div>
+<div class="main-content">
+    <section class="section">
+        <div class="section-header">
+            <h1>Dashboard</h1>
         </div>
-    </div>
+        @hasanyrole('teacher')
+        <div class="card">
+          <div class="col-md-12">
+            <div class="card-header">
+              <h4>Informasi</h4>
+            </div>
+            @foreach($informasi as $informasi)
+            <div class="card-body">
+              {{ $informasi->isi_informasi }}<hr>
+              {{ $informasi->created_at }}
+            </div>
+            @endforeach
+          </div> 
+        </div>
+        @endhasrole
+        @hasanyrole('admin')
+          <div class="row">
+          <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+              <div class="card card-statistic-1">
+                <div class="card-icon bg-warning">
+                  <i class="fa fa-users text-white fa-2x"></i>
+                </div>
+                <div class="card-wrap">
+                  <div class="card-header">
+                    <h4>SISWA</h4>
+                  </div>
+                  <div class="card-body">
+                    {{ App\Models\User::role('student')->count() ?? '0' }}
+                  </div>
+                </div>
+              </div>
+            </div>   
+            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+              <div class="card card-statistic-1">
+                <div class="card-icon bg-success">
+                  <i class="fa fa-users text-white fa-2x"></i>
+                </div>
+                <div class="card-wrap">
+                  <div class="card-header">
+                    <h4>TENTOR</h4>
+                  </div>
+                  <div class="card-body">
+                    {{ App\Models\User::role('teacher')->count() ?? '0' }}
+                  </div>
+                </div>
+              </div>
+            </div>   
+          <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+              <div class="card card-statistic-1">
+                <div class="card-icon bg-primary">
+                  <i class="fa fa-book text-white fa-2x"></i>
+                </div>
+                <div class="card-wrap">
+                  <div class="card-header">
+                    <h4>MATA PELAJARAN</h4>
+                  </div>
+                  <div class="card-body">
+                    {{ App\Models\mataPelajaran::count() ?? '0' }}
+                  </div>
+                </div>
+              </div>
+            </div>  
+            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+              <div class="card card-statistic-1">
+                <div class="card-icon bg-danger">
+                  <i class="fa fa-graduation-cap text-white fa-2x"></i>
+                </div>
+                <div class="card-wrap">
+                  <div class="card-header">
+                    <h4>KELAS</h4>
+                  </div>
+                  <div class="card-body">
+                    {{ App\Models\Kelas::count() ?? '0' }}
+                  </div>
+                </div>
+              </div>
+            </div>              
+          </div>
+        @endhasrole
+        @hasrole('student')
+        <div class="card">
+          <div class="col-md-12">
+            <div class="card-header">
+              <h4>Informasi</h4>
+            </div>
+            @foreach($informasi as $informasi)
+            <div class="card-body">
+              {{ $informasi->isi_informasi }}<hr>
+              {{ $informasi->created_at }}
+            </div>
+            @endforeach
+          </div> 
+        </div>
+        @endhasrole
+
+       
+    </section>
 </div>
 @endsection
