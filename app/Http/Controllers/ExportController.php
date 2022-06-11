@@ -10,9 +10,9 @@ use App\Exports\AbsensiExport;
 
 class ExportController extends Controller
 {
-    public function export_excel()
+    public function export_excel(Request $request)
     {
-        $absensis = Absensi::orderBy('name')->get();
-        return Excel::download(new AbsensiExport, 'absensi.xlsx');
+        $absens = Absensi::orderBy('created_at')->get();
+        return Excel::download(new AbsensiExport($request->start_date, $request->end_date), 'absensi.xlsx');
     }
 }

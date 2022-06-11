@@ -105,9 +105,9 @@
                             <div class="input-group mb-3">
                                 <input type="date" class="form-control" name="start_date" id="start_date">
                                 <input type="date" class="form-control" name="end_date" id="end_date">
-                                        <!-- <a href="" onclick="this.href='/absensi/export_excel/'+ document.getElementById('start_date').value +
-                                        '/' + document.getElementById('end_date').value " target="_blank" class="btn btn-success" style="padding-top: 8px;"> Cetak Excel</a> -->
-                                <a href="/absensi/export_excel" class="btn btn-success" style="padding-top: 10px; margin-left: 5px;"> Cetak Excel</a>
+                                <a href="" onclick="this.href='/absensi/export_excel/'+ document.getElementById('start_date').value +
+                                        '/' + document.getElementById('end_date').value " target="_blank" class="btn btn-success" style="padding-top: 8px;"> Cetak Excel</a>
+                               
                                 <a href="" onclick="this.href='/absensi/exportPDF/'+ document.getElementById('start_date').value +
                                         '/' + document.getElementById('end_date').value " target="_blank" class="btn btn-danger" style="padding-top: 10px; margin-left: 5px;"> Cetak PDF</a>
                             </div>

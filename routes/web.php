@@ -126,7 +126,8 @@ Route::group(['middleware' => 'auth'], function(){
     Route::resource('absensi', AbsensiController::class)->except([
         'show', 'create', 'edit', 'update'
     ]);
-    Route::get('/absensi/export_excel', [ExportController::class, 'export_excel'])->name('absensi.export_excel');
+
+    Route::get('/absensi/export_excel/{start_date}/{end_date}', [ExportController::class, 'export_excel'])->name('absensi.export_excel');
     Route::get('/absensi/exportPDF/{start_date}/{end_date}', [AbsensiController::class, 'cetakAbsensiPertanggalPDF'])->name('absensi.exportPDF');
 
 
