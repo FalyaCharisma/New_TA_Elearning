@@ -15,21 +15,12 @@ use Illuminate\Support\Facades\Auth;
 
 class PenilaianController extends Controller
 {
-     /**
-     * __construct
-     *
-     * @return void
-     */
+    
     public function __construct()
     {
         $this->middleware(['permission:penilaian.index|penilaian.create|penilaian.edit|penilaian.delete|penilaian.riwayat|penilaian.lihat|penilaian.admin']);
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $currentUser = User::findOrFail(Auth()->id());
@@ -44,27 +35,16 @@ class PenilaianController extends Controller
         }
         
         $user = new User();
-        $evaluasis = Evaluasi::where('penilaian_id','user_id')->get();
+        $evaluasis = Evaluasi::latest()->get();
 
         return view('penilaian.index', compact('penilaian','user','evaluasis'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         return view('penilaian.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $this->validate($request, [
@@ -93,26 +73,11 @@ class PenilaianController extends Controller
         }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit(penilaian $penilaian)
-    {
-      
-        
+    {   
         return view('penilaian.edit', compact('penilaian'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, penilaian $penilaian)
     {
         $this->validate($request, [
@@ -141,23 +106,12 @@ class PenilaianController extends Controller
         }
     }
 
-    /**
-     * Show the form for detailing the specified resource. 
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show(penilaian $penilaian)
     {
-           return view('penilaian.show', compact('penilaian'));
+        $evaluasis = Evaluasi::where('user_id', Auth()->id())->where('penilaian_id', $penilaian->id)->first();
+        return view('penilaian.show', compact('penilaian', 'evaluasis'));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         $penilaian = Penilaian::findOrFail($id);
@@ -217,7 +171,6 @@ class PenilaianController extends Controller
     {
         $penilaian = Penilaian::latest()->get();
         $user=  User::latest()->get();
-        // $evaluasis = Evaluasi::where('penilaian_id', $penilaian_id, 'user_id', $user_id)->get();
         $evaluasis = Evaluasi::latest()->get();
 
         return view('penilaian.lihat', compact('penilaian','evaluasis','user'));

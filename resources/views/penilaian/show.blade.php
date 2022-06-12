@@ -1,3 +1,6 @@
+<?php
+$valSt = false;
+?>
 @extends('layouts.app')
 
 @section('content')
@@ -24,12 +27,16 @@
                     </ul>
                 </div>
                 <div class="card-footer">
-                    @if (now() > $penilaian->start && now()  < $penilaian->end)
-                        <a href="{{ route('penilaian.start', $penilaian->id) }}" class="btn btn-primary btn-lg btn-block" role="button" aria-pressed="true">START</a>
-                    @elseif (now() < $penilaian->start)
-                    <a onclick="goBack()" class="btn btn-warning btn-lg btn-block" role="button" aria-pressed="true">UJIAN BELUM DIBUKA - KEMBALI</a>
-                    @elseif(now() > $penilaian->end)
-                    <a onclick="goBack()" class="btn btn-danger btn-lg btn-block" role="button" aria-pressed="true">UJIAN SUDAH DITUTUP - KEMBALI</a>
+                @if($evaluasis)
+                    <a onclick="goBack()" class="btn btn-danger btn-lg btn-block" role="button" aria-pressed="true">PENGISIAN HANYA SEKALI - KEMBALI</a>
+                    @else
+                        @if (now() > $penilaian->start && now()  < $penilaian->end)
+                            <a href="{{ route('penilaian.start', $penilaian->id) }}" class="btn btn-primary btn-lg btn-block" role="button" aria-pressed="true">START</a>
+                        @elseif (now() < $penilaian->start)
+                            <a onclick="goBack()" class="btn btn-warning btn-lg btn-block" role="button" aria-pressed="true">UJIAN BELUM DIBUKA - KEMBALI</a>
+                        @elseif(now() > $penilaian->end)
+                            <a onclick="goBack()" class="btn btn-danger btn-lg btn-block" role="button" aria-pressed="true">UJIAN SUDAH DITUTUP - KEMBALI</a>
+                        @endif
                     @endif
                 </div>
             </div>

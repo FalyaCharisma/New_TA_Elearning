@@ -1,3 +1,4 @@
+
 @extends('layouts.app')
 
 @section('content')
@@ -105,10 +106,7 @@
                                     <td>{{ TanggalID($penilaian->start) }}</td>
                                     <td>{{ TanggalID($penilaian->end) }}</td>
                                     <td class="text-center">
-                           
-                              
                                     <a href="{{ route('penilaian.show', $penilaian->id) }}" class="btn btn-sm btn-info"> <i class="fa fa-eye"></i></a>
-                       
                                     </td>
                                 </tr>
                             @endforeach
