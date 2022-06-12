@@ -38,7 +38,7 @@ class Student extends Component
             return view('livewire.student', [
                 'students' => User::role('student')->latest()
                                 ->when($this->q != null, function($users) {
-                                    $users = $users->role('student')->where('name', 'like', '%'. $this->p . '%');
+                                    $users = $users->role('student')->where('username', 'like', '%'. $this->p . '%');
                                     })
                                     ->paginate(5),
                 ]);
@@ -46,7 +46,7 @@ class Student extends Component
             return view('livewire.student', [
                 'students' => User::role('student')->latest()
                                 ->when($this->q != null, function($users) {
-                                    $users = $users->role('student')->where('name', 'like', '%'. $this->p . '%');
+                                    $users = $users->role('student')->where('username', 'like', '%'. $this->p . '%');
                                     })
                                     ->whereNotIn('id', $this->selectedStudent)
                                     ->paginate(5),
