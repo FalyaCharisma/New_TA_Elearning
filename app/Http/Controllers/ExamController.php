@@ -60,8 +60,16 @@ class ExamController extends Controller
             })->paginate(10);
             $exam_essays = Exam::where('type_exam','essay')->paginate(10);        
         }elseif($currentUser->hasRole('student')){
-            $exams = Exam::where('type_exam','ganda')->paginate(10);
-            $exam_essays = Exam::where('type_exam','essay')->paginate(10);            
+            // $exams = Exam::where('type_exam','ganda')->paginate(10);
+            // $exam_essays = Exam::where('type_exam','essay')->paginate(10);   
+            
+            $exams = Exam::whereHas('users',function(Builder $query){
+                $query->where('user_id',Auth()->id())->where('type_exam', 'ganda');
+            })->paginate(10);
+            $exam_essays = Exam::whereHas('users',function(Builder $query){
+                $query->where('user_id',Auth()->id())->where('type_exam', 'essay');
+            })->paginate(10);
+            
         }elseif($currentUser->hasRole('teacher')){
             // perlu ada perbaikan query hanya soal yang dibuat oleh akun perorangan
             $exams = Exam::where('type_exam','ganda')->paginate(10);
