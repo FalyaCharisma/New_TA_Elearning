@@ -72,8 +72,12 @@ class ExamController extends Controller
             
         }elseif($currentUser->hasRole('teacher')){
             // perlu ada perbaikan query hanya soal yang dibuat oleh akun perorangan
-            $exams = Exam::where('type_exam','ganda')->paginate(10);
-            $exam_essays = Exam::where('type_exam','essay')->paginate(10);            
+            $exams = Exam::where('created_by', Auth()->id())->latest()->when(request()->q, function ($exams) {
+                $exams = $exams->where('created_by', Auth()->id())->where('name', 'like', '%' . request()->q . '%');
+            })->where('type_exam', 'ganda')->paginate(10);
+            $exam_essays = Exam::where('created_by', Auth()->id())->latest()->when(request()->q, function ($exam_essays) {
+                $exam_essays = $exam_essays->where('created_by', Auth()->id())->where('name', 'like', '%' . request()->q . '%');
+            })->where('type_exam', 'essay')->paginate(10);          
         }
         
         $user = new User();
