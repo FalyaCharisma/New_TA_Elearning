@@ -36,7 +36,7 @@
         <br>
         <div>
             <textarea name="" class="{{ in_array($question['id'].'-'.$question['option_A'], $essayAnswers) ? 'btn btn-success border border-secondary rounded' : 'btn btn-light border border-secondary rounded' }}" 
-            wire:click="answers({{$question['id']}},'{{$question['']}}')" id="" cols="50" rows="10">
+            wire:model="answers({{$question['id']}},'{{$question['']}}')" id="" cols="50" rows="10">
         </textarea>
         </div>
         {{-- <div class="btn-group-vertical" role="group" aria-label="Basic example">
