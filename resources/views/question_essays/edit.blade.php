@@ -37,7 +37,7 @@
                             @enderror
                         </div>
 
-                        {{-- <div class="row">
+                        <div class="row">
                             <div class="col-3">
                                 <div class="form-group">
                                     <label>VIDEO</label>
@@ -121,10 +121,10 @@
                                     @enderror
                                 </div>
                             </div>
-                        </div> --}}
+                        </div>
 
-                        {{-- <div class="form-group">
-                            <label>DETAIL</label>
+                        <div class="form-group">
+                            <label>PERTANYAAN</label>
                             <textarea name="detail" cols="30" rows="30" class="form-control">{{ old('detail', $questionEssay->detail) }}</textarea>
                             @error('detail')
                             <div class="invalid-feedback" style="display: block">
@@ -134,10 +134,9 @@
                         </div>
 
                         <div class="form-group">
-                            <label>OPTION A</label>
-                            <input type="text" name="option_A" value="{{ old('option_A', $questionEssay->option_A) }}" class="form-control" >
-
-                            @error('option_A')
+                            <label>JAWABAN</label>
+                            <textarea name="answer" cols="30" rows="30" class="form-control">{{ old('answer', $questionEssay->answer) }}</textarea>
+                            @error('answer')
                             <div class="invalid-feedback" style="display: block">
                                 {{ $message }}
                             </div>
@@ -145,54 +144,9 @@
                         </div>
 
                         <div class="form-group">
-                            <label>OPTION B</label>
-                            <input type="text" name="option_B" value="{{ old('option_B', $question->option_B) }}" class="form-control" >
-
-                            @error('option_B')
-                            <div class="invalid-feedback" style="display: block">
-                                {{ $message }}
-                            </div>
-                            @enderror
-                        </div>
-
-                        <div class="form-group">
-                            <label>OPTION C</label>
-                            <input type="text" name="option_C" value="{{ old('option_C', $question->option_C) }}" class="form-control" >
-
-                            @error('option_C')
-                            <div class="invalid-feedback" style="display: block">
-                                {{ $message }}
-                            </div>
-                            @enderror
-                        </div>
-
-                        <div class="form-group">
-                            <label>OPTION D</label>
-                            <input type="text" name="option_D" value="{{ old('option_D', $question->option_D) }}" class="form-control" >
-
-                            @error('option_D')
-                            <div class="invalid-feedback" style="display: block">
-                                {{ $message }}
-                            </div>
-                            @enderror
-                        </div>
-
-                        <div class="form-group">
-                            <label>OPTION E</label>
-                            <input type="text" name="option_E" value="{{ old('option_E', $question->option_E) }}" class="form-control" >
-
-                            @error('option_E')
-                            <div class="invalid-feedback" style="display: block">
-                                {{ $message }}
-                            </div>
-                            @enderror
-                        </div> --}}
-
-                        <div class="form-group">
-                            <label>QUESTION</label>
-                            <input type="text" name="detail" value="{{ old('detail', $questionEssay->detail) }}" class="form-control" >
-
-                            @error('detail')
+                            <label>PENJELASAN</label>
+                            <textarea name="explanation" cols="30" rows="30" class="form-control">{{ old('explanation', $questionEssay->explanation) }}</textarea>
+                            @error('explanation')
                             <div class="invalid-feedback" style="display: block">
                                 {{ $message }}
                             </div>
