@@ -64,25 +64,31 @@
                                     <td>{{ $exam->users->count() }}</td>
                                     @endhasanyrole
                                     @hasrole('student')
-                                    {{-- <td>{{  $user->getScore(Auth()->id(), $exam->id) !== null ? $user->getScore(Auth()->id(), $exam->id) : "Belum dikerjakan"  }}</td> --}}
+                                    <td>{{  $user->getScore(Auth()->id(), $exam->id) !== null ? $user->getScore(Auth()->id(), $exam->id) : "Belum dikerjakan"  }}</td>
                                     @endhasrole
                                     <td>{{ TanggalID($exam->start) }}</td>
                                     <td>{{ TanggalID($exam->end) }}</td>
                                     <td class="text-center">
+                                    @hasrole('student')
+                                        @if($user->getScore(Auth()->id(), $exam->id) !== null)
+                                        <a href="{{ route('exams.review', [Auth()->id(), $exam->id]) }}" class="btn btn-sm btn-info"> <i class="fa fa-eye"></i></a>          
+                                        @elseif($user->getScore(Auth()->id(), $exam->id) === null)
                                         <a href="{{ route('exams.show', $exam->id) }}" class="btn btn-sm btn-info">
-                                            <i class="fa fa-eye"></i>
-                                        </a>
+                                                <i class="fa fa-eye"></i>
+                                            </a>
+                                        @endif
+                                    @endhasrole
                                         @can('exams.edit')
                                             <a href="{{ route('exams.edit', $exam->id) }}" class="btn btn-sm btn-primary">
                                                 <i class="fa fa-pencil-alt"></i>
                                             </a>
                                         @endcan
                                         
-                                        @hasanyrole('teacher|admin')
+                                        @hasrole('teacher')
                                         <a href="{{ route('exams.student', $exam->id) }}" class="btn btn-sm btn-primary">
                                             <i class="fa fa-door-open"></i>
                                         </a>
-                                        @endhasanyrole
+                                        @endhasrole
                                         
                                         @can('exams.delete')
                                             <button onClick="Delete(this.id)" class="btn btn-sm btn-danger" id="{{ $exam->id }}">

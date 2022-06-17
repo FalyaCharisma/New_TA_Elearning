@@ -69,9 +69,16 @@
                                     <td>{{ TanggalID($exam_essay->start) }}</td>
                                     <td>{{ TanggalID($exam_essay->end) }}</td>
                                     <td class="text-center">
-                                        <a href="{{ route('exam_essays.show', $exam_essay->id) }}" class="btn btn-sm btn-info">
+                                    @hasrole('student')
+                                    @if($user->getScore(Auth()->id(), $exam_essay->id) !== null)
+                                    <a href="{{ route('exam_essays.review', [Auth()->id(), $exam_essay->id]) }}" class="btn btn-sm btn-info"> <i class="fa fa-eye"></i></a>          
+                                    @elseif($user->getScore(Auth()->id(), $exam_essay->id) === null)
+                                    <a href="{{ route('exam_essays.show', $exam_essay->id) }}" class="btn btn-sm btn-info">
                                             <i class="fa fa-eye"></i>
                                         </a>
+                                    @endif
+                                    
+                                    @endhasrole
                                         @can('exam_essays.edit')
                                             <a href="{{ route('exam_essays.edit', $exam_essay->id) }}" class="btn btn-sm btn-primary">
                                                 <i class="fa fa-pencil-alt"></i>
@@ -79,11 +86,11 @@
                                             
                                         @endcan
                                         
-                                        @hasanyrole('teacher|admin')
+                                        @hasrole('teacher')
                                         <a href="{{ route('exam_essays.student', $exam_essay->id) }}" class="btn btn-sm btn-primary">
                                             <i class="fa fa-door-open"></i>
                                         </a>
-                                        @endhasanyrole
+                                        @endhasrole
                                         
                                         @can('exam_essays.delete')
                                             <button onClick="Delete(this.id)" class="btn btn-sm btn-danger" id="{{ $exam_essay->id }}">

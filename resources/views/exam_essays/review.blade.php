@@ -13,7 +13,7 @@
         <div class="section-body">
             
             
-            @livewire('review', ['user_id' => $userId, 'exam_id' => $examId])
+            @livewire('review-essay', ['user_id' => $userId, 'exam_id' => $examId])
             
         </div>
     </section>
