@@ -11,16 +11,16 @@
 
             <div class="card">
                 <div class="card-header">
-                    <h4><i class="fas fa-exam"></i> {{  $exam->name }} </h4>
+                    <h4><i class="fas fa-exam"></i> {{  $exam_essay->name }} </h4>
                 </div>
 
                 <div class="card-body">
                    
-                    <form action="{{ route('exams.assign', $exam->id) }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('exams.assign', $exam_essay->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
 
-                        @livewire('student', ['selectedExam' => $exam->id])
+                        @livewire('student', ['selectedExam' => $exam_essay->id])
 
                         <button class="btn btn-primary mr-1 btn-submit" type="submit"><i class="fa fa-paper-plane"></i>
                             SIMPAN</button>

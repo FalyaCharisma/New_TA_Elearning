@@ -10,60 +10,98 @@
             </div>
         </div>
     </div>
-    @foreach ($questions as $question)
+    @php
+        $count = 1;
+    @endphp
+    @foreach ($questions as $index => $question)
     <div class="card-body">
-        <b>Soal Essay No. {{ $questions->currentPage() }}</b>
+        <b>Soal No. {{ $count++ }}</b>
         <p>{{ $question['detail'] }}</p>
-            {{-- @if ($question['video_id'])
-                <video width="320" height="240" controls>
-                    <source src="{{ Storage::url('public/videos/'.$video->getLink($question['video_id'])) }}" type="video/mp4">
-                    <source src="{{ Storage::url('public/videos/'.$video->getLink($question['video_id'])) }}" type="video/mpeg">
+        @if ($question['video_id'])
+                <video width="160" height="120" controls>
+                    <source src="{{ asset('storage/public/videos/'. $video->getLink($question['video_id'])) }}" type="video/mp4">
+                    <source src="{{ asset('storage/public/videos/'. $video->getLink($question['video_id'])) }}" type="video/mpeg">
                 </video>
             @elseif($question['audio_id'])
                 <audio width="160" height="120" controls>
-                    <source src="{{ Storage::url('public/audios/'.$audio->getLink($question['audio_id'])) }}" type="audio/mp3">
-                    <source src="{{ Storage::url('public/audios/'.$audio->getLink($question['audio_id'])) }}" type="audio/wav">
+                    <source src="{{ asset('storage/public/audios/'.$audio->getLink($question['audio_id'])) }}" type="audio/mp3">
+                    <source src="{{ asset('storage/public/audios/'.$audio->getLink($question['audio_id'])) }}" type="audio/wav">
                 </audio>
             @elseif($question['document_id'])
-                <a href=" {{ Storage::url('public/documents/'.$document->getLink($question['document_id'])) }}">DOCUMENT</a>
+                <a href=" {{ asset('storage/public/documents/'.$document->getLink($question['document_id'])) }}">DOCUMENT</a>
             @elseif($question['image_id'])
-            <img src="{{ Storage::url('public/images/'.$image->getLink($question['image_id'])) }}" style="width: 600px">
+            <img src="{{ asset('storage/public/images/'.$image->getLink($question['image_id'])) }}" style="width: 150px">
+            @elseif ($question['video_id'] && $question['audio_id'])
+                <video width="160" height="120" controls>
+                    <source src="{{ asset('storage/public/videos/'. $video->getLink($question['video_id'])) }}" type="video/mp4">
+                    <source src="{{ asset('storage/public/videos/'. $video->getLink($question['video_id'])) }}" type="video/mpeg">
+                </video>
+                <audio width="160" height="120" controls>
+                    <source src="{{ asset('storage/public/audios/'.$audio->getLink($question['audio_id'])) }}" type="audio/mp3">
+                    <source src="{{ asset('storage/public/audios/'.$audio->getLink($question['audio_id'])) }}" type="audio/wav">
+                </audio>
+            @elseif ($question['video_id'] && $question['document_id'])
+                <video width="160" height="120" controls>
+                    <source src="{{ asset('storage/public/videos/'. $video->getLink($question['video_id'])) }}" type="video/mp4">
+                    <source src="{{ asset('storage/public/videos/'. $video->getLink($question['video_id'])) }}" type="video/mpeg">
+                </video>
+                <a href=" {{ asset('storage/public/documents/'.$document->getLink($question['document_id'])) }}">DOCUMENT</a>
+            @elseif ($question['video_id'] && $question['image_id'])
+                <video width="160" height="120" controls>
+                    <source src="{{ asset('storage/public/videos/'. $video->getLink($question['video_id'])) }}" type="video/mp4">
+                    <source src="{{ asset('storage/public/videos/'. $video->getLink($question['video_id'])) }}" type="video/mpeg">
+                </video>
+                <img src="{{ asset('storage/public/images/'.$image->getLink($question['image_id'])) }}" style="width: 150px">
+            @elseif($question['audio_id'] && $question['document_id'])
+                <audio width="160" height="120" controls>
+                    <source src="{{ asset('storage/public/audios/'.$audio->getLink($question['audio_id'])) }}" type="audio/mp3">
+                    <source src="{{ asset('storage/public/audios/'.$audio->getLink($question['audio_id'])) }}" type="audio/wav">
+                </audio>
+                <a href=" {{ asset('storage/public/documents/'.$document->getLink($question['document_id'])) }}">DOCUMENT</a>
+            @elseif($question['audio_id'] && $question['image_id'])
+                <audio width="160" height="120" controls>
+                    <source src="{{ asset('storage/public/audios/'.$audio->getLink($question['audio_id'])) }}" type="audio/mp3">
+                    <source src="{{ asset('storage/public/audios/'.$audio->getLink($question['audio_id'])) }}" type="audio/wav">
+                </audio>
+                <img src="{{ asset('storage/public/images/'.$image->getLink($question['image_id'])) }}" style="width: 150px">
+            @elseif($question['document_id'] && $question['image_id'])
+                <a href=" {{ asset('storage/public/documents/'.$document->getLink($question['document_id'])) }}">DOCUMENT</a>
+                <img src="{{ asset('storage/public/images/'.$image->getLink($question['image_id'])) }}" style="width: 150px">
             @else
-                NO
-            @endif --}}
+                
+            @endif
         <br>
-        <i>Isilah jawaban anda dibawah ini </i> 
+        <i>Tulis jawaban dibawah ini:</i> 
         <br>
-        <div>
-            <textarea name="" class="{{ in_array($question['id'].'-'.$question['option_A'], $essayAnswers) ? 'btn btn-success border border-secondary rounded' : 'btn btn-light border border-secondary rounded' }}" 
-            wire:model="answers({{$question['id']}},'{{$question['']}}')" id="" cols="50" rows="10">
-        </textarea>
-        </div>
-        {{-- <div class="btn-group-vertical" role="group" aria-label="Basic example">
-            <button type="button" class="{{ in_array($question['id'].'-'.$question['option_A'], $essayAnswers) ? 'btn btn-success border border-secondary rounded' : 'btn btn-light border border-secondary rounded' }}"
-            wire:click="answers({{ $question['id'] }}, '{{ $question['option_A'] }}')"><p class="text-left"><b> A. {{ $question['option_A'] }} </b></p></button>
-            <button type="button" class="{{ in_array($question['id'].'-'.$question['option_B'], $essayAnswers) ? 'btn btn-success border border-secondary rounded' : 'btn btn-light border border-secondary rounded' }}"
-            wire:click="answers({{ $question['id'] }}, '{{ $question['option_B'] }}')"><p class="text-left"><b> B. {{ $question['option_B'] }} </b></p></button>
-            <button type="button" class="{{ in_array($question['id'].'-'.$question['option_C'], $essayAnswers) ? 'btn btn-success border border-secondary rounded' : 'btn btn-light border border-secondary rounded' }}"
-            wire:click="answers({{ $question['id'] }}, '{{ $question['option_C'] }}')"><p class="text-left"><b> C. {{ $question['option_C'] }} </b></p></button>
-            <button type="button" class="{{ in_array($question['id'].'-'.$question['option_D'], $essayAnswers) ? 'btn btn-success border border-secondary rounded' : 'btn btn-light border border-secondary rounded' }}"
-            wire:click="answers({{ $question['id'] }}, '{{ $question['option_D'] }}')"><p class="text-left"><b> D. {{ $question['option_D'] }} </b></p></button>
-            <button type="button" class="{{ in_array($question['id'].'-'.$question['option_E'], $essayAnswers) ? 'btn btn-success border border-secondary rounded' : 'btn btn-light border border-secondary rounded' }}"
-            wire:click="answers({{ $question['id'] }}, '{{ $question['option_E'] }}')"><p class="text-left"><b> E. {{ $question['option_E'] }} </b></p></button>
-        </div> --}}
-        
+      
+        <form action="" method="POST">
+        @csrf
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-10" wire:ignore>
+                        <textarea type="text" id="jawaban_siswa"  wire:model="jawaban_siswa.{{$index}}" name="jawaban_siswa"
+                            class="form-control @error('jawaban_siswa') is-invalid @enderror"> 
+                        </textarea>         
+                    </div>
+                </div>
+            </div>
+        </form>   
     </div>
     @endforeach
 
+    {{-- @foreach ($jawaban_siswa as $item)
+        {{ $item }}
+    @endforeach --}}
+    
     <div class="d-flex justify-content-center">
         {{$questions->links()}}
     </div>
     <div class="card-footer">
-        @if ($questions->currentPage() == $questions->lastPage())
-            <button wire:click="submitAnswers" class="btn btn-primary btn-lg btn-block">Submit</button>
-        @endif
+            <button wire:click="submitAnswers" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#mdlSimpan">Submit</button> 
     </div>
 </div>
+
+
 
 <script>
     var add_minutes =  function (dt, minutes) {
