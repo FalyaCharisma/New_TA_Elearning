@@ -190,6 +190,11 @@
                                         <span>Soal Esai</span></a>
                                 </li>
                             @endcan
+                            @can('subjects.index')
+                                <li class="{{ setActive('/subject') }}"><a class="nav-link"
+                                        href="{{ route('subjects.index') }}"><i class="fas fa-atlas"></i>
+                                        <span>Subject</span></a></li>
+                            @endcan
                             @can('images.index')
                                 <li class="{{ setActive('/image') }}"><a class="nav-link"
                                         href="{{ route('images.index') }}"><i class="fas fa-image"></i>

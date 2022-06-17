@@ -100,6 +100,11 @@ Route::group(['middleware' => 'auth'], function(){
         'show', 'create', 'edit', 'update'
     ]);
 
+     //subjects
+    Route::resource('subjects', SubjectController::class)->except([
+        'show', 'create', 'edit', 'update'
+    ]);
+
     //kelas
     Route::resource('kelas', KelasController::class)->except([
         'show', 'create', 'edit', 'update'
