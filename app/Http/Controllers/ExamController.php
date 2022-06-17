@@ -257,4 +257,12 @@ class ExamController extends Controller
         return view('exams.review', compact('userId', 'examId'));
     }
 
+    public function riwayat(Request $request, $id)
+    {
+        $exam = Exam::findOrFail($id);
+        $users = new User();
+
+        return view('exams.riwayat', compact('exam','users'));
+    }
+
 }

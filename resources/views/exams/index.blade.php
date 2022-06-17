@@ -88,6 +88,7 @@
                                         <a href="{{ route('exams.student', $exam->id) }}" class="btn btn-sm btn-primary">
                                             <i class="fa fa-door-open"></i>
                                         </a>
+                                        <a href="exams/riwayat/{{ $exam->id }}" class="btn btn-sm btn-primary"><i class="fa fa-list"></i></a>
                                         @endhasrole
                                         
                                         @can('exams.delete')

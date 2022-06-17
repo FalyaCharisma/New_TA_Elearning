@@ -162,6 +162,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('exams/student/{id}', [ExamController::class, 'student'])->name('exams.student');
     Route::put('exams/assign/{id}', [ExamController::class, 'assign'])->name('exams.assign');
     Route::get('/exams/review/{user_id}/{exam_id}', [ExamController::class, 'review'])->name('exams.review');
+    Route::get('exams/riwayat/{id}', [ExamController::class, 'riwayat'])->name('exams.riwayat');
 
     //exams essay
     Route::resource('exam_essays', ExamEssayController::class);
@@ -170,6 +171,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('exam_essays/student/{id}', [ExamEssayController::class, 'student'])->name('exam_essays.student');
     Route::put('exam_essays/assign/{id}', [ExamEssayController::class, 'assign'])->name('exam_essays.assign');
     Route::get('/exam_essays/review/{user_id}/{exam_id}', [ExamEssayController::class, 'review'])->name('exam_essays.review');
+    Route::get('exam_essays/riwayat/{id}', [ExamEssayController::class, 'riwayat'])->name('exam_essays.riwayat');
 
     //penilaian
     Route::resource('penilaian', PenilaianController::class); 

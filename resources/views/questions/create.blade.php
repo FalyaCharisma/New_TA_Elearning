@@ -169,7 +169,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label>ANSWER</label>
+                            <label>JAWABAN</label>
                             <input type="text" name="answer" value="{{ old('answer') }}" class="form-control" >
 
                             @error('answer')
@@ -180,9 +180,9 @@
                         </div>
 
                         <div class="form-group">
-                            <label>EXPLANATION</label>
-                            <textarea name="explanation" cols="30" rows="30" class="form-control">{{ old('explanation') }}</textarea>
-                            @error('explanation')
+                            <label>PENJELASAN</label>
+                            <textarea name="penjelasan" cols="30" rows="30" class="form-control">{{ old('penjelasan') }}</textarea>
+                            @error('penjelasan')
                             <div class="invalid-feedback" style="display: block">
                                 {{ $message }}
                             </div>

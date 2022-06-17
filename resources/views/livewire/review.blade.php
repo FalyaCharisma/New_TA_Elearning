@@ -59,7 +59,7 @@
                 <a href=" {{ asset('storage/public/documents/'.$document->getLink($question['document_id'])) }}">DOCUMENT</a>
                 <img src="{{ asset('storage/public/images/'.$image->getLink($question['image_id'])) }}" style="width: 150px">
             @else
-                NO
+
             @endif
         <br>
         <i>Pilih salah satu jawaban dibawah ini:</i> 
@@ -78,11 +78,11 @@
             wire:click="answers({{ $question['id'] }}, '{{ $question['option_E'] }}')"><p class="text-left"><b> E. {{ $question['option_E'] }} </b><i class="{{ $question['option_E'] == $question['answer'] ? 'fas fa-check' : ''  }}"></i></p></button>
         </div>
         <br><br>
-        <i>Pembahasan</i> 
+        <i>Pembahasan:</i> 
         <br>
        
-        <div class="alert alert-success" role="alert">
-            {{ $question['explanation'] }}
+        <div>
+            {{ $question['penjelasan'] }}
         </div>
         
     </div>

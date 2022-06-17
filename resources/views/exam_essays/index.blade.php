@@ -90,6 +90,7 @@
                                         <a href="{{ route('exam_essays.student', $exam_essay->id) }}" class="btn btn-sm btn-primary">
                                             <i class="fa fa-door-open"></i>
                                         </a>
+                                        <a href="exam_essays/riwayat/{{ $exam_essay->id }}" class="btn btn-sm btn-primary"><i class="fa fa-list"></i></a>
                                         @endhasrole
                                         
                                         @can('exam_essays.delete')

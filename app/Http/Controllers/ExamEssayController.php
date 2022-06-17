@@ -186,4 +186,16 @@ class ExamEssayController extends Controller
         return view('exam_essays.review', compact('userId', 'examId'));
     }
 
+    public function riwayat(Request $request, $id)
+    {
+        // $user = User::findOrFail($userId);
+        $exam_essay = Exam::findOrFail($id);
+        $users = new User();
+        
+        // $evaluasis = Evaluasi::where('penilaian_id', $id)->get();
+        // $siswa = Siswa::where('user_id', $id)->get();
+
+        return view('exam_essays.riwayat', compact('exam_essay','users'));
+    }
+
 }
