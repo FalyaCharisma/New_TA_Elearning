@@ -20,6 +20,10 @@ class Subject extends Model
         return $this->hasMany(Question::class);
     }
 
+    public function questionEssays(){
+        return $this->hasMany(QuestionEssay::class);
+    }
+
     public function getName($id){
         return $this->where('id',$id)->value('name');
     }

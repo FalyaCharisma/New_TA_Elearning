@@ -16,28 +16,15 @@ use Illuminate\Http\Request;
 class QuestionEssayController extends Controller
 {
 
-       /**
-     * __construct
-     *
-     * @return void
-     */
     public function __construct()
     {
         $this->middleware(['permission:question_essays.index|question_essays.create|question_essays.edit|question_essays.delete|question_essays.show']);
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $questionEssays = QuestionEssay::latest()->when(request()->q, function($questionEssays) {
             $questionEssays = $questionEssays->where('detail', 'like', '%'. request()->q . '%');
-        })->paginate(10);
-        $questions = Question::latest()->when(request()->q, function($questions) {
-            $questions = $questions->where('detail', 'like', '%'. request()->q . '%');
         })->paginate(10);
 
         $subject = new Subject();
@@ -47,36 +34,35 @@ class QuestionEssayController extends Controller
         $image = new Image();
         $user = new User();
 
-        return view('question_essays.index', compact('questions', 'questionEssays', 'subject', 'video', 'audio', 'document', 'image', 'user'));
+        return view('question_essays.index', compact('questionEssays', 'subject', 'video', 'audio', 'document', 'image', 'user'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         $subjects = Subject::latest()->get();
-        return view('question_essays.create', compact('subjects'));
+        $videos = Video::latest()->get();
+        $audios = Audio::latest()->get();
+        $images = Image::latest()->get();
+        $documents = Document::latest()->get();
+        return view('question_essays.create', compact('subjects','videos', 'audios', 'images', 'documents'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $this->validate($request, [
             'subject_id'  => 'required',           
-            'detail'      => 'required',            
+            'detail'      => 'required',    
         ]);
 
         $questionEssay = QuestionEssay::create([
             'subject_id'    => $request->input('subject_id'),
             'detail'        => $request->input('detail'),
+            'video_id'      => $request->input('video_id'),
+            'audio_id'      => $request->input('audio_id'),
+            'image_id'      => $request->input('image_id'),
+            'document_id'   => $request->input('document_id'),
+            'answer'        => $request->input('answer'),
+            'explanation'   => $request->input('explanation'),     
             'created_by'    => Auth()->id()
         ]);
         if($questionEssay){
@@ -88,41 +74,22 @@ class QuestionEssayController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\QuestionEssay  $questionEssay
-     * @return \Illuminate\Http\Response
-     */
     public function show(QuestionEssay $questionEssay)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\QuestionEssay  $questionEssay
-     * @return \Illuminate\Http\Response
-     */
     public function edit(QuestionEssay $questionEssay)
     {
         $subjects = Subject::latest()->get();
-        // $videos = Video::latest()->get();
-        // $audios = Audio::latest()->get();
-        // $images = Image::latest()->get();
-        // $documents = Document::latest()->get();
+        $videos = Video::latest()->get();
+        $audios = Audio::latest()->get();
+        $images = Image::latest()->get();
+        $documents = Document::latest()->get();
         return view('question_essays.edit', compact('subjects','questionEssay'));
     
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\QuestionEssay  $questionEssay
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, QuestionEssay $questionEssay)
     {
         $this->validate($request, [
@@ -147,12 +114,6 @@ class QuestionEssayController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\QuestionEssay  $questionEssay
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         $questionEssay = QuestionEssay::findOrFail($id);

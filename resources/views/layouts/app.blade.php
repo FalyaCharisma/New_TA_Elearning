@@ -168,7 +168,14 @@
                         @can('questions.index')
                         <li class="{{ setActive('/question') }}"><a class="nav-link"
                                 href="{{ route('questions.index') }}"><i class="fas fa-list"></i> 
-                                <span>Bank Soal</span></a>
+                                <span>Soal Pilihan Ganda</span></a>
+                        </li>
+                        @endcan
+
+                        @can('question_essays.index')
+                        <li class="{{ setActive('/question_essay') }}"><a class="nav-link"
+                                href="{{ route('question_essays.index') }}"><i class="fas fa-list"></i> 
+                                <span>Soal Esai</span></a>
                         </li>
                         @endcan
         

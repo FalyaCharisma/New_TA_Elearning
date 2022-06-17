@@ -104,9 +104,9 @@
                         </div>
 
                         <div class="form-group">
-                            <label>DETAIL</label>
-                            <textarea name="detail" cols="30" rows="30" class="form-control">{{ old('detail') }}</textarea>
-                            @error('detail')
+                            <label>PERTANYAAN</label>
+                            <textarea name="pertanyaan" cols="30" rows="30" class="form-control">{{ old('pertanyaan') }}</textarea>
+                            @error('pertanyaan')
                             <div class="invalid-feedback" style="display: block">
                                 {{ $message }}
                             </div>

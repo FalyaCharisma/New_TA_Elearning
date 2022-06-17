@@ -31,9 +31,6 @@ class QuestionController extends Controller
      */
     public function index()
     {
-        $questionEssays = QuestionEssay::latest()->when(request()->q, function($questions) {
-            $questions = $questions->where('detail', 'like', '%'. request()->q . '%');
-        })->paginate(10);
         $questions = Question::latest()->when(request()->q, function($questions) {
             $questions = $questions->where('detail', 'like', '%'. request()->q . '%');
         })->paginate(10);
@@ -45,7 +42,7 @@ class QuestionController extends Controller
         $image = new Image();
         $user = new User();
 
-        return view('questions.index', compact('questions','questionEssays', 'video', 'audio', 'document', 'image', 'user','subject'));
+        return view('questions.index', compact('questions', 'video', 'audio', 'document', 'image', 'user','subject'));
     }
 
     /**
@@ -55,11 +52,12 @@ class QuestionController extends Controller
      */
     public function create()
     {
+        $subjects = Subject::latest()->get();
         $videos = Video::latest()->get();
         $audios = Audio::latest()->get();
         $images = Image::latest()->get();
         $documents = Document::latest()->get();
-        return view('questions.create', compact( 'videos', 'audios', 'images', 'documents'));
+        return view('questions.create', compact( 'subjects','videos', 'audios', 'images', 'documents'));
     }
 
     /**
@@ -71,6 +69,7 @@ class QuestionController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
+            'subject_id'  => 'required',
             'pertanyaan'  => 'required',
             'option_A'    => 'required',
             'option_B'    => 'required',
@@ -78,6 +77,7 @@ class QuestionController extends Controller
         ]);
 
         $question = Question::create([
+            'subject_id'    => $request->input('subject_id'),
             'pertanyaan'    => $request->input('pertanyaan'),
             'option_A'      => $request->input('option_A'),
             'option_B'      => $request->input('option_B'),

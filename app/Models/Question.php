@@ -19,4 +19,9 @@ class Question extends Model
     public function exams(){
         return $this->belongsToMany(Exam::class)->withTimestamps();
     }
+
+    public function subject()
+    {
+        return $this->belongsTo(Subject::class);
+    }
 }
