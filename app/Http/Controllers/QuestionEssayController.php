@@ -86,7 +86,7 @@ class QuestionEssayController extends Controller
         $audios = Audio::latest()->get();
         $images = Image::latest()->get();
         $documents = Document::latest()->get();
-        return view('question_essays.edit', compact('subjects','questionEssay'));
+        return view('question_essays.edit', compact('subjects','questionEssay','videos','audios','images','documents'));
     
     }
 
@@ -102,6 +102,12 @@ class QuestionEssayController extends Controller
         $questionEssay->update([
             'subject_id'    => $request->input('subject_id'),
             'detail'        => $request->input('detail'),
+            'video_id'      => $request->input('video_id'),
+            'audio_id'      => $request->input('audio_id'),
+            'image_id'      => $request->input('image_id'),
+            'document_id'   => $request->input('document_id'),
+            'answer'        => $request->input('answer'),
+            'explanation'   => $request->input('explanation'),  
             'created_by'    => Auth()->id()
         ]);
 
@@ -116,11 +122,11 @@ class QuestionEssayController extends Controller
 
     public function destroy($id)
     {
-        $questionEssay = QuestionEssay::findOrFail($id);
-        $questionEssay->delete();
+        $questionEssays = QuestionEssay::findOrFail($id);
+        $questionEssays->delete();
 
 
-        if($questionEssay){
+        if($questionEssays){
             return response()->json([
                 'status' => 'success' 
             ]);

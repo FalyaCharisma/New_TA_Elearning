@@ -136,7 +136,7 @@
 
                     //ajax delete
                     jQuery.ajax({
-                        url: "{{ route("questions.index") }}/"+id,
+                        url: "{{ route("question_essays.index") }}/"+id,
                         data:   {
                             "id": id,
                             "_token": token
