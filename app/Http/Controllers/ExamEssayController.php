@@ -30,7 +30,7 @@ class ExamEssayController extends Controller
                 $exam_essays = $exam_essays->where('name', 'like', '%'. request()->q . '%');
             })->paginate(10);
         }elseif($currentUser->hasRole('student')){
-            $exam_essays = Exam::whereHas('users', function (Builder $query) {
+            $exam_essays = Exam::latest()->whereHas('users', function (Builder $query) {
                 $query->where('user_id', Auth()->id());
             })->paginate(10);
         }elseif($currentUser->hasRole('teacher')){
@@ -77,10 +77,10 @@ class ExamEssayController extends Controller
 
         if($exam_essays){
             //redirect dengan pesan sukses
-            return redirect()->route('exams.index')->with(['success' => 'Data Berhasil Disimpan!']);
+            return redirect()->route('exam_essays.index')->with(['success' => 'Data Berhasil Disimpan!']);
         }else{
             //redirect dengan pesan error
-            return redirect()->route('exams.index')->with(['error' => 'Data Gagal Disimpan!']);
+            return redirect()->route('exam_essays.index')->with(['error' => 'Data Gagal Disimpan!']);
         }
     }
 
@@ -131,12 +131,6 @@ class ExamEssayController extends Controller
         return view('exam_essays.show', compact('exam_essay', 'questions'));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         $exam = Exam::findOrFail($id);
@@ -173,17 +167,17 @@ class ExamEssayController extends Controller
 
     public function student($id)
     {
-        $exam = Exam::findOrFail($id);
-        return view('exam_essays.student', compact('exam'));
+        $exam_essay = Exam::findOrFail($id);
+        return view('exam_essays.student', compact('exam_essay'));
     }
 
     public function assign(Request $request, $id)
     {
-        $exam = Exam::findOrFail($id);
+        $exam_essay = Exam::findOrFail($id);
 
-        $exam->users()->sync($request->input('students'));
+        $exam_essay->users()->sync($request->input('students'));
 
-        return redirect('/exam_essays');
+        return view('exam_essays.index', compact('exam_essay'));
 
     }
 

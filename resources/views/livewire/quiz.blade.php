@@ -65,7 +65,7 @@
                 <a href=" {{ asset('storage/public/documents/'.$document->getLink($question['document_id'])) }}">DOCUMENT</a>
                 <img src="{{ asset('storage/public/images/'.$image->getLink($question['image_id'])) }}" style="width: 150px">
             @else
-                NO
+                
             @endif
         <br>
         <i>Pilih salah satu jawaban dibawah ini:</i> 

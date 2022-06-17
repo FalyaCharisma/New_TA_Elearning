@@ -64,7 +64,7 @@
                                     <td>{{ $exam_essay->users->count() }}</td>
                                     @endhasanyrole
                                     @hasrole('student')
-                                    <td>{{  $user->getScore(Auth()->id(), $exam->id) !== null ? $user->getScore(Auth()->id(), $exam->id) : "Belum dikerjakan"  }}</td>
+                                    <td>{{  $user->getScore(Auth()->id(), $exam_essay->id) !== null ? $user->getScore(Auth()->id(), $exam_essay->id) : "Belum dikerjakan"  }}</td>
                                     @endhasrole
                                     <td>{{ TanggalID($exam_essay->start) }}</td>
                                     <td>{{ TanggalID($exam_essay->end) }}</td>
