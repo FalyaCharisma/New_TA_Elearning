@@ -152,32 +152,70 @@
                                 <span>Materi</span></a>
                         </li>
                         @endcan
-                        
-                        @can('exams.index')
-                        <li class="{{ setActive('/exam') }}"><a class="nav-link"
-                                href="{{  route('exams.index') }}"><i class="fas fa-book-open"></i>
-                                <span>Ujian</span></a></li>
-                        @endcan
+                        @hasanyrole('teacher|student')
+                        <li
+                            class="dropdown {{ setActive('/exam'). setActive('exam_essay') }}">       
+                            <a href="#" class="nav-link has-dropdown"><i class="fas fa-edit"></i><span>Ujian</span></a> 
+                            <ul class="dropdown-menu">
+                            @can('exams.index')
+                                <li class="{{ setActive('/exam') }}"><a class="nav-link"
+                                        href="{{  route('exams.index') }}">
+                                        <span>Ujian</span></a></li>
+                            @endcan
 
-                        @can('exam_essays.index')
-                        <li class="{{ setActive('/exam_essay') }}"><a class="nav-link"
-                                href="{{  route('exam_essays.index') }}"><i class="fas fa-book-open"></i>
-                                <span>Ujian Esai</span></a></li>
-                        @endcan
-
-                        @can('questions.index')
-                        <li class="{{ setActive('/question') }}"><a class="nav-link"
-                                href="{{ route('questions.index') }}"><i class="fas fa-list"></i> 
-                                <span>Soal Pilihan Ganda</span></a>
+                            @can('exam_essays.index')
+                                <li class="{{ setActive('/exam_essay') }}"><a class="nav-link"
+                                        href="{{  route('exam_essays.index') }}">
+                                        <span>Ujian Esai</span></a></li>
+                            @endcan
+                            </ul>
                         </li>
-                        @endcan
+                        @endhasanyrole
 
-                        @can('question_essays.index')
-                        <li class="{{ setActive('/question_essay') }}"><a class="nav-link"
-                                href="{{ route('question_essays.index') }}"><i class="fas fa-list"></i> 
-                                <span>Soal Esai</span></a>
+                        @hasrole('teacher')
+                        <li
+                            class="dropdown {{ setActive('/question'). setActive('question_essay') }}">       
+                            <a href="#" class="nav-link has-dropdown"><i class="fas fa-list"></i><span>Bank Soal</span></a> 
+                            <ul class="dropdown-menu">
+                            @can('questions.index')
+                                <li class="{{ setActive('/question') }}"><a class="nav-link"
+                                        href="{{ route('questions.index') }}"><i class="fas fa-book"></i> 
+                                        <span>Soal Pilihan Ganda</span></a>
+                                </li>
+                            @endcan
+
+                            @can('question_essays.index')
+                                <li class="{{ setActive('/question_essay') }}"><a class="nav-link"
+                                        href="{{ route('question_essays.index') }}"><i class="fas fa-book-open"></i> 
+                                        <span>Soal Esai</span></a>
+                                </li>
+                            @endcan
+                            @can('images.index')
+                                <li class="{{ setActive('/image') }}"><a class="nav-link"
+                                        href="{{ route('images.index') }}"><i class="fas fa-image"></i>
+                                        <span>Image</span></a></li>
+                            @endcan
+
+                            @can('videos.index')
+                                <li class="{{ setActive('/video') }}"><a class="nav-link"
+                                        href="{{ route('videos.index') }}"><i class="fas fa-video"></i>
+                                        <span>Video</span></a></li>
+                            @endcan
+
+                            @can('audios.index')
+                                <li class="{{ setActive('/audio') }}"><a class="nav-link"
+                                        href="{{ route('audios.index') }}"><i class="fas fa-volume-up"></i>
+                                        <span>Audio</span></a></li>
+                            @endcan
+
+                            @can('documents.index')
+                                <li class="{{ setActive('/document') }}"><a class="nav-link"
+                                        href="{{ route('documents.index') }}"><i class="fas fa-file-word"></i>
+                                        <span>Document</span></a></li>
+                            @endcan
+                            </ul>
                         </li>
-                        @endcan
+                        @endhasrole
         
                         @can('diskusi.index')
                         <li class="{{ setActive('/diskusi') }}"><a class="nav-link"
@@ -196,40 +234,6 @@
                                 href="{{ route('absensi.index') }}"><i class="fas fa-clipboard-list"></i> 
                                 <span>Absensi</span></a>
                         </li>
-                        @endcan
-
-                        @can('events.index')
-                        <li class="{{ setActive('admin/event') }}"><a class="nav-link"
-                                href="#"><i class="fas fa-bell"></i>
-                                <span>Agenda</span></a></li>
-                        @endcan
-
-                        @if(auth()->user()->can('images.index') || auth()->user()->can('videos.index') || auth()->user()->can('audios.index') || auth()->user()->can('documents.index'))
-                        <li class="menu-header">GALERI</li>
-                        @endif
-                        
-                        @can('images.index')
-                        <li class="{{ setActive('/image') }}"><a class="nav-link"
-                                href="{{ route('images.index') }}"><i class="fas fa-image"></i>
-                                <span>Image</span></a></li>
-                        @endcan
-
-                        @can('videos.index')
-                        <li class="{{ setActive('/video') }}"><a class="nav-link"
-                                href="{{ route('videos.index') }}"><i class="fas fa-video"></i>
-                                <span>Video</span></a></li>
-                        @endcan
-
-                        @can('audios.index')
-                        <li class="{{ setActive('/audio') }}"><a class="nav-link"
-                                href="{{ route('audios.index') }}"><i class="fas fa-volume-up"></i>
-                                <span>Audio</span></a></li>
-                        @endcan
-
-                        @can('documents.index')
-                        <li class="{{ setActive('/document') }}"><a class="nav-link"
-                                href="{{ route('documents.index') }}"><i class="fas fa-file-word"></i>
-                                <span>Document</span></a></li>
                         @endcan
 
                     </ul>

@@ -30,7 +30,7 @@
                             @foreach ($exam->users as $no => $exam_user)
                                 <tr>            
                                     <td>{{ $users->getName($exam_user->pivot->user_id) }}</td>
-                                    @if( $exam_user->pivot->score == null)
+                                    @if( $exam_user->pivot->score === null)
                                     <td>Belum Dikerjakan</td>
                                     @else
                                     <td>{{ $exam_user->pivot->score }}</td>
