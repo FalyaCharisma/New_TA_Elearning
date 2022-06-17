@@ -13,6 +13,7 @@
 	</style>
 	<center>
 		<h5>LAPORAN ABSENSI TENTOR</h4>
+			<h6>Dari Tanggal : {{$startDate}} -- Sampai dengan Tanggal : {{$endDate}}</h6>
 	</center>
         <center>
 	<table class='table table-bordered'>
@@ -27,7 +28,7 @@
 		<tbody>
         @foreach ($absens as $no => $absensis)
         <tr>
-            <td>{{ $absensis->user->tentor->name }}</td>
+            <td>{{ $absensis->name }}</td>
             <!-- <td><img src="{{ asset('storage/public/absensis/'. $absensis->link) }}" width="150" ></td> -->
             <td>{{ $absensis->keterangan }}</td>
             <td>{{ $absensis->created_at }}</td>

@@ -11,6 +11,9 @@ use App\Exports\AbsensiExport;
 use App\Exports\Absensis;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\Controller;
+use Facade\Ignition\DumpRecorder\Dump;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Carbon;
 
 class AbsensiController extends Controller
 {
@@ -21,74 +24,85 @@ class AbsensiController extends Controller
 
     public function tentor()
     {
-        $absens = Absensi::latest()->when(request()->q, function($absens) {
-            $absens = $absens->where('name', 'like', '%'. request()->q . '%');
-        })->paginate(10); 
+        $absens = Absensi::latest()->when(request()->q, function ($absens) {
+            $absens = $absens->where('name', 'like', '%' . request()->q . '%');
+        })->paginate(10);
         return view('absensi.tentor', compact('absens'));
     }
- 
+
     public function riwayat()
     {
-        $absens = Absensi::latest()->when(request()->q, function($absens) {
-            $absens = $absens->where('name', 'like', '%'. request()->q . '%');
-        })->paginate(10); 
-        $tentor = Tentor::where('user_id', $id)->get();
-        return view('absensi.riwayat', compact('absens','tentor'));
+        $absens = Absensi::latest()->when(request()->q, function ($absens) {
+            $absens = $absens->where('name', 'like', '%' . request()->q . '%');
+        })->paginate(10);
+        return view('absensi.riwayat', compact('absens'));
     }
 
-    public function index(){
-        $absens = Absensi::latest()->when(request()->q, function($absens) {
-            $absens = $absens->where('name', 'like', '%'. request()->q . '%');
+    public function index()
+    {
+        $absens = Absensi::latest()->when(request()->q, function ($absens) {
+            $absens = $absens->where('name', 'like', '%' . request()->q . '%');
         })->paginate(10);
         return view('absensi.index', compact('absens'));
     }
 
     public function store(Request $request)
     {
-        $this->validate($request, [
+        $validateData = $request->validate([
             'keterangan'   => 'required',
             'image'        => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
         ]);
 
-        $image = $request->file('image');
-        $image->storeAs('public/absensis', $image->hashName());
-        // $path = $request->file('image')->store('public/absensis');
+        $link = $request->file('image')->hashName();
+        $path = $request->file('image')->store('public/absensis');
+        $keterangan = $request->input('keterangan');
+        $name = Auth::user()->name;
 
-        $image = Absensi::create([
-            'keterangan' => $request->input('keterangan'),
-            'link'      => $image->hashName(),
-            'user_id'   => Auth()->id(),
-        ]);
+        $save = new Absensi;
 
-        if($image){
-            //redirect dengan pesan sukses
-            return redirect()->route('absensi.index')->with(['success' => 'Data Berhasil Disimpan!']);
-        }else{
-            //redirect dengan pesan error
-            return redirect()->route('absensi.index')->with(['error' => 'Data Gagal Disimpan!']);
-        }
-    } 
-    
+        $save->link = $link;
+        $save->path = $path;
+        $save->keterangan = $keterangan;
+        $save->name = $name;
+        $save->save();
+
+        return redirect()->route('absensi.index')->with(['success' => 'Data Berhasil Disimpan!']);
+    }
+
     public function destroy($id)
     {
         $absens = Absensi::findOrFail($id);
         $absens->delete();
- 
-        if($absens){
+
+        if ($absens) {
             return response()->json([
                 'status' => 'success'
             ]);
-        }else{
+        } else {
             return response()->json([
                 'status' => 'error'
             ]);
         }
     }
 
-    public function cetakAbsensiPertanggalPDF($start_date, $end_date){
-        $absens = Absensi::latest()->get()->whereBetween('created_at',[$start_date, $end_date]);
-        $pdf = PDF::loadView('absensi.absensi', compact('absens'));
-        $pdf->download('rekapan.pdf');
+    public function export_excel(Request $request)
+    {        
+        $startDate = Carbon::parse(request()->input('startDate'))->toDateTimeString();
+        $endDate = Carbon::parse(request()->input('endDate'))->toDateTimeString();     
+        return Excel::download(new AbsensiExport('startDate', 'endDate'), 'absensiku.xlsx');
+    }
+
+    public function ExportPDF(Request $request)
+    {
+        if($request->startDate && $request->endDate){      
+        $startDate = Carbon::parse(request()->input('startDate'))->toDateTimeString();
+        $endDate = Carbon::parse(request()->input('endDate'))->toDateTimeString();
+        $absens = Absensi::whereBetween('created_at', [$startDate, $endDate])->get();
+        }else{
+            $absens = Absensi::all();
+        }       
+        $pdf = PDF::loadView('absensi.absensi', compact('absens','startDate','endDate'));
+        $pdf->stream('rekapan.pdf');
         return $pdf->stream();
     }
 }
