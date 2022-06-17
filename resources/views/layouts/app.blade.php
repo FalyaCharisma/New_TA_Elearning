@@ -159,6 +159,12 @@
                                 <span>Ujian</span></a></li>
                         @endcan
 
+                        @can('exam_essays.index')
+                        <li class="{{ setActive('/exam_essay') }}"><a class="nav-link"
+                                href="{{  route('exam_essays.index') }}"><i class="fas fa-book-open"></i>
+                                <span>Ujian Esai</span></a></li>
+                        @endcan
+
                         @can('questions.index')
                         <li class="{{ setActive('/question') }}"><a class="nav-link"
                                 href="{{ route('questions.index') }}"><i class="fas fa-list"></i> 

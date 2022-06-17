@@ -17,21 +17,11 @@ use Illuminate\Database\Eloquent\Builder;
 
 class ExamEssayController extends Controller
 {
-     /**
-     * __construct
-     *
-     * @return void
-     */
     public function __construct()
     {
         $this->middleware(['permission:exam_essays.index|exam_essays.create|exam_essays.edit|exam_essays.delete']);
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $currentUser = User::findOrFail(Auth()->id());
@@ -56,22 +46,11 @@ class ExamEssayController extends Controller
         return view('exam_essays.index', compact('exam_essays','user'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         return view('exam_essays.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $this->validate($request, [
@@ -83,7 +62,7 @@ class ExamEssayController extends Controller
             'type_exam'     => 'required'
         ]);
 
-        $exam = Exam::create([
+        $exam_essays = Exam::create([
             'name'          => $request->input('name'),
             'time'          => $request->input('time'),
             'total_question'=> $request->input('total_question'),
@@ -94,9 +73,9 @@ class ExamEssayController extends Controller
             'created_by'    => Auth()->id()
         ]);
 
-        $exam->questionEssays()->sync($request->input('questions'));
+        $exam_essays->questionEssays()->sync($request->input('questions'));
 
-        if($exam){
+        if($exam_essays){
             //redirect dengan pesan sukses
             return redirect()->route('exams.index')->with(['success' => 'Data Berhasil Disimpan!']);
         }else{
@@ -105,28 +84,14 @@ class ExamEssayController extends Controller
         }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(exam $exam)
+    public function edit(exam $exam_essay)
     {
-        $questions = $exam->questions()->where('exam_id', $exam->id)->get();
-        $questionEssays = $exam->questionEssays()->where('exam_id', $exam->id)->get();
+        $questionEssays = $exam_essay->questionEssays()->where('exam_id', $exam_essay->id)->get();
         
-        return view('exam_essays.edit', compact('exam', 'questions','questionEssays'));
+        return view('exam_essays.edit', compact('exam_essay','questionEssays'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, exam $exam)
+    public function update(Request $request, exam $exam_essay) 
     {
         $this->validate($request, [
             'name'          => 'required',
@@ -136,7 +101,7 @@ class ExamEssayController extends Controller
             'end'           => 'required'
         ]);
 
-        $exam->update([
+        $exam_essay->update([
             'name'          => $request->input('name'),
             'time'          => $request->input('time'),
             'total_question'=> $request->input('total_question'),
@@ -145,9 +110,9 @@ class ExamEssayController extends Controller
             'created_by'    => Auth()->id()
         ]);
 
-        $exam->questionEssays()->sync($request->input('questions'));
+        $exam_essay->questionEssays()->sync($request->input('questions'));
 
-        if($exam){
+        if($exam_essay){
             //redirect dengan pesan sukses
             return redirect()->route('exam_essays.index')->with(['success' => 'Data Berhasil Diupdate!']);
         }else{
@@ -156,12 +121,6 @@ class ExamEssayController extends Controller
         }
     }
 
-    /**
-     * Show the form for detailing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show(exam $exam_essay)
     {
         $questions = $exam_essay->questionEssays()->where('exam_id', $exam_essay->id)->get();

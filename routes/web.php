@@ -164,9 +164,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/exams/review/{user_id}/{exam_id}', [ExamController::class, 'review'])->name('exams.review');
 
     //exams essay
-    Route::resource('exam_essays', ExamEssayController::class)->except([
-        'index'
-    ]); 
+    Route::resource('exam_essays', ExamEssayController::class);
     Route::get('/exam_essays/result/{score}/{user_id}/{exam_id}', [ExamEssayController::class, 'result'])->name('exam_essays.result');
     Route::get('/exam_essays/start/{id}', [ExamEssayController::class, 'start'])->name('exam_essays.start');
     Route::get('exam_essays/student/{id}', [ExamEssayController::class, 'student'])->name('exam_essays.student');
