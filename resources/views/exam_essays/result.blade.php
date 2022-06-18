@@ -19,8 +19,8 @@
                     <h4>Score Anda Adalah {{ round($score, 2) }}</h4>
                 </div>
                 <div class="card-footer">
-                    <a href="{{ route('exams.review', [$user->id, $exam->id]) }}" class="btn btn-primary mr-1 btn-submit" role="button" aria-pressed="true">REVIEW</a>
-                    <a href="{{ route('exams.index') }}" class="btn btn-warning btn-resetk" role="button" aria-pressed="true">BACK</a>
+                    <a href="{{ route('exam_essays.review', [$user->id, $exam->id]) }}" class="btn btn-primary mr-1 btn-submit" role="button" aria-pressed="true">REVIEW</a>
+                    <a href="{{ route('exam_essays.index') }}" class="btn btn-warning btn-resetk" role="button" aria-pressed="true">BACK</a>
                 </div>
             </div>
         </div>
