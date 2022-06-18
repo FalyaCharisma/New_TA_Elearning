@@ -19,18 +19,6 @@
                         enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
-                        <!-- <div class="form-group">
-                            <label>NAMA USER</label>
-                            <input type="text" name="name" value="{{ old('name', $user->name) }}"
-                                placeholder="Masukkan Nama User"
-                                class="form-control @error('name') is-invalid @enderror">
-
-                            @error('name')
-                            <div class="invalid-feedback" style="display: block">
-                                {{ $message }}
-                            </div>
-                            @enderror
-                        </div> -->
 
                         <div class="form-group">
                             <label>USERNAME</label>
@@ -44,61 +32,6 @@
                             </div>
                             @enderror
                         </div>
-
-                        <div class="form-group">
-                            <label>EMAIL</label>
-                            <input type="email" name="email" value="{{ old('email', $user->email) }}"
-                                placeholder="Masukkan Email" class="form-control @error('email') is-invalid @enderror">
-
-                            @error('email')
-                            <div class="invalid-feedback" style="display: block">
-                                {{ $message }}
-                            </div>
-                            @enderror
-                        </div>
-
-                        <!-- <div class="form-group">
-                            <label>KELAS</label>
-                            <select class="form-control select-kelas @error('kelas') is-invalid @enderror" name="kelas">
-                                <option value="">- SELECT KELAS -</option>
-                                @foreach ($kelass as $kelas)
-                                    @if ($user->kelas == $kelas->nama_kelas )
-                                    <option value="{{ $kelas->nama_kelas }}" selected>{{ $kelas->nama_kelas }}</option>
-                                    @else
-                                        <option value="{{ $kelas->nama_kelas }}">{{ $kelas->nama_kelas }}</option>
-                                    @endif
-                                @endforeach
-                            </select>
-                            @error('kelas')
-                            <div class="invalid-feedback" style="display: block">
-                                {{ $message }}
-                            </div>
-                            @enderror
-                        </div> -->
-
-                        <!-- <div class="form-group">
-                            <label>NO. WA</label>
-                            <input type="text" name="no_wa" value="{{ old('no_wa', $user->no_wa) }}" placeholder="Masukkan Nomor WhatsApp"
-                                class="form-control @error('no_wa') is-invalid @enderror">
-
-                            @error('no_wa')
-                            <div class="invalid-feedback" style="display: block">
-                                {{ $message }}
-                            </div>
-                            @enderror
-                        </div> -->
-
-                        <!-- <div class="form-group">
-                            <label>ALAMAT</label>
-                            <input type="text" name="alamat" value="{{ old('alamat', $user->alamat) }}" placeholder="Masukkan Alamat"
-                                class="form-control @error('alamat') is-invalid @enderror">
-
-                            @error('alamat')
-                            <div class="invalid-feedback" style="display: block">
-                                {{ $message }}
-                            </div>
-                            @enderror
-                        </div> -->
 
                         <div class="row">
                             <div class="col-md-6">

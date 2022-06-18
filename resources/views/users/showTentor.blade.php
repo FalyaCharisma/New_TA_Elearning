@@ -29,18 +29,6 @@
                             </div>
                             @enderror
                         </div>
-
-                        <div class="form-group">
-                            <label>EMAIL</label>
-                            <input type="email" name="email" value="{{ old('email', $user->email) }}"
-                                placeholder="Masukkan Email" class="form-control @error('email') is-invalid @enderror">
-
-                            @error('email')
-                            <div class="invalid-feedback" style="display: block">
-                                {{ $message }}
-                            </div>
-                            @enderror
-                        </div>
                         @endcan
 
                         <form action="{{ url('users/dataTentor', $user->id) }}" method="POST" enctype="multipart/form-data">

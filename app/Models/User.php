@@ -19,7 +19,6 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'username',
-        'email',
         'password',
     ];
 
@@ -31,15 +30,6 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
-    ];
-
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
     ];
 
     public function exams(){
@@ -65,16 +55,8 @@ class User extends Authenticatable
         return $this->belongsTo(Kelas::class);
     }
 
-    /*
-    * This is For CRUD
-    *
-    */
     protected $table = 'users';
 
-    /**
-     * User & Mapel Relationship
-     *
-     */
     public function mapelUser()
     {
         return $this

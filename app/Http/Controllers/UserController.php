@@ -21,7 +21,7 @@ class UserController extends Controller
     public function index()
     {
         $users = User::latest()->when(request()->q, function($users) {
-            $users = $users->where('name', 'like', '%'. request()->q . '%');
+            $users = $users->where('username', 'like', '%'. request()->q . '%');
         })->paginate(10);
         $roles = new Role();
         $kelas = new Kelas();
@@ -62,13 +62,11 @@ class UserController extends Controller
     {
         $this->validate($request, [
             'username'      => 'required',
-            'email'     => 'required|email|unique:users',
             'password'  => 'required|confirmed'
         ]);
 
         $user = User::create([
             'username'  => $request->input('username'),
-            'email'     => $request->input('email'),
             'password'  => bcrypt($request->input('password'))
         ]);
 
@@ -95,7 +93,6 @@ class UserController extends Controller
     {
         $this->validate($request, [
             'username'      => 'required',
-            'email'     => 'required|email|unique:users,email,'.$user->id
         ]);
 
         $user = User::findOrFail($user->id);
@@ -103,12 +100,10 @@ class UserController extends Controller
         if($request->input('password') == "") {
             $user->update([
                 'username'  => $request->input('username'),
-                'email'     => $request->input('email'),
             ]);
         } else {
             $user->update([
                 'username'  => $request->input('username'),
-                'email'     => $request->input('email'),
                 'password'  => bcrypt($request->input('password'))
             ]);
         }

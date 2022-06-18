@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class SubjectController extends Controller
 {
-
+   
     public function __construct()
     {
         $this->middleware(['permission:subjects.index|subjects.create|subjects.delete']);
