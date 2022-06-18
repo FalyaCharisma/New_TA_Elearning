@@ -7,21 +7,11 @@ use Illuminate\Http\Request;
 
 class KelasController extends Controller
 {
-    /**
-     * __construct
-     *
-     * @return void
-     */
     public function __construct()
     {
         $this->middleware(['permission:kelas.index|kelas.create|kelas.delete']);
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $kelass = Kelas::latest()->when(request()->q, function($kelass) {
@@ -31,19 +21,13 @@ class KelasController extends Controller
         return view('kelas.index', compact('kelass'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $this->validate($request, [
             'nama_kelas'     => 'required'
         ]);
         
-        $kelas = kelas::create([
+        $kelas = Kelas::create([
             'nama_kelas'     => $request->input('nama_kelas')
         ]);
 
@@ -56,18 +40,12 @@ class KelasController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-        $kelas = kelas::findOrFail($id);
-        $kelas->delete();
+        $kelass = Kelas::findOrFail($id);
+        $kelass->delete();
 
-        if($kelas){
+        if($kelass){
             return response()->json([
                 'status' => 'success'
             ]);

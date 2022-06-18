@@ -17,11 +17,6 @@ class MapelController extends Controller
         $this->middleware(['permission:mapels.index|mapels.create|mapels.delete']);
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $mapels = mataPelajaran::latest()->when(request()->q, function($mapels) {
@@ -31,12 +26,7 @@ class MapelController extends Controller
         return view('mapels.index', compact('mapels'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
         $this->validate($request, [
@@ -64,10 +54,10 @@ class MapelController extends Controller
      */
     public function destroy($id)
     {
-        $mapel = mapel::findOrFail($id);
-        $mapel->delete();
+        $mapels = mataPelajaran::findOrFail($id);
+        $mapels->delete();
 
-        if($mapel){
+        if($mapels){
             return response()->json([
                 'status' => 'success'
             ]);

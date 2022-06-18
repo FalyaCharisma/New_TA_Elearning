@@ -89,7 +89,7 @@
     function Delete(id)
         {
             var id = id;
-            var token = $("meta[nama_kelas='csrf-token']").attr("content");
+            var token = $("meta[name='csrf-token']").attr("content"); 
 
             swal({
                 title: "APAKAH KAMU YAKIN ?",
