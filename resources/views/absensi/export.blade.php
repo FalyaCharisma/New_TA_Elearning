@@ -12,8 +12,6 @@
 		}
 	</style>
 	<center>
-		<h5>LAPORAN ABSENSI TENTOR</h4>
-			<h6>Dari Tanggal : {{$startDate}} -- Sampai dengan Tanggal : {{$endDate}}</h6>
 	</center>
         <center>
 	<table class='table table-bordered'>
