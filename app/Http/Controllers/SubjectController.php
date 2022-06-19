@@ -15,8 +15,8 @@ class SubjectController extends Controller
 
     public function index()
     {
-        $subjects = Subject::latest()->when(request()->q, function($subjects) {
-            $subjects = $subjects->where('name', 'like', '%'. request()->q . '%');
+        $subjects = Subject::where('user_id', Auth()->id())->latest()->when(request()->q, function($subjects) {
+            $subjects = $subjects->where('name', 'like', '%'. request()->q . '%'); 
         })->paginate(10);
 
         return view('subjects.index', compact('subjects'));
@@ -28,8 +28,9 @@ class SubjectController extends Controller
             'name'     => 'required'
         ]);
         
-        $subject = subject::create([
-            'name'     => $request->input('name')
+        $subject = Subject::create([
+            'name'     => $request->input('name'),
+            'user_id'   => Auth()->id(), 
         ]);
 
         if($subject){
