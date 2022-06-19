@@ -8,42 +8,26 @@ use Illuminate\Support\Facades\Storage;
 
 class AudioController extends Controller
 {
-    /**
-     * __construct
-     *
-     * @return void
-     */
+    
     public function __construct()
     {
         $this->middleware(['permission:audios.index|audios.create|audios.delete']);
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        $audios = Audio::latest()->when(request()->q, function($audios) {
+        $audios = Audio::where('user_id', Auth()->id())->latest()->when(request()->q, function($audios) {
             $audios = $audios->where('title', 'like', '%'. request()->q . '%');
         })->paginate(10);
 
         return view('audios.index', compact('audios'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $this->validate($request, [
             'title'     => 'required',
             'audio'     => 'required|mimes:mp3,wav',
-            'caption'   => 'required'
         ]);
 
         //upload audio
@@ -53,7 +37,8 @@ class AudioController extends Controller
         $audio = Audio::create([
             'title'     => $request->input('title'),
             'link'     => $audio->hashName(),
-            'caption'   => $request->input('caption')
+            'caption'   => $request->input('caption'),
+            'user_id'   => Auth()->id(), 
         ]);
 
         if($audio){
@@ -65,12 +50,6 @@ class AudioController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         $audio = Audio::findOrFail($id);
