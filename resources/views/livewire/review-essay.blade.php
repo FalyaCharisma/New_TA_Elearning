@@ -73,7 +73,7 @@
                             class="form-control @error('jawaban_siswa') is-invalid @enderror" disabled> 
                         </textarea>         
                     </div>
-                </div>
+                </div> 
             </div>
         <i>Jawaban Benar:</i>     
         <div>
@@ -87,12 +87,23 @@
     </div>
     @endforeach
     
-    
+    <div class="form-group">
+                @hasrole('teacher')
+                    <div class="col-md-10" wire:ignore>Score
+                        <textarea type="double" id="jawaban_score"  wire:model="jawaban_score" name="jawaban_score"
+                            class="form-control @error('jawaban_score') is-invalid @enderror"> 
+                        </textarea>         
+                    </div>
+                @endhasrole
+                </div>
     <div class="d-flex justify-content-center">
         {{$questions->links()}}
     </div>
     <div class="card-footer">
         @if ($questions->currentPage() == $questions->lastPage())
+        @hasrole('teacher')
+        <button wire:click="submitScores" class="btn btn-lg btn-block" data-toggle="modal" data-target="#mdlSimpan">Submit Score</button> 
+        @endhasrole
         <a href="{{ route('exam_essays.index') }}" class="btn btn-primary btn-lg btn-block" role="button" aria-pressed="true">BACK</a>
         @endif
     </div>

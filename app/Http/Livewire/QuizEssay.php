@@ -59,7 +59,8 @@ class QuizEssay extends Component
             $score += 100;
         }else{
             $score = 0;
-        }
+        } 
+        
         
         $jawaban_siswa_str = json_encode($this->jawaban_siswa);
         $this->user_id = Auth()->id();

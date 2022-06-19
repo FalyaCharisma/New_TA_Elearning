@@ -10,6 +10,7 @@ use App\Models\Video;
 use Livewire\Component;
 use App\Models\Document;
 use Livewire\WithPagination;
+use \Illuminate\Http\Request;
 
 class ReviewEssay extends Component
 {
@@ -19,6 +20,7 @@ class ReviewEssay extends Component
     public $user_id;
     public $exam_id;
     public $jawaban_siswa = [];
+    public $jawaban_score;
     public $total_question;
 
     public function mount($user_id, $exam_id)
@@ -52,6 +54,36 @@ class ReviewEssay extends Component
     {
         
     }
+
+    public function submitScores()
+    {
+        $score=0;
+
+        if(!empty($this->jawaban_score)){
+           
+            $score += $jawaban_score;
+        }else{
+            $score = 0;
+        } 
+        
+        
+        $jawaban_siswa_str = json_encode($this->jawaban_siswa);
+        $this->user_id = Auth()->id();
+        $user = User::findOrFail($this->user_id);
+        $user_exam = $user->whereHas('exams', function (Builder $query) {
+            $query->where('exam_id',$this->exam_id)->where('user_id',$this->user_id);
+        })->count();
+        if($user_exam == 0)
+        {
+            $user->exams()->attach($this->exam_id, ['history_answer' =>  $jawaban_siswa_str, 'score' => $score]);
+        } else{
+            $user->exams()->updateExistingPivot($this->exam_id, ['history_answer' =>  $jawaban_siswa_str, 'score' => $score]);
+        }
+        
+        return redirect()->route('exam_essays.result', [$score, $this->user_id, $this->exam_id]);
+    }
+
+
 
     public function render()
     {
