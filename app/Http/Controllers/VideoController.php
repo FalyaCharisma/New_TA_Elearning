@@ -8,52 +8,37 @@ use Illuminate\Support\Facades\Storage;
 
 class VideoController extends Controller
 {
-    /**
-     * __construct
-     *
-     * @return void
-     */
+    
     public function __construct()
     {
         $this->middleware(['permission:videos.index|videos.create|videos.delete']);
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        $videos = Video::latest()->when(request()->q, function($videos) {
+        $videos = Video::where('user_id', Auth()->id())->latest()->when(request()->q, function($videos) {
             $videos = $videos->where('title', 'like', '%'. request()->q . '%');
         })->paginate(10);
 
         return view('videos.index', compact('videos'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $this->validate($request, [
             'title'     => 'required',
             'video'     => 'required|mimes:mp4,mpeg',
-            'caption'   => 'required'
         ]);
 
         //upload video
         $video = $request->file('video');
-        $video->storeAs('public/videos', $video->hashName());
+        $video->storeAs('public/videos', $video->getClientOriginalName());
 
         $video = Video::create([
             'title'     => $request->input('title'),
-            'link'     => $video->hashName(),
-            'caption'   => $request->input('caption')
+            'link'     => $video->getClientOriginalName(),
+            'caption'   => $request->input('caption'),
+            'user_id'   => Auth()->id(), 
         ]);
 
         if($video){
