@@ -17,7 +17,7 @@ class AbsensiExport implements FromView
 
     public function view(): View
     { 
-        return view('absensi.export', [
+        return view('absensi.absensi', [
            
             'absens'=> Absensi::whereBetween('created_at',[$this->start_date, $this->end_date])->get()
         ]);
