@@ -9,6 +9,10 @@ use App\Exports\AbsensiExport;
 use App\Exports\Absensis;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\Controller;
+use Facade\Ignition\DumpRecorder\Dump;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Carbon;
+
 class AbsensiController extends Controller
 {
     public function __construct()
@@ -45,11 +49,11 @@ class AbsensiController extends Controller
             'image'        => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
         ]);
         $image = $request->file('image');
-        $image->storeAs('public/absensis', $image->hashName());
+        $image->storeAs('public/absensis', $image->getClientOriginalName());
         // $path = $request->file('image')->store('public/absensis');
         $image = Absensi::create([
             'keterangan' => $request->input('keterangan'),
-            'link'      => $image->hashName(),
+            'link'      => $image->getClientOriginalName(),
             'user_id'   => Auth()->id(),
         ]);
         if($image){
@@ -75,11 +79,13 @@ class AbsensiController extends Controller
                 'status' => 'error'
             ]);
         }
-    }
+    } 
 
     public function cetakAbsensiPertanggalPDF($start_date, $end_date){
+        $startDate = Carbon::parse(request()->input('startDate'))->toDateTimeString();
+        $endDate = Carbon::parse(request()->input('endDate'))->toDateTimeString();
         $absens = Absensi::latest()->get()->whereBetween('created_at',[$start_date, $end_date]);
-        $pdf = PDF::loadView('absensi.export', compact('absens'));
+        $pdf = PDF::loadView('absensi.export', compact('absens','startDate','endDate'));
         $pdf->download('rekapan.pdf');
         return $pdf->stream();
     }
