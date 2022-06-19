@@ -11,6 +11,7 @@ use Livewire\Component;
 use App\Models\Document;
 use Livewire\WithPagination;
 use \Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Builder;
 
 class ReviewEssay extends Component
 {
@@ -61,7 +62,7 @@ class ReviewEssay extends Component
 
         if(!empty($this->jawaban_score)){
            
-            $score += $jawaban_score;
+            $score += $this->jawaban_score;
         }else{
             $score = 0;
         } 
@@ -75,7 +76,7 @@ class ReviewEssay extends Component
         })->count();
         if($user_exam == 0)
         {
-            $user->exams()->attach($this->exam_id, ['history_answer' =>  $jawaban_siswa_str, 'score' => $score]);
+            $user->exams()->attach($this->exam_id, ['score' => $score]);
         } else{
             $user->exams()->updateExistingPivot($this->exam_id, ['history_answer' =>  $jawaban_siswa_str, 'score' => $score]);
         }
