@@ -23,7 +23,7 @@ class QuestionEssayController extends Controller
 
     public function index()
     {
-        $questionEssays = QuestionEssay::latest()->when(request()->q, function($questionEssays) {
+        $questionEssays = QuestionEssay::where('created_by', Auth()->id())->latest()->when(request()->q, function($questionEssays) {
             $questionEssays = $questionEssays->where('detail', 'like', '%'. request()->q . '%');
         })->paginate(10);
 

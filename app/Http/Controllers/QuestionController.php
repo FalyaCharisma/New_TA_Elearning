@@ -14,24 +14,15 @@ use Illuminate\Http\Request;
 
 class QuestionController extends Controller
 {
-     /**
-     * __construct
-     *
-     * @return void
-     */
+   
     public function __construct()
     {
         $this->middleware(['permission:questions.index|questions.create|questions.edit|questions.delete']);
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        $questions = Question::latest()->when(request()->q, function($questions) {
+        $questions = Question::where('created_by', Auth()->id())->latest()->when(request()->q, function($questions) {
             $questions = $questions->where('detail', 'like', '%'. request()->q . '%');
         })->paginate(10);
 
@@ -45,11 +36,6 @@ class QuestionController extends Controller
         return view('questions.index', compact('questions', 'video', 'audio', 'document', 'image', 'user','subject'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         $subjects = Subject::latest()->get();
@@ -60,12 +46,6 @@ class QuestionController extends Controller
         return view('questions.create', compact( 'subjects','videos', 'audios', 'images', 'documents'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $this->validate($request, [
@@ -103,12 +83,6 @@ class QuestionController extends Controller
         }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Question $question)
     {
         $videos = Video::latest()->get();
@@ -118,13 +92,6 @@ class QuestionController extends Controller
         return view('questions.edit', compact('question','videos', 'audios', 'images', 'documents'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Question $question)
     {
         $this->validate($request, [
@@ -161,12 +128,6 @@ class QuestionController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         $question = Question::findOrFail($id);
