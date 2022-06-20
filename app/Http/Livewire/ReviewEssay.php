@@ -67,24 +67,16 @@ class ReviewEssay extends Component
             $score = 0;
         } 
         
-        
         $jawaban_siswa_str = json_encode($this->jawaban_siswa);
-        $this->user_id = Auth()->id();
         $user = User::findOrFail($this->user_id);
         $user_exam = $user->whereHas('exams', function (Builder $query) {
             $query->where('exam_id',$this->exam_id)->where('user_id',$this->user_id);
         })->count();
-        if($user_exam == 0)
-        {
-            $user->exams()->attach($this->exam_id, ['score' => $score]);
-        } else{
-            $user->exams()->updateExistingPivot($this->exam_id, ['history_answer' =>  $jawaban_siswa_str, 'score' => $score]);
-        }
+   
+        $user->exams()->updateExistingPivot($this->exam_id, ['history_answer' =>  $jawaban_siswa_str, 'score' => $score]);
         
-        return redirect()->route('exam_essays.result', [$score, $this->user_id, $this->exam_id]);
+        return redirect()->route('exam_essays.riwayat', [$this->exam_id]);
     }
-
-
 
     public function render()
     {
