@@ -19,17 +19,20 @@ class Materi extends Model
         'mapel', 'kelas', 'judul', 'isi', 'ringkasan', 'siswa', 'user_id', 'link',
     ];
 
+    protected $table = 'materi';
+
     // link 
     public function getLink($id){
         return $this->where('id',$id)->value('link');
     }
 
-    /**
-     * This is For CRUD
-     * Mengkaitkan table materi
-     *
-     */
-    protected $table = 'materi';
+    public function getMapel($id){
+        return $this->where('id',$id)->value('mapel');
+    }
+
+    public function getJudul($id){
+        return $this->where('id',$id)->value('judul');
+    }
 
     public function user()
     {

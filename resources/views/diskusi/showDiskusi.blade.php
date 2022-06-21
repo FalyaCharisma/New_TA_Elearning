@@ -11,7 +11,8 @@
 
                 <div class="card">
                     <div class="card-header">
-                        <h4><i class="fas fa-question"></i> {{ $diskusi->materi }}</h4>
+                        <h4><i class="fas fa-question"></i> {{ $diskusi->materi->getMapel($diskusi->materi_id) }} - {{ $diskusi->materi->getJudul($diskusi->materi_id) }}</h4>
+                     
                     </div>
 
                     <div class="card-body">

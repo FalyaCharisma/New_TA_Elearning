@@ -21,17 +21,17 @@
                         @method('PUT')
                         <div class="form-group">
                             <label>MATERI</label>
-                            <select class="form-control select-materi @error('materi') is-invalid @enderror" name="materi">
+                            <select class="form-control select-materi @error('materi_id') is-invalid @enderror" name="materi_id">
                                 <option value="">- SELECT MATERI -</option>
                                 @foreach ($materi as $materi)
                                 @if ($materi->siswa ==  Auth::user()->siswa->name)
-                                    <option value="{{ $materi->judul }}" selected>{{ $materi->judul }}</option>
+                                    <option value="{{ $materi->id }}" selected>{{ $materi->judul }}</option>
                                     @else
-                                        <option value="{{ $materi->judul }}">{{ $materi->judul }}</option>
+                                        <option value="{{ $materi->id }}">{{ $materi->judul }}</option>
                                     @endif
                                 @endforeach
                             </select>
-                            @error('materi')
+                            @error('materi_id')
                             <div class="invalid-feedback" style="display: block">
                                 {{ $message }}
                             </div>

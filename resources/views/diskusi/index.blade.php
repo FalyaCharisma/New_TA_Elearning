@@ -36,7 +36,7 @@
                              <span class="">{{$diskusi->user->siswa->name}}, <b>{{$diskusi->created_at }}</b></span>
                         </div>
                         <div class="card-body">
-                            <h5 class="">{{$diskusi->materi}}</h5>
+                            <h5 class="">{{ $materi->getMapel($diskusi->materi_id) }} - {{ $materi->getJudul($diskusi->materi_id) }}</h5>
                             <hr>
                             {{$diskusi->pertanyaan }}
                             <hr>
@@ -60,7 +60,7 @@
                              <span class="">{{$diskusi->user->siswa->name}}, <b>{{$diskusi->created_at }}</b></span>
                         </div>
                         <div class="card-body">
-                            <h5 class="">{{$diskusi->materi}}</h5>
+                            <h5 class="">{{ $materi->getMapel($diskusi->materi_id) }} - {{ $materi->getJudul($diskusi->materi_id) }}</h5>
                             <hr>
                             {{$diskusi->pertanyaan }}
                             <hr>

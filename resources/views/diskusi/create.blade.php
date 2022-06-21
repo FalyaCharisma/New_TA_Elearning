@@ -19,22 +19,16 @@
                         @csrf
                         <div class="form-group">
                             <label>MATERI</label>
-                            <select class="form-control select-materi @error('materi') is-invalid @enderror" name="materi">
+                            <select class="form-control select-materi @error('materi_id') is-invalid @enderror" name="materi_id">
                                 <option value="">- SELECT MATERI -</option>
                                 @foreach ($materi as $materi) 
                                 @hasrole('student')
                                 @if ($materi->siswa ==  Auth::user()->siswa->name)
-                                    <option value="{{ $materi->judul }}">{{ $materi->judul }}</option>
+                                    <option value="{{ $materi->id }}">{{ $materi->judul }}</option>
                                 @endif
-                                <!-- @endhasrole
-                                @hasrole('teacher')
-                                @if ($materi->user)id ==  Auth::user()->id)
-                                    <option value="{{ $materi->judul }}">{{ $materi->judul }}</option>
-                                @endhasrole
-                                @endif -->
                                 @endforeach  
                             </select>
-                            @error('materi')
+                            @error('materi_id')
                             <div class="invalid-feedback" style="display: block">
                                 {{ $message }}
                             </div>

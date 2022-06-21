@@ -15,7 +15,7 @@ class CreateDiskusisTable extends Migration
     {
         Schema::create('diskusis', function (Blueprint $table) {
             $table->id();
-            $table->string('materi');
+            $table->bigInteger('materi_id');
             $table->string('pertanyaan');
             $table->bigInteger('user_id')->unsigned();
             $table->timestamps();

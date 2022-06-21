@@ -14,21 +14,12 @@ use Illuminate\Support\Facades\Auth;
 
 class DiskusiController extends Controller
 {
-     /**
-     * __construct
-     *
-     * @return void
-     */
+    
     public function __construct()
     {
         $this->middleware(['permission:diskusi.index|diskusi.create|diskusi.edit|diskusi.delete|diskusi.respon|showDiskusi|diskusi.siswa|diskusi.tentor']);
     }
 
-     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */ 
     public function index()
     {
         $diskusi = Diskusi::latest()->when(request()->q, function($diskusi) {
@@ -75,12 +66,12 @@ class DiskusiController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'materi'      => 'required',
+            'materi_id'   => 'required',
             'pertanyaan'  => 'required',
         ]);
 
         $diskusi = Diskusi::create([
-            'materi'          => $request->input('materi'),
+            'materi_id'        => $request->input('materi_id'),
             'pertanyaan'      => $request->input('pertanyaan'),
             'user_id' => Auth()->id(),
         ]);
@@ -119,8 +110,9 @@ class DiskusiController extends Controller
     {
         $diskusi = Diskusi::findOrFail($id);
         $respon = Respon::latest()->where('diskusi_id', $id)->get();
+        $materi = Materi::latest()->get();
 
-        return view('diskusi.showDiskusi', compact('diskusi','respon'));
+        return view('diskusi.showDiskusi', compact('diskusi','respon','materi'));
     }
 
     public function destroy($id)
@@ -157,13 +149,13 @@ class DiskusiController extends Controller
     {
         $this->validate($request, [
             'pertanyaan'  => 'required',
-            'materi'  => 'required'
+            'materi_id'  => 'required'
         ]); 
 
         $diskusi = Diskusi::find($id);
 
          $diskusi->pertanyaan = $request->input('pertanyaan');
-         $diskusi->materi = $request->input('materi');
+         $diskusi->materi_id = $request->input('materi_id');
          $diskusi->update();
     
         if($diskusi){

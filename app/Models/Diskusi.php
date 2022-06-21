@@ -8,7 +8,7 @@ class Diskusi extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id','materi', 'pertanyaan'];
+    protected $fillable = ['user_id','materi_id', 'pertanyaan'];
 
     public function materi(){
         return $this->belongsTo(Materi::class);
