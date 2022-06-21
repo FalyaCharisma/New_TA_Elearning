@@ -25,7 +25,7 @@
                                 @foreach ($subjects as $subject)
                                     @if ($question->subject_id == $subject->id )
                                     <option value="{{ $subject->id }}" selected>{{ $subject->name }}</option>
-                                    @else
+                                    @elseif($subject->user_id == Auth::user()->id)
                                         <option value="{{ $subject->id }}">{{ $subject->name }}</option>
                                     @endif
                                 @endforeach
@@ -46,7 +46,7 @@
                                         @foreach ($videos as $video)
                                             @if ($question->video_id == $video->id)
                                                 <option value="{{ $video->id }}" selected>{{ $video->title }}</option>
-                                            @else
+                                            @elseif($video->user_id == Auth::user()->id)
                                                 <option value="{{ $video->id }}">{{ $video->title }}</option>
                                             @endif  
                                         @endforeach
@@ -67,7 +67,7 @@
                                         @foreach ($audios as $audio)
                                             @if ($question->audio_id == $audio->id)
                                                 <option value="{{ $audio->id }}" selected>{{ $audio->title }}</option>
-                                            @else
+                                            @elseif($audio->user_id == Auth::user()->id)
                                                 <option value="{{ $audio->id }}">{{ $audio->title }}</option>
                                             @endif
                                         @endforeach
@@ -88,7 +88,7 @@
                                         @foreach ($images as $image)
                                             @if ($question->image_id == $image->id)
                                                 <option value="{{ $image->id }}" selected>{{ $image->title }}</option>
-                                            @else
+                                            @elseif($image->user_id == Auth::user()->id)
                                                 <option value="{{ $image->id }}">{{ $image->title }}</option>
                                             @endif
                                         @endforeach
@@ -109,7 +109,7 @@
                                         @foreach ($documents as $document)
                                             @if ($question->document_id == $document->id)
                                                 <option value="{{ $document->id }}" selected>{{ $document->title }}</option>
-                                            @else
+                                            @elseif($document->user_id == Auth::user()->id)
                                                 <option value="{{ $document->id }}">{{ $document->title }}</option>
                                             @endif
                                         @endforeach
