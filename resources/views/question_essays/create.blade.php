@@ -23,7 +23,9 @@
                             <select class="form-control select-subject @error('subject_id') is-invalid @enderror" name="subject_id">
                                 <option value="">- SELECT SUBJECT -</option>
                                 @foreach ($subjects as $subject)
+                                @if($subjects->user_id == Auth::user()->id)
                                     <option value="{{ $subject->id }}">{{ $subject->name }}</option>
+                                @endif
                                 @endforeach
                             </select>
                             @error('subject_id')
@@ -40,7 +42,9 @@
                                     <select class="form-control select-video @error('video_id') is-invalid @enderror" name="video_id">
                                         <option value="">- SELECT VIDEO -</option>
                                         @foreach ($videos as $video)
+                                        @if($video->user_id == Auth::user()->id)
                                             <option value="{{ $video->id }}">{{ $video->title }}</option>
+                                        @endif
                                         @endforeach
                                     </select>
                                     @error('video_id')
@@ -57,7 +61,9 @@
                                     <select class="form-control select-audio @error('audio_id') is-invalid @enderror" name="audio_id">
                                         <option value="">- SELECT AUDIO -</option>
                                         @foreach ($audios as $audio)
+                                        @if($audio->user_id == Auth::user()->id)
                                             <option value="{{ $audio->id }}">{{ $audio->title }}</option>
+                                        @endif
                                         @endforeach
                                     </select>
                                     @error('audio_id')
@@ -74,7 +80,9 @@
                                     <select class="form-control select-image @error('image_id') is-invalid @enderror" name="image_id">
                                         <option value="">- SELECT IMAGE -</option>
                                         @foreach ($images as $image)
+                                        @if($image->user_id == Auth::user()->id)
                                             <option value="{{ $image->id }}">{{ $image->title }}</option>
+                                        @endif
                                         @endforeach
                                     </select>
                                     @error('image_id')
@@ -91,7 +99,9 @@
                                     <select class="form-control select-document @error('document_id') is-invalid @enderror" name="document_id">
                                         <option value="">- SELECT DOCUMENT -</option>
                                         @foreach ($documents as $document)
+                                        @if($document->user_id == Auth::user()->id)
                                             <option value="{{ $document->id }}">{{ $document->title }}</option>
+                                        @endif
                                         @endforeach
                                     </select>
                                     @error('document_id')
