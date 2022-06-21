@@ -39,6 +39,11 @@
                             <div class="card-wrap">
                                 <div class="card-body">
                                 <h4>Isi Informasi </h4>
+                                @if($info['document_id'])
+                                    <a href=" {{ asset('storage/public/documents/'.$document->getLink($info['document_id'])) }}">{{$document->getLink($info['document_id'])}}</a>
+                                @elseif($info['image_id'])
+                                    <img src="{{ asset('storage/public/images/'.$image->getLink($info['image_id'])) }}" style="width: 800px">
+                                @endif
                                 <p>{{ $info->isi_informasi }}</p>
                                 </div>
                                 <div class="card-footer">

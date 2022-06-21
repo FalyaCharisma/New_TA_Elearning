@@ -8,20 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Informasi extends Model
 {
     use HasFactory;
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'isi_informasi',
-    ];
 
-    /**
-     * This is For CRUD
-     * Mengkaitkan table materi
-     *
-     */
-    protected $table = 'informasi';
+    protected $guarded = [];
     
 }

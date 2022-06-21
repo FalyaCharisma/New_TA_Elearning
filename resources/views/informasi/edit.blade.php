@@ -20,6 +20,47 @@
                         enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
+                        <div class="col-3">
+                                <div class="form-group">
+                                    <label>IMAGE</label>
+                                    <select class="form-control select-image @error('image_id') is-invalid @enderror" name="image_id">
+                                        <option value="">- SELECT IMAGE -</option>
+                                        @foreach ($image as $image)
+                                            @if ($informasi->image_id == $image->id)
+                                                <option value="{{ $image->id }}" selected>{{ $image->title }}</option>
+                                            @elseif($image->user_id == Auth::user()->id)
+                                                <option value="{{ $image->id }}">{{ $image->title }}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                    @error('image_id')
+                                    <div class="invalid-feedback" style="display: block">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="col-3">
+                                <div class="form-group">
+                                    <label>DOCUMENT</label>
+                                    <select class="form-control select-document @error('document_id') is-invalid @enderror" name="document_id">
+                                        <option value="">- SELECT DOCUMENT -</option>
+                                        @foreach ($document as $document)
+                                            @if ($informasi->document_id == $document->id)
+                                                <option value="{{ $document->id }}" selected>{{ $document->title }}</option>
+                                            @elseif($document->user_id == Auth::user()->id)
+                                                <option value="{{ $document->id }}">{{ $document->title }}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                    @error('document_id')
+                                    <div class="invalid-feedback" style="display: block">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                </div>
+                            </div>
                         <div class="form-group">
                             <label>ISI INFORMASI</label>
 

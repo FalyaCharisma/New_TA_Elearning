@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Informasi;
+use App\Models\Image;
+use App\Models\Document;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 
@@ -18,36 +20,25 @@ class InformasiController extends Controller
         $this->middleware(['permission:informasi.index|informasi.create|informasi.edit|informasi.delete']);
     }
 
-     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */ 
     public function index()
     {
         $infos = Informasi::latest()->when(request()->q, function($infos) {
             $infos = $infos->where('isi_informasi', 'like', '%'. request()->q . '%');
         })->paginate(10);
 
-        return view('informasi.index', compact('infos'));
+        $document = new Document();
+        $image = new Image();
+
+        return view('informasi.index', compact('infos','image','document'));
     }
 
-     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create(Informasi $info)
     {
-        return view('informasi.create', compact('info'));
+        $image = Image::latest()->get();
+        $document = Document::latest()->get();
+        return view('informasi.create', compact('info','document','image'));
     }
 
-     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request) 
     {
         $this->validate($request, [
@@ -55,7 +46,9 @@ class InformasiController extends Controller
         ]);
         
         $info = Informasi::create([
-            'isi_informasi'     => $request->input('isi_informasi')
+            'isi_informasi'     => $request->input('isi_informasi'),
+            'image_id'      => $request->input('image_id'),
+            'document_id'   => $request->input('document_id'),
         ]);
 
         if($info){
@@ -66,41 +59,27 @@ class InformasiController extends Controller
             return redirect()->route('informasi.index')->with(['error' => 'Data Gagal Disimpan!']);
         }
     }
-    /** 
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    // public function edit(Informasi $info)
-    // {
 
-        public function edit($id)
+    public function edit($id)
     {
         $informasi = Informasi::find($id);
-        return view('informasi.edit', compact('informasi'));
+        $image = Image::latest()->get();
+        $document = Document::latest()->get();
+        return view('informasi.edit', compact('informasi','image','document'));
     }
-    
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
 
     public function update(Request $request,$id)
     {
         $this->validate($request, [
-            'isi_informasi'  => 'required'
+            'isi_informasi'  => 'required' 
         ]); 
 
-        // $info = Informasi::findOrFail($request->id);
         $info = Informasi::find($id);
 
-         $info->isi_informasi = $request->input('isi_informasi');
-         $info->update();
+        $info->isi_informasi = $request->input('isi_informasi');
+        $info->image_id = $request->input('image_id');
+        $info->document_id = $request->input('document_id');
+        $info->update();
     
         if($info){
             //redirect dengan pesan sukses
@@ -111,12 +90,6 @@ class InformasiController extends Controller
         }
     }
     
-     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         $info = Informasi::findOrFail($id);

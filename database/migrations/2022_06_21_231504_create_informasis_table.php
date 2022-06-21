@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateInformasiTable extends Migration
+class CreateInformasisTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,11 @@ class CreateInformasiTable extends Migration
      */
     public function up()
     {
-        Schema::create('informasi', function (Blueprint $table) {
+        Schema::create('informasis', function (Blueprint $table) {
             $table->id();
             $table->string('isi_informasi');
+            $table->string('image_id')->nullable();
+            $table->string('document_id')->nullable();
             $table->timestamps();
         });
     }
@@ -27,6 +29,6 @@ class CreateInformasiTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('informasi');
+        Schema::dropIfExists('informasis');
     }
 }

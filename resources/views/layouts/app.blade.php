@@ -152,6 +152,22 @@
                                 <span>Materi</span></a>
                         </li>
                         @endcan
+                        <li
+                            class="dropdown">       
+                            <a href="#" class="nav-link has-dropdown"><i class="fas fa-folder"></i><span>Resource</span></a> 
+                            <ul class="dropdown-menu">
+                            @can('images.index')
+                                <li class="{{ setActive('/image') }}"><a class="nav-link"
+                                        href="{{ route('images.index') }}"><i class="fas fa-image"></i>
+                                        <span>Image</span></a></li>
+                            @endcan
+                            @can('documents.index')
+                                <li class="{{ setActive('/document') }}"><a class="nav-link"
+                                        href="{{ route('documents.index') }}"><i class="fas fa-file-word"></i>
+                                        <span>Document</span></a></li>
+                            @endcan
+                            </ul>
+                        </li>
                         @hasanyrole('teacher|student')
                         <li
                             class="dropdown {{ setActive('/exam'). setActive('exam_essay') }}">       
