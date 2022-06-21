@@ -32,7 +32,7 @@
                         <table class="table table-bordered">
                             <thead>
                             <tr>
-                               
+                                <th scope="col">NO</th>
                                 <th scope="col">NAMA TENTOR</th>
                                 <th scope="col">KUALITAS</th>
                                 <th scope="col">PEMBELAJARAN</th>
@@ -42,9 +42,12 @@
                             </tr>
                             </thead>
                             <tbody>
+                            @php
+        	                $count = 1;
+   		                    @endphp
                             @foreach ($evaluasis as $no => $evaluasi)
                                 <tr>
-                                    
+                                    <td>{{ $count++ }}</td>
                                     <td>{{ $evaluasi->user->siswa->nama_tentor }}</td>
                                     <td>{{ $evaluasi->kualitas }}</td>
                                     <td>{{ $evaluasi->pembelajaran }}</td>

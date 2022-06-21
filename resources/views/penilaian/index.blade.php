@@ -40,7 +40,7 @@
                         <table class="table table-bordered">
                             <thead>
                             <tr>
-                          
+                                <th scope="col">NO</th>
                                 <th scope="col">NAME</th>
                                 <th scope="col">TIME</th>
                                 <th scope="col">TOTAL PERTANYAAN</th>
@@ -50,9 +50,12 @@
                             </tr>
                             </thead>
                             <tbody>
+                            @php
+        	                $count = 1;
+   		                    @endphp
                             @foreach ($penilaian as $no => $penilaian)
                                 <tr>
-                                    
+                                    <td>{{ $count++ }}</td>
                                     <td>{{ $penilaian->name }}</td>
                                     <td>{{ $penilaian->time }}</td>
                                     <td>{{ $penilaian->total_pertanyaan }}</td>
@@ -87,7 +90,7 @@
                         <table class="table table-bordered">
                             <thead>
                             <tr>
-                          
+                                <th scope="col">NO</th>
                                 <th scope="col">NAME</th>
                                 <th scope="col">TIME</th>
                                 <th scope="col">TOTAL PERTANYAAN</th>
@@ -97,9 +100,12 @@
                             </tr>
                             </thead>
                             <tbody>
+                            @php
+        	                $count = 1;
+   		                    @endphp
                             @foreach ($penilaian as $no => $penilaian)
                                 <tr>
-                                    
+                                    <td>{{ $count++ }}</td>
                                     <td>{{ $penilaian->name }}</td>
                                     <td>{{ $penilaian->time }}</td>
                                     <td>{{ $penilaian->total_pertanyaan }}</td>
