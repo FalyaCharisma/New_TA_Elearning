@@ -190,6 +190,13 @@
                                         <span>Soal Esai</span></a>
                                 </li>
                             @endcan
+                           
+                            </ul>
+                        </li>
+                        <li
+                            class="dropdown">       
+                            <a href="#" class="nav-link has-dropdown"><i class="fas fa-folder"></i><span>Resource</span></a> 
+                            <ul class="dropdown-menu">
                             @can('subjects.index')
                                 <li class="{{ setActive('/subject') }}"><a class="nav-link"
                                         href="{{ route('subjects.index') }}"><i class="fas fa-atlas"></i>
