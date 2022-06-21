@@ -18,6 +18,7 @@
 	<table class='table table-bordered'>
 		<thead>
 			<tr>
+			<th>NO</th>
             <th>NAMA</th>
             <!-- <th>FOTO</th> -->
             <th>KETERANGAN</th>
@@ -25,10 +26,14 @@
 			</tr>
 		</thead>
 		<tbody>
+	
+		@php
+        	$count = 1;
+   		@endphp
         @foreach ($absens as $no => $absensis)
         <tr>
+		<td>{{ $count++ }}</td>
         <td>{{ $absensis->user->tentor->name }}</td> 
-            <!-- <td><img src="{{ asset('storage/public/absensis/'. $absensis->link) }}" width="150" ></td> -->
             <td>{{ $absensis->keterangan }}</td>
             <td>{{ $absensis->created_at }}</td>
             </tr>
