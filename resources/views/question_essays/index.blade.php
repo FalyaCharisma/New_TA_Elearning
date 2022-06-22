@@ -4,14 +4,14 @@
 <div class="main-content">
     <section class="section">
         <div class="section-header">
-            <h1>Questions</h1>
+            <h1>Bank Soal</h1>
         </div>
 
         <div class="section-body">
 
             <div class="card">
                 <div class="card-header">
-                    <h4><i class="fas fa-question"></i> Questions</h4>
+                    <h4><i class="fas fa-question"></i> Soal Esai</h4>
                 </div>
 
                 <div class="card-body">
@@ -20,11 +20,11 @@
                             <div class="input-group mb-3">
                                 @can('questions.create')
                                     <div class="input-group-prepend">
-                                        <a href="{{ route('question_essays.create') }}" class="btn btn-primary" style="padding-top: 10px;"><i class="fa fa-plus-circle"></i> TAMBAH ESSAY KUY</a>
+                                        <a href="{{ route('question_essays.create') }}" class="btn btn-primary" style="padding-top: 10px;"><i class="fa fa-plus-circle"></i> TAMBAH SOAL</a>
                                     </div>
                                 @endcan
                                 <input type="text" class="form-control" name="q"
-                                       placeholder="cari berdasarkan detail question">
+                                       placeholder="cari berdasarkan pertanyaan">
                                 <div class="input-group-append">
                                     <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> CARI
                                     </button>

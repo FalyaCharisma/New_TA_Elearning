@@ -4,14 +4,14 @@
 <div class="main-content">
     <section class="section">
         <div class="section-header">
-            <h1>Questions</h1>
+            <h1>Bank Soal</h1>
         </div>
 
         <div class="section-body">
 
             <div class="card">
                 <div class="card-header">
-                    <h4><i class="fas fa-question"></i> Questions</h4>
+                    <h4><i class="fas fa-question"></i> Soal Pilihan Ganda</h4>
                 </div>
 
                 <div class="card-body">
@@ -20,7 +20,7 @@
                             <div class="input-group mb-3">
                                 @can('questions.create')
                                     <div class="input-group-prepend">
-                                        <a href="{{ route('questions.create') }}" class="btn btn-primary" style="padding-top: 10px;"><i class="fa fa-plus-circle"></i> TAMBAH</a>
+                                        <a href="{{ route('questions.create') }}" class="btn btn-primary" style="padding-top: 10px;"><i class="fa fa-plus-circle"></i> TAMBAH SOAL</a>
                                     </div>
                                 @endcan
                                 <input type="text" class="form-control" name="q"

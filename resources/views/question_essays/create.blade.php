@@ -4,14 +4,14 @@
 <div class="main-content">
     <section class="section">
         <div class="section-header">
-            <h1>Tambah Question Essay</h1>
+            <h1>Tambah Soal</h1>
         </div>
 
         <div class="section-body">
 
             <div class="card">
                 <div class="card-header">
-                    <h4><i class="fas fa-question"></i> Tambah Question Essay</h4>
+                    <h4><i class="fas fa-question"></i> Tambah Soal Esai</h4>
                 </div>
 
                 <div class="card-body">
