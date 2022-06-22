@@ -5,7 +5,7 @@
 <div class="main-content">
     <section class="section">
         <div class="section-header">
-            <h1>EXAM DETAIL</h1>
+            <h1>DETAIL UJIAN PILIHAN GANDA</h1>
         </div>
 
         <div class="section-body">

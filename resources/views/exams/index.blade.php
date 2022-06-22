@@ -4,14 +4,14 @@
 <div class="main-content">
     <section class="section">
         <div class="section-header">
-            <h1>Exams</h1>
+            <h1>Ujian</h1>
         </div>
 
         <div class="section-body">
 
             <div class="card">
                 <div class="card-header">
-                    <h4><i class="fas fa-exam"></i> Exam</h4>
+                    <h4><i class="fas fa-exam"></i> Ujian Pilihan Ganda</h4>
                 </div>
 
                 <div class="card-body">
@@ -25,7 +25,7 @@
                                     </div>
                                 @endcan
                                 <input type="text" class="form-control" name="q"
-                                       placeholder="cari berdasarkan nama exam">
+                                       placeholder="cari berdasarkan nama ujian">
                                 <div class="input-group-append">
                                     <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> CARI
                                     </button>

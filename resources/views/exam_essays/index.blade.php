@@ -4,14 +4,14 @@
 <div class="main-content">
     <section class="section">
         <div class="section-header">
-            <h1>Exams</h1>
+            <h1>Ujian</h1>
         </div>
 
         <div class="section-body">
 
             <div class="card">
                 <div class="card-header">
-                    <h4><i class="fas fa-exam"></i> Exam Esai</h4>
+                    <h4><i class="fas fa-exam"></i> Ujian Esai</h4>
                 </div>
 
                 <div class="card-body">
@@ -21,11 +21,11 @@
                             <div class="input-group mb-3">
                                 @can('exam_essays.create')
                                     <div class="input-group-prepend">
-                                        <a href="{{ route('exam_essays.create') }}" class="btn btn-primary" style="padding-top: 10px;"><i class="fa fa-plus-circle"></i> TAMBAH ESSAY</a>
+                                        <a href="{{ route('exam_essays.create') }}" class="btn btn-primary" style="padding-top: 10px;"><i class="fa fa-plus-circle"></i> TAMBAH ESAI</a>
                                     </div>
                                 @endcan
                                 <input type="text" class="form-control" name="q"
-                                       placeholder="cari berdasarkan nama exam">
+                                       placeholder="cari berdasarkan nama ujian">
                                 <div class="input-group-append">
                                     <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> CARI
                                     </button>

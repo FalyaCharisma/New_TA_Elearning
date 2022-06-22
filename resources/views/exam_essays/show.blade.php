@@ -5,7 +5,7 @@
 <div class="main-content">
     <section class="section">
         <div class="section-header">
-            <h1>EXAM ESSAY DETAIL</h1>
+            <h1>DETAIL UJIAN ESAI</h1>
         </div>
 
         <div class="section-body">

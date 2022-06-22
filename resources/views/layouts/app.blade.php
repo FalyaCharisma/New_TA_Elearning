@@ -90,7 +90,7 @@
                                 href="#"><i class="fas fa-laptop"></i>
                                 <span>Sliders</span></a></li>
                         @endcan
-                        @hasrole('admin')
+                        <!-- @hasrole('admin')
                         <li
                             class="dropdown {{ setActive('admin/role'). setActive('admin/permission') }}">       
                             <a href="#" class="nav-link has-dropdown"><i class="fas fa-lock"></i><span>Roles</span></a> 
@@ -107,7 +107,7 @@
                                 @endcan 
                             </ul>
                         </li>
-                        @endhasrole
+                        @endhasrole -->
 
                         @hasrole('admin')
                         <li
@@ -152,6 +152,7 @@
                                 <span>Materi</span></a>
                         </li>
                         @endcan
+                        @hasrole('admin')
                         <li
                             class="dropdown">       
                             <a href="#" class="nav-link has-dropdown"><i class="fas fa-folder"></i><span>Resource</span></a> 
@@ -168,6 +169,7 @@
                             @endcan
                             </ul>
                         </li>
+                        @endhasrole
                         @hasanyrole('teacher|student')
                         <li
                             class="dropdown {{ setActive('/exam'). setActive('exam_essay') }}">       
@@ -176,7 +178,7 @@
                             @can('exams.index')
                                 <li class="{{ setActive('/exam') }}"><a class="nav-link"
                                         href="{{  route('exams.index') }}">
-                                        <span>Ujian</span></a></li>
+                                        <span>Ujian Pilihan Ganda</span></a></li>
                             @endcan
 
                             @can('exam_essays.index')

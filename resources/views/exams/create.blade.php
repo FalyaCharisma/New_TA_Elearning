@@ -4,14 +4,14 @@
 <div class="main-content">
     <section class="section">
         <div class="section-header">
-            <h1>Tambah Exam</h1>
+            <h1>Tambah Ujian</h1>
         </div>
 
         <div class="section-body">
 
             <div class="card">
                 <div class="card-header">
-                    <h4><i class="fas fa-exam"></i> Tambah Exam</h4>
+                    <h4><i class="fas fa-exam"></i> Tambah Ujian Pilihan Ganda</h4>
                 </div>
 
                 <div class="card-body">

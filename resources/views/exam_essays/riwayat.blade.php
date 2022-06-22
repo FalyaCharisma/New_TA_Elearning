@@ -4,7 +4,7 @@
 <div class="main-content">
     <section class="section">
         <div class="section-header">
-            <h1>Riwayat Exam</h1>
+            <h1>Riwayat Ujian Esai</h1>
         </div>
  
         <div class="section-body">
