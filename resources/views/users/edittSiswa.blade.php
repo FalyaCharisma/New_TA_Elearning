@@ -62,6 +62,18 @@
                         </div>
 
                         <div class="form-group">
+                            <label>ASAL SEKOLAH</label>
+                            <input type="text" name="asal_sekolah" value="{{ old('asal_sekolah', $siswa->asal_sekolah) }}"
+                                class="form-control">
+
+                            @error('asal_sekolah')
+                            <div class="invalid-feedback" style="display: block">
+                                {{ $message }}
+                            </div>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
                             <label>ALAMAT</label>
                             <input type="text" name="alamat" value="{{ old('alamat', $siswa->alamat) }}"
                                 class="form-control">

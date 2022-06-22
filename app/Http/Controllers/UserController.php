@@ -144,7 +144,8 @@ class UserController extends Controller
             'user_id'    => $id,
             'name'      => $request->input('name'),
             'kelas'     => $request->input('kelas'),
-            'no_wa'     => $request->input('no_wa'),
+            'no_wa'     => $request->input('no_wa')->nullable(),
+            'asal_sekolah'    => $request->input('asal_sekolah'),
             'alamat'    => $request->input('alamat'),
             'nama_tentor'=> $request->input('nama_tentor'),
         ]);

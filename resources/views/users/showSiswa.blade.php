@@ -77,6 +77,18 @@
                         </div>
 
                         <div class="form-group">
+                            <label>ASAL SEKOLAH</label>
+                            <input type="text" name="asal_sekolah" value="{{ old('asal_sekolah') }}" placeholder="Masukkan Asal Sekolah"
+                                class="form-control @error('asal_sekolah') is-invalid @enderror">
+
+                            @error('asal_sekolah')
+                            <div class="invalid-feedback" style="display: block">
+                                {{ $message }}
+                            </div>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
                             <label>NO. WA</label>
                             <input type="text" name="no_wa" value="{{ old('no_wa') }}" placeholder="Masukkan Nomor WhatsApp"
                                 class="form-control @error('no_wa') is-invalid @enderror">

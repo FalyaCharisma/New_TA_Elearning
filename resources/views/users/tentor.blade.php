@@ -46,12 +46,15 @@
                             </tr>
                             </thead>
                             <tbody>
+                            @php
+                                $count = 1;
+                            @endphp
                             @foreach ($users as $no => $user)
                             @if(!empty($user->getRoleNames()))
                             @foreach($user->getRoleNames() as $role)
                             @if($role=='teacher')
                                 <tr>
-                                    <th scope="row" style="text-align: center">{{ ++$no + ($users->currentPage()-1) * $users->perPage() }}</th>
+                                    <td>{{ $count++ }}</td>
                                     @if(!empty($user->tentor->user_id))
                                         <td>{{ $user->tentor->name }}</td>
                                         <td>{{ $user->tentor->no_wa }}</td>

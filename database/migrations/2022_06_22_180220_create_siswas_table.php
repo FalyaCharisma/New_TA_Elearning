@@ -18,12 +18,13 @@ class CreateSiswasTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->string('name');
             $table->string('kelas');
-            $table->string('no_wa');
+            $table->string('no_wa')->nullable();
             $table->string('alamat');
+            $table->string('asal_sekolah'); 
             $table->string('nama_tentor');
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

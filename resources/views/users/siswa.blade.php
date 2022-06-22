@@ -40,7 +40,7 @@
                             <thead>
                             <tr>
                                 <th scope="col" style="text-align: center;width: 6%">NO.</th>
-                                <th scope="col">NAMA</th>
+                                <th scope="col">USERNAME</th>
                                 <th scope="col">NAMA TENTOR</th>
                                 <th scope="col">KELAS</th>
                                 <th scope="col">NO. WA</th>
@@ -49,17 +49,21 @@
                             </tr>
                             </thead>
                             <tbody>
+                            @php
+                                $count = 1;
+                            @endphp
                             @foreach ($users as $no => $user)
                             @if(!empty($user->getRoleNames()))
                             @foreach($user->getRoleNames() as $role)
                             @if($role=='student')
                                 <tr>
-                                    <th scope="row" style="text-align: center">{{ ++$no + ($users->currentPage()-1) * $users->perPage() }}</th>
+                                        <td>{{ $count++ }}</td>
                                         @if(!empty($user->siswa->user_id))
                                         <td>{{ $user->siswa->name }}</td>
                                         <td>{{ $user->siswa->nama_tentor }}</td>
                                         <td>{{ $user->siswa->kelas }}</td>
                                         <td>{{ $user->siswa->no_wa }}</td>
+                                        <td>{{ $user->siswa->asal_sekolah }}</td>
                                         <td>{{ $user->siswa->alamat }}</td>
                                         @elseif(empty($user->siswa->user_id))
                                         <td>{{ $user->username }}</td>
