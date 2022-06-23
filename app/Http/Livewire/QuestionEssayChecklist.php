@@ -7,7 +7,7 @@ use App\Models\Subject;
 use Livewire\Component;
 use App\Models\QuestionEssay;
 use Livewire\WithPagination;
-use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Builder; 
 
 class QuestionEssayChecklist extends Component
 {
@@ -45,32 +45,20 @@ class QuestionEssayChecklist extends Component
     {
         if (empty($this->selectedQuestion)) {
             return view('livewire.question-essay-checklist', [
-                'questions' => QuestionEssay::latest()
+                'questions' => QuestionEssay::where('created_by', Auth()->id())->latest()
                     ->when($this->q != null, function ($questions) {
                         $questions = $questions->where('detail', 'like', '%' . $this->q . '%');
                     })
-                    ->when($this->p != null, function ($questions) {
-                        $questions = $questions->whereHas('subject', function (Builder $query) {
-                            $query->where('name', 'like', '%' . $this->p . '%');
-                        })->get();
-                    })
                     ->paginate(5),
-                'subject' => new Subject()
             ]);
         } else {
             return view('livewire.question-essay-checklist', [
-                'questions' => QuestionEssay::latest()
+                'questions' => QuestionEssay::where('created_by', Auth()->id())->latest()
                     ->when($this->q != null, function ($questions) {
                         $questions = $questions->where('detail', 'like', '%' . $this->q . '%');
                     })
-                    ->when($this->p != null, function ($questions) {
-                        $questions = $questions->whereHas('subject', function (Builder $query) {
-                            $query->where('name', 'like', '%' . $this->p . '%');
-                        })->get();
-                    })->whereNotIn('id', $this->selectedQuestion)
                     ->paginate(5),
                 'questionsAll' => QuestionEssay::latest()->whereIn('id', $this->selectedQuestion)->get(),
-                'subject' => new Subject()
             ]);
         }
     }

@@ -7,7 +7,6 @@
         <thead>
         <tr>
           <th>Delete</th>
-          <th>Subject</th>
           <th>Detail Question</th>
           <th>Checked</th>
         </tr>
@@ -19,12 +18,11 @@
               <td>
                   <button type="button" class="btn btn-danger" wire:click="deselectQuestion({{ $question->id }})"><i class="fas fa-minus-circle"></i></button>
               </td>
-              <td>{{ $subject->getName($question->subject_id) }}</td>
-              <td>{{ $question->detail }}</td>
+              <td>{{ $question->subject->getName($question->subject_id) }} - {{ $question->detail }}</td>
               <td><input class="form-check-input" type="checkbox" name="questions[]" value="{{ $question->id }}" 
                 id="check-{{ $question->id }}"checked></td>
             </tr>
-            @endforeach
+            @endforeach 
         @endif
         
         </tbody>
@@ -41,8 +39,6 @@
           @endforeach --}}
                 
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" name="p" wire:model="p"
-                                placeholder="cari berdasarkan subject">
                         <input type="text" class="form-control" name="q" wire:model="q"
                                placeholder="cari berdasarkan detail question">
                     </div>
@@ -50,7 +46,6 @@
             <thead>
             <tr>
               <th>Choose</th>
-              <th>Subject</th>
               <th>Detail Question</th>
             </tr>
             </thead>
@@ -63,22 +58,10 @@
                                id="check-{{ $question->id }}">
                     </div>
                 </td>
-                <td>{{ $subject->getName($question->subject_id) }}</td>
-                <td>{{ $question->detail }}</td>
+                <td>{{ $question->subject->getName($question->subject_id) }} - {{ $question->detail }}</td>
               </tr>
             @endforeach
-            {{-- @foreach ($questionEssays as $questionEssay)            
-              <tr>
-                <td>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" wire:model="selectedQuestion" type="checkbox" name="questions[]" value="{{ $question->id }}" 
-                               id="check-{{ $questionEssay->id }}">
-                    </div>
-                </td>
-                <td>{{ $subject->getName($questionEssay->subject_id) }}</td>
-                <td>{{ $questionEssay->detail }}</td>
-              </tr>
-            @endforeach --}}
+           
             </tbody>
           </table>
          

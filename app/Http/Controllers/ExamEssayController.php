@@ -25,20 +25,14 @@ class ExamEssayController extends Controller
     public function index()
     {
         $currentUser = User::findOrFail(Auth()->id());
-        if($currentUser->hasRole('admin')){
-            $exam_essays = Exam::latest()->when(request()->q, function($exam_essays) {
-                $exam_essays = $exam_essays->where('name', 'like', '%'. request()->q . '%');
-            })->paginate(10);
-        }elseif($currentUser->hasRole('student')){
-            $exam_essays = Exam::latest()->whereHas('users', function (Builder $query) {
-                $query->where('user_id', Auth()->id());
+        if($currentUser->hasRole('student')){
+            $exam_essays = Exam::whereHas('users',function(Builder $query){
+                $query->where('user_id',Auth()->id())->where('type_exam', 'essay');
             })->paginate(10);
         }elseif($currentUser->hasRole('teacher')){
             $exam_essays = Exam::where('created_by', Auth()->id())->latest()->when(request()->q, function($exam_essays) {
-                // $exam_essays = $exam_essays->where('created_by', Auth()->id())->where('name', 'like', '%'. request()->q . '%');
-                $exam_essays = Exam::where('type_exam','essay');
-            })->paginate(10);
-            // $exam_essays = Exam::where('type_exam','essay');
+                $exam_essays = $exam_essays->where('created_by', Auth()->id())->where('name', 'like', '%' . request()->q . '%');
+            })->where('type_exam', 'essay')->paginate(10); 
         }
         
         $user = new User();
@@ -124,10 +118,7 @@ class ExamEssayController extends Controller
     public function show(exam $exam_essay)
     {
         $questions = $exam_essay->questionEssays()->where('exam_id', $exam_essay->id)->get();
-        // $questionEssays = $exam->questionEssays()->where('exam_id', $exam->id)->get();
-        // $questions = $exam->questionEssays()->where('exam_id', $exam->id)->get();
-        
-        // return view('exam_essays.show', compact('exam', 'questions','questionEssays'));
+
         return view('exam_essays.show', compact('exam_essay', 'questions'));
     }
 
@@ -174,10 +165,10 @@ class ExamEssayController extends Controller
     public function assign(Request $request, $id)
     {
         $exam_essay = Exam::findOrFail($id);
-
         $exam_essay->users()->sync($request->input('students'));
 
-        return view('exam_essays.index', compact('exam_essay'));
+        return redirect('/exam_essays');
+
 
     }
 
@@ -191,10 +182,7 @@ class ExamEssayController extends Controller
         // $user = User::findOrFail($userId);
         $exam_essay = Exam::findOrFail($id);
         $users = new User();
-        
-        // $evaluasis = Evaluasi::where('penilaian_id', $id)->get();
-        // $siswa = Siswa::where('user_id', $id)->get();
-
+    
         return view('exam_essays.riwayat', compact('exam_essay','users'));
     }
 

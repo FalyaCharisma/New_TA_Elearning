@@ -18,7 +18,7 @@
                 <div class="card-body">
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">Durasi Ujian : {{ $exam_essay->time }} Menit</li>
-                        <li class="list-group-item">Durasi Jumlah Soal : {{ $exam_essay->total_question }} buah</li>
+                        <li class="list-group-item">Jumlah Soal : {{ $exam_essay->total_question }} buah</li>
                         <li class="list-group-item">Ujian dibuka : {{ TanggalID($exam_essay->start) }}</li>
                         <li class="list-group-item">Ujian ditutup : {{ TanggalID($exam_essay->end) }}</li>
                     </ul>

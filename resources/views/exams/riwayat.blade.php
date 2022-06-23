@@ -20,15 +20,19 @@
                         <table class="table table-bordered">
                             <thead>
                             <tr>
-                               
+                                <th>NO</th>
                                 <th scope="col">NAMA SISWA</th>
                                 <th scope="col">SCORE</th>
                                 <th scope="col">LIHAT</th>
                             </tr>
                             </thead>
                             <tbody>
+                            @php
+                                $count=1;
+                            @endphp
                             @foreach ($exam->users as $no => $exam_user)
                                 <tr>            
+                                    <td>{{ $count++ }}</td>
                                     <td>{{ $users->getName($exam_user->pivot->user_id) }}</td>
                                     @if( $exam_user->pivot->score === null)
                                     <td>Belum Dikerjakan</td>
