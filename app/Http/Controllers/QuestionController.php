@@ -23,7 +23,7 @@ class QuestionController extends Controller
     public function index()
     {
         $questions = Question::where('created_by', Auth()->id())->latest()->when(request()->q, function($questions) {
-            $questions = $questions->where('detail', 'like', '%'. request()->q . '%');
+            $questions = $questions->where('pertanyaan', 'like', '%'. request()->q . '%');
         })->paginate(10);
 
         $subject = new Subject();

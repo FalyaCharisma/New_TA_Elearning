@@ -23,7 +23,7 @@
                             <select class="form-control select-subject @error('subject_id') is-invalid @enderror" name="subject_id">
                                 <option value="">- SELECT SUBJECT -</option>
                                 @foreach ($subjects as $subject)
-                                @if($subjects->user_id == Auth::user()->id)
+                                @if($subject->user_id == Auth::user()->id)
                                     <option value="{{ $subject->id }}">{{ $subject->name }}</option>
                                 @endif
                                 @endforeach
