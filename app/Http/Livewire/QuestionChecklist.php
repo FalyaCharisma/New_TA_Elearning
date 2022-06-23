@@ -45,14 +45,14 @@ class QuestionChecklist extends Component
     {
         if (empty($this->selectedQuestion)) {
             return view('livewire.question-checklist', [
-                'questions' => Question::latest()
+                'questions' => Question::where('created_by', Auth()->id())->latest()
                                 ->when($this->q != null, function($questions) {
                                             $questions = $questions->where('pertanyaan', 'like', '%'. $this->q . '%');})
                                 ->paginate(5)
                 ]);
         } else {
             return view('livewire.question-checklist', [
-                'questions' => Question::latest()
+                'questions' => Question::where('created_by', Auth()->id())->latest()
                                 ->when($this->q != null, function($questions) {
                                             $questions = $questions->where('pertanyaan', 'like', '%'. $this->q . '%');})
                                 ->whereNotIn('id', $this->selectedQuestion)

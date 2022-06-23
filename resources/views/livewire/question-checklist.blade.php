@@ -18,7 +18,7 @@
               <td>
                   <button type="button" class="btn btn-danger" wire:click="deselectQuestion({{ $question->id }})"><i class="fas fa-minus-circle"></i></button>
               </td>
-              <td>{{ $question->pertanyaan }}</td>
+              <td>{{ $question->subject->getName($question->subject_id) }} - {{ $question->pertanyaan }}</td>
               <td><input class="form-check-input" type="checkbox" name="questions[]" value="{{ $question->id }}" 
                 id="check-{{ $question->id }}" }} checked></td>
             </tr>
@@ -58,7 +58,7 @@
                                id="check-{{ $question->id }}" }}>
                     </div>
                 </td>
-                <td>{{ $question->pertanyaan }}</td>
+                <td>{{ $question->subject->getName($question->subject_id) }} - {{ $question->pertanyaan }}</td>
               </tr>
             @endforeach
             </tbody>
