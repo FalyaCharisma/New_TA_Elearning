@@ -24,21 +24,8 @@ class Kelas extends Model
         return $this->hasMany(User::class);
     }
 
-    public function siswas(){
-        return $this->hasMany(Siswa::class);
-    }
-    
-    /**
-     * This is For CRUD
-     * Mengkaitkan table kelas
-     *
-     */
     protected $table = 'kelas';
 
-    /**
-     * Kelas belongs to Mata Pelajaran - Relationship
-     *
-     */
     public function mapel()
     {
         return $this

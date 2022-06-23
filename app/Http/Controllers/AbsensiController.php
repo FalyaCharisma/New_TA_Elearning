@@ -29,16 +29,16 @@ class AbsensiController extends Controller
  
     public function riwayat()
     {
-        $absens = Absensi::latest()->when(request()->q, function ($absens) {
-            $absens = $absens->where('name', 'like', '%' . request()->q . '%');
-        })->paginate(10);
+        $absens = Absensi::latest()->paginate(10);
         return view('absensi.riwayat', compact('absens'));
     }
 
     public function index()
     {
         $absens = Absensi::latest()->when(request()->q, function ($absens) {
-            $absens = $absens->where('name', 'like', '%' . request()->q . '%');
+            $absens = $absens->whereHas('User', function ($absens){
+                $absens->where('username','like', '%' . request()->q . '%');
+            });
         })->paginate(10);
         return view('absensi.index', compact('absens'));
     }

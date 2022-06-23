@@ -12,7 +12,7 @@
             @can('kelas.create')
                 <div class="card">
                     <div class="card-header">
-                        <h4><i class="fas fa-atlas"></i> New Class</h4>
+                        <h4><i class="fas fa-graduation-cap"></i> New Class</h4>
                     </div>
 
                     <div class="card-body">
@@ -43,7 +43,7 @@
 
             <div class="card">
                 <div class="card-header">
-                    <h4><i class="fas fa-atlas"></i>Kelas</h4>
+                    <h4><i class="fas fa-graduation-cap"></i>Kelas</h4>
                 </div>
 
                 <div class="card-body">

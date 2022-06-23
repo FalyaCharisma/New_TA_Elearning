@@ -47,14 +47,17 @@
                         </div>
  
                         <div class="form-group">
-                            <label>KELAS</label>
-                            <select class="form-control select-kelas @error('kelas') is-invalid @enderror" name="kelas">
-                                <option value="">- SELECT KELAS -</option>
-                                @foreach ($kelass as $kelas)
-                                    <option value="{{ $kelas->nama_kelas }}">{{ $kelas->nama_kelas }}</option>
-                                @endforeach 
+                            <label>JENJANG</label>
+                            <select class="form-control select-jenjang @error('jenjang') is-invalid @enderror" name="jenjang">
+                                <option value="">- SELECT JENJANG -</option>
+                                    <option value="PAUD">PAUD</option>
+                                    <option value="TK">TK</option>
+                                    <option value="SD/MI">SD/MI</option>
+                                    <option value="SMP/MTS">SMP/MTS</option>
+                                    <option value="SMA/SMK/MA">SMA/SMK/MA</option>
+                                    <option value="UMUM">UMUM</option>
                             </select>
-                            @error('kelas')
+                            @error('jenjang')
                             <div class="invalid-feedback" style="display: block">
                                 {{ $message }}
                             </div>

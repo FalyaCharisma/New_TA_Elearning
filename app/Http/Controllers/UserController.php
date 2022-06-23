@@ -35,8 +35,7 @@ class UserController extends Controller
         })->paginate(10);
         $roles = new Role();
         $tentor = new Tentor();
-        $kelas = new Kelas();
-        return view('users.tentor', compact('users','roles', 'kelas','tentor'));
+        return view('users.tentor', compact('users','roles','tentor'));
     }
 
     public function siswa()
@@ -45,9 +44,8 @@ class UserController extends Controller
             $users = $users->where('name', 'like', '%'. request()->q . '%');
         })->paginate(10);
         $roles = new Role();
-        $kelas = new Kelas();
         $siswa = Siswa::latest()->get();
-        return view('users.siswa', compact('users','roles', 'kelas','siswa'));
+        return view('users.siswa', compact('users','roles','siswa'));
     }
 
     public function create()
@@ -124,10 +122,9 @@ class UserController extends Controller
     {
         $tentor = Tentor::latest()->get();
         $user = User::findOrFail($id);
-        $kelass = Kelas::latest()->get();
         $siswa = Siswa::latest()->get();
 
-        return view('users.showSiswa', compact('user','siswa', 'kelass', 'tentor'));
+        return view('users.showSiswa', compact('user','siswa', 'tentor'));
     }
 
     public function showTentor($id)
@@ -141,10 +138,10 @@ class UserController extends Controller
     public function dataSiswa(Request $request,$id){
     
         $siswa = Siswa::create([
-            'user_id'    => $id,
+            'user_id'   => $id,
             'name'      => $request->input('name'),
-            'kelas'     => $request->input('kelas'),
-            'no_wa'     => $request->input('no_wa')->nullable(),
+            'jenjang'   => $request->input('jenjang'),
+            'no_wa'     => $request->input('no_wa'),
             'asal_sekolah'    => $request->input('asal_sekolah'),
             'alamat'    => $request->input('alamat'),
             'nama_tentor'=> $request->input('nama_tentor'),
@@ -172,8 +169,7 @@ class UserController extends Controller
         $siswa = Siswa::findOrFail($id);
         $user = User::latest()->get();
         $tentor = Tentor::latest()->get();
-        $kelass = Kelas::latest()->get();
-        return view('users.edittSiswa', compact('tentor','user','siswa','kelass'));
+        return view('users.edittSiswa', compact('tentor','user','siswa'));
     }
     public function updateSiswa(Request $request, $id){ 
         $siswa = Siswa::find($id)->update($request->all());

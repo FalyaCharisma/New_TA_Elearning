@@ -40,10 +40,11 @@
                             <thead>
                             <tr>
                                 <th scope="col" style="text-align: center;width: 6%">NO.</th>
-                                <th scope="col">USERNAME</th>
+                                <th scope="col">NAMA</th>
                                 <th scope="col">NAMA TENTOR</th>
-                                <th scope="col">KELAS</th>
+                                <th scope="col">JENJANG</th>
                                 <th scope="col">NO. WA</th>
+                                <th scope="col">ASAL SEKOLAH</th>
                                 <th scope="col">ALAMAT</th>
                                 <th scope="col" style="width: 15%;text-align: center">AKSI</th>
                             </tr>
@@ -61,7 +62,7 @@
                                         @if(!empty($user->siswa->user_id))
                                         <td>{{ $user->siswa->name }}</td>
                                         <td>{{ $user->siswa->nama_tentor }}</td>
-                                        <td>{{ $user->siswa->kelas }}</td>
+                                        <td>{{ $user->siswa->jenjang }}</td>
                                         <td>{{ $user->siswa->no_wa }}</td>
                                         <td>{{ $user->siswa->asal_sekolah }}</td>
                                         <td>{{ $user->siswa->alamat }}</td>
@@ -70,6 +71,7 @@
                                         <td></td>
                                         <td></td>
                                         <td></td>
+                                        <td></td>   
                                         <td></td>   
                                         @endif
                                     
@@ -99,9 +101,9 @@
                             @endforeach
                             </tbody>
                         </table>
-                        <div style="text-align: center">
+                        <!-- <div style="text-align: center">
                             {{$users->links("vendor.pagination.bootstrap-4")}}
-                        </div>
+                        </div> -->
                     </div>
                     @endcan
                 </div>

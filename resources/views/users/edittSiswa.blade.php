@@ -31,18 +31,16 @@
                         </div>
 
                         <div class="form-group">
-                            <label>KELAS</label>
-                            <select class="form-control select-kelas @error('kelas') is-invalid @enderror" name="kelas">
-                                <option value="">- SELECT KELAS -</option>
-                                @foreach ($kelass as $kelas)
-                                    @if ($siswa->kelas == $kelas->nama_kelas )
-                                    <option value="{{ $kelas->nama_kelas }}" selected>{{ $kelas->nama_kelas }}</option>
+                            <label>JENJANG</label>
+                            <select class="form-control select-jenjang @error('jenjang') is-invalid @enderror" name="jenjang">
+                                <option value="">- SELECT JENJANG -</option>
+                                    @if ($siswa->jenjang !== null )
+                                    <option value="{{ $siswa->jenjang }}" selected>{{ $siswa->jenjang }}</option>
                                     @else
-                                        <option value="{{ $kelas->nama_kelas }}">{{ $kelas->nama_kelas }}</option>
+                                        <option value="{{ $siswa->jenjang }}">{{ $siswa->jenjang }}</option>
                                     @endif
-                                @endforeach
                             </select>
-                            @error('kelas')
+                            @error('jenjang')
                             <div class="invalid-feedback" style="display: block">
                                 {{ $message }}
                             </div>
@@ -88,8 +86,8 @@
                         <div class="form-group">
                             <label>NAMA TENTOR</label>
                             <select class="form-control" name="nama_tentor">
-                                <option value="">- SELECT TENTOR -</option>
-                                @foreach ($tentor as $no => $tentor)         
+                                @foreach ($tentor as $no => $tentor)    
+                                <option value="{{ $tentor->name }}" selected>{{ $tentor->name }}</option>     
                                 <option value="{{ $tentor->name }}">{{ $tentor->name }}</option>
                                 @endforeach
                             </select>
