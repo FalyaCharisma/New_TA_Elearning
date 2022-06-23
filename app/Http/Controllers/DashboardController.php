@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Exam;
 use Illuminate\Support\Facades\Auth;
 use App\Models\mataPelajaran;
+use App\Models\Image;
+use App\Models\Document;
 use App\Models\User;
 use App\Models\Informasi;
 use Illuminate\Http\Request;
@@ -25,7 +27,9 @@ class DashboardController extends Controller
         })->get();
         $user = Auth::user();
         $mapels = mataPelajaran::get();
+        $document = new Document();
+        $image = new Image();
         $informasi = Informasi::latest()->paginate(1);
-        return view('dashboard.index', compact('exams', 'mapels', 'user','informasi')); 
+        return view('dashboard.index', compact('exams', 'mapels', 'user','informasi','image','document')); 
     }
 }

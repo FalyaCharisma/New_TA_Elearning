@@ -14,6 +14,13 @@
             </div>
             @foreach($informasi as $informasi)
             <div class="card-body">
+            @if($informasi['document_id'])
+              <a href=" {{ asset('storage/public/documents/'.$document->getLink($informasi['document_id'])) }}">{{$document->getLink($info['document_id'])}}</a>
+            @elseif($informasi['image_id'])
+              <img src="{{ asset('storage/public/images/'.$image->getLink($informasi['image_id'])) }}" style="width: 300px">
+            @else
+            @endif
+            <hr>
               {{ $informasi->isi_informasi }}<hr>
               {{ $informasi->created_at }}
             </div>

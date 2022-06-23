@@ -42,7 +42,7 @@
                                 @if($info['document_id'])
                                     <a href=" {{ asset('storage/public/documents/'.$document->getLink($info['document_id'])) }}">{{$document->getLink($info['document_id'])}}</a>
                                 @elseif($info['image_id'])
-                                    <img src="{{ asset('storage/public/images/'.$image->getLink($info['image_id'])) }}" style="width: 800px">
+                                    <img src="{{ asset('storage/public/images/'.$image->getLink($info['image_id'])) }}" style="width: 300px">
                                 @else
                                 @endif
                                 <p>{{ $info->isi_informasi }}</p>
