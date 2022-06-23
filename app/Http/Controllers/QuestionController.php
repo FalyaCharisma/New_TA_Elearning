@@ -88,13 +88,15 @@ class QuestionController extends Controller
         $videos = Video::latest()->get();
         $audios = Audio::latest()->get();
         $images = Image::latest()->get();
+        $subjects = Subject::latest()->get();
         $documents = Document::latest()->get();
-        return view('questions.edit', compact('question','videos', 'audios', 'images', 'documents'));
+        return view('questions.edit', compact('question','videos', 'audios', 'images', 'documents','subjects'));
     }
 
     public function update(Request $request, Question $question)
     {
         $this->validate($request, [
+            'subject_id'  => 'required',
             'pertanyaan'  => 'required',
             'option_A'    => 'required',
             'option_B'    => 'required',
@@ -104,6 +106,7 @@ class QuestionController extends Controller
         $question = Question::findOrFail($question->id);
 
         $question->update([
+            'subject_id'    => $request->input('subject_id'),
             'pertanyaan'    => $request->input('pertanyaan'),
             'option_A'      => $request->input('option_A'),
             'option_B'      => $request->input('option_B'),

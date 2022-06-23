@@ -124,9 +124,9 @@
                         </div>
 
                         <div class="form-group">
-                            <label>DETAIL</label>
-                            <textarea name="detail" cols="30" rows="30" class="form-control">{{ old('detail', $question->detail) }}</textarea>
-                            @error('detail')
+                            <label>PERTANYAAN</label>
+                            <textarea name="pertanyaan" cols="30" rows="30" class="form-control">{{ old('pertanyaan', $question->pertanyaan) }}</textarea>
+                            @error('pertanyaan')
                             <div class="invalid-feedback" style="display: block">
                                 {{ $message }}
                             </div>
@@ -201,8 +201,8 @@
 
                         <div class="form-group">
                             <label>EXPLANATION</label>
-                            <textarea name="explanation" cols="30" rows="30" class="form-control">{{ old('explanation', $question->explanation) }}</textarea>
-                            @error('explanation')
+                            <textarea name="penjelasan" cols="30" rows="30" class="form-control">{{ old('penjelasan', $question->penjelasan) }}</textarea>
+                            @error('penjelasan')
                             <div class="invalid-feedback" style="display: block">
                                 {{ $message }}
                             </div>

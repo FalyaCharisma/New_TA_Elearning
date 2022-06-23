@@ -59,12 +59,11 @@
                             </thead>
                             <tbody>
                             @foreach ($absens as $no => $absensis)
-                            @if ($absensis->name == Auth::user()->name)
-                                                <tr>
-                                                    <th scope="row" style="text-align: center">
-                                                        {{ ++$no + ($absens->currentPage() - 1) * $absens->perPage() }}</th>
-                                                    <td><img src="{{ asset('storage/public/absensis/' . $absensis->link) }}"
-                                                            width="150"></td>
+                            @if ($absensis->user_id == Auth::user()->id)
+                                <tr>
+                                    <th scope="row" style="text-align: center">
+                                    {{ ++$no + ($absens->currentPage() - 1) * $absens->perPage() }}</th>
+                                    <td><img src="{{ asset('storage/public/absensis/' . $absensis->link) }}"width="150"></td>
                                     <td>{{ $absensis->keterangan }}</td>
                                     <td>{{ $absensis->created_at }}</td>
                                 </tr>

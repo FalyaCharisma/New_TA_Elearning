@@ -29,7 +29,11 @@ class AbsensiController extends Controller
  
     public function riwayat()
     {
-        $absens = Absensi::latest()->paginate(10);
+        $absens = Absensi::latest()->when(request()->q, function ($absens) {
+            $absens = $absens->whereHas('User', function ($absens){
+                $absens->where('username','like', '%' . request()->q . '%');
+            });
+        })->paginate(10);
         return view('absensi.riwayat', compact('absens'));
     }
 
