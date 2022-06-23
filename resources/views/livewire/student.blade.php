@@ -51,6 +51,8 @@
               </thead>
               <tbody>
               @foreach ($students as $student)
+              @foreach ($siswa as $siswa)
+              @if($siswa->nama_tentor==Auth::user()->tentor->name)
                 <tr>
                   <td>
                       <div class="form-check form-check-inline">
@@ -60,6 +62,8 @@
                   </td>
                   <td>{{ $student->username }}</td>
                 </tr>
+                @endif
+                @endforeach
               @endforeach
               </tbody>
             </table>

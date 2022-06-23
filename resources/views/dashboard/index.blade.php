@@ -6,7 +6,7 @@
         <div class="section-header">
             <h1>Dashboard</h1>
         </div>
-        @hasanyrole('teacher')
+        @hasanyrole('teacher|student')
         <div class="card">
           <div class="col-md-12">
             <div class="card-header">
@@ -27,7 +27,7 @@
             @endforeach
           </div> 
         </div>
-        @endhasrole
+        @endhasanyrole
         @hasanyrole('admin')
           <div class="row">
           <div class="col-lg-3 col-md-6 col-sm-6 col-12">
@@ -91,24 +91,7 @@
               </div>
             </div>              
           </div>
-        @endhasrole
-        @hasrole('student')
-        <div class="card">
-          <div class="col-md-12">
-            <div class="card-header">
-              <h4>Informasi</h4>
-            </div>
-            @foreach($informasi as $informasi)
-            <div class="card-body">
-              {{ $informasi->isi_informasi }}<hr>
-              {{ $informasi->created_at }}
-            </div>
-            @endforeach
-          </div> 
-        </div>
-        @endhasrole
-
-       
+        @endhasrole    
     </section>
 </div>
 @endsection

@@ -11,7 +11,7 @@
 
             <div class="card">
                 <div class="card-header">
-                    <h4><i class="fas fa-unlock"></i> Ajukan Pertanyaan</h4>
+                    <h4><i class="fas fa-question"></i> Ajukan Pertanyaan</h4>
                 </div>
 
                 <div class="card-body">
@@ -26,6 +26,7 @@
                                 @if ($materi->siswa ==  Auth::user()->siswa->name)
                                     <option value="{{ $materi->id }}">{{ $materi->judul }}</option>
                                 @endif
+                                @endhasrole
                                 @endforeach  
                             </select>
                             @error('materi_id')
