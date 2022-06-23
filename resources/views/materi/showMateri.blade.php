@@ -21,7 +21,7 @@
                                         <h3 class="card-title">{{ $materis->judul }}</h3>
                                         {!! $materis->isi !!}
                                         <h5>Ringkasan :</h5>
-                                        <p> {!! $materis->kesimpulan !!}</p>
+                                        <p> {!! $materis->ringkasan !!}</p>
                                     </div>
                                 </div>
                             </div>
@@ -43,7 +43,6 @@
                                         </div>
                                         <div class="card-body">
                                             <a href="{{ asset('storage/public/materis/'.$materis->link) }}" class="btn btn-block btn-outline-primary">Download</a>
-                                            <p>Catatan: Jika tidak dapat didownload artinya file materi kosong</P>
                                         </div>
                                     </div>
                             </div>

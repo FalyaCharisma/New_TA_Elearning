@@ -32,7 +32,7 @@ class Student extends Component
         }
     }
 
-    public function render()
+    public function render() 
     {
         if (empty($this->selectedStudent)) {
             return view('livewire.student', [
@@ -41,6 +41,7 @@ class Student extends Component
                                     $users = $users->role('student')->where('username', 'like', '%'. $this->p . '%');
                                     })
                                     ->paginate(5),
+            
                 ]);
         } else {
             return view('livewire.student', [
@@ -50,9 +51,8 @@ class Student extends Component
                                     })
                                     ->whereNotIn('id', $this->selectedStudent)
                                     ->paginate(5),
-                'studentsAll' => User::role('student')->latest()->whereIn('id', $this->selectedStudent)->get()
+                'studentsAll' => User::latest()->whereIn('id', $this->selectedStudent)->get()
                 ]);
-        }
-        
+        } 
     }
 }

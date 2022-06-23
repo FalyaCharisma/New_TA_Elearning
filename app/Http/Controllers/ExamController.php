@@ -26,81 +26,31 @@ class ExamController extends Controller
         $this->middleware(['permission:exams.index|exams.create|exams.edit|exams.delete']);
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        // $currentUser = User::findOrFail(Auth()->id());
-        // if($currentUser->hasRole('admin')){
-        //     $exams = Exam::latest()->when(request()->q, function($exams) {
-        //         $exams = $exams->where('name', 'like', '%'. request()->q . '%');
-        //     })->paginate(10);
-        //     $exam_essays = Exam::where('type_exam','essay')->paginate(10);
-        // }elseif($currentUser->hasRole('student')){
-        //     $exams = Exam::whereHas('users', function (Builder $query) {
-        //         $query->where('user_id', Auth()->id());
-        //     })->paginate(10);
-        // }elseif($currentUser->hasRole('teacher')){
-        //     $exams = Exam::where('created_by', Auth()->id())->latest()->when(request()->q, function($exams) {
-        //         $exams = $exams->where('created_by', Auth()->id())->where('name', 'like', '%'. request()->q . '%');
-        //     })->paginate(10);
-        // }
-        
-        // $user = new User();
-
-        // return view('exams.index', compact('exams','user'));
 
         $currentUser = User::findOrFail(Auth()->id());
-        if($currentUser->hasRole('admin')){
-            $exams = Exam::latest()->when(request()->q, function($exams) {
-                $exams = $exams->where('name', 'like', '%'. request()->q . '%');
-            })->paginate(10);
-            $exam_essays = Exam::where('type_exam','essay')->paginate(10);        
-        }elseif($currentUser->hasRole('student')){
-            // $exams = Exam::where('type_exam','ganda')->paginate(10);
-            // $exam_essays = Exam::where('type_exam','essay')->paginate(10);   
-            
+        if($currentUser->hasRole('student')){
             $exams = Exam::whereHas('users',function(Builder $query){
                 $query->where('user_id',Auth()->id())->where('type_exam', 'ganda');
             })->paginate(10);
-            $exam_essays = Exam::whereHas('users',function(Builder $query){
-                $query->where('user_id',Auth()->id())->where('type_exam', 'essay');
-            })->paginate(10);
             
         }elseif($currentUser->hasRole('teacher')){
-            // perlu ada perbaikan query hanya soal yang dibuat oleh akun perorangan
             $exams = Exam::where('created_by', Auth()->id())->latest()->when(request()->q, function ($exams) {
                 $exams = $exams->where('created_by', Auth()->id())->where('name', 'like', '%' . request()->q . '%');
-            })->where('type_exam', 'ganda')->paginate(10);
-            $exam_essays = Exam::where('created_by', Auth()->id())->latest()->when(request()->q, function ($exam_essays) {
-                $exam_essays = $exam_essays->where('created_by', Auth()->id())->where('name', 'like', '%' . request()->q . '%');
-            })->where('type_exam', 'essay')->paginate(10);          
+            })->where('type_exam', 'ganda')->paginate(10);          
         }
         
         $user = new User();
 
-        return view('exams.index', compact('exams','exam_essays','user'));
+        return view('exams.index', compact('exams','user'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         return view('exams.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $this->validate($request, [
@@ -133,12 +83,6 @@ class ExamController extends Controller
         }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit(exam $exam)
     {
         $questions = $exam->questions()->where('exam_id', $exam->id)->get();
@@ -146,13 +90,6 @@ class ExamController extends Controller
         return view('exams.edit', compact('exam', 'questions'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, exam $exam)
     {
         $this->validate($request, [
@@ -183,12 +120,6 @@ class ExamController extends Controller
         }
     }
 
-    /**
-     * Show the form for detailing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show(exam $exam)
     {
         $questions = $exam->questions()->where('exam_id', $exam->id)->get();
@@ -196,12 +127,6 @@ class ExamController extends Controller
         return view('exams.show', compact('exam', 'questions'));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         $exam = Exam::findOrFail($id);

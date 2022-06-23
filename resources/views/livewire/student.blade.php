@@ -18,7 +18,7 @@
                 <td>
                     <button type="button" class="btn btn-danger" wire:click="deselectStudent({{ $student->id }})"><i class="fas fa-minus-circle"></i></button>
                 </td>
-                <td>{{ $student->username }}</td>
+                <td>{{ $student->siswa->name }}</td>
                 <td><input class="form-check-input" type="checkbox" name="students[]" value="{{ $student->id }}" 
                   id="check-{{ $student->id }}" }} checked></td>
               </tr>
@@ -40,7 +40,7 @@
                   
                       <div class="input-group mb-3">
                           <input type="text" class="form-control" name="q" wire:model="q"
-                                 placeholder="cari berdasarkan detail student">
+                                 placeholder="cari berdasarkan nama">
                       </div>
             <table id="table_id" class="table table-bordered table-hover">
               <thead>
@@ -51,8 +51,8 @@
               </thead>
               <tbody>
               @foreach ($students as $student)
-              @foreach ($siswa as $siswa)
-              @if($siswa->nama_tentor==Auth::user()->tentor->name)
+         
+              @if($student->siswa->nama_tentor==Auth::user()->tentor->name)
                 <tr>
                   <td>
                       <div class="form-check form-check-inline">
@@ -60,10 +60,10 @@
                                  id="check-{{ $student->id }}" }}>
                       </div>
                   </td>
-                  <td>{{ $student->username }}</td>
+                  <td>{{ $student->siswa->name }}</td>
                 </tr>
                 @endif
-                @endforeach
+           
               @endforeach
               </tbody>
             </table>
