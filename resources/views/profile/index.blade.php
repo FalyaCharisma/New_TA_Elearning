@@ -28,20 +28,9 @@
                             <div class="invalid-feedback" style="display: block">
                                 {{ $message }}
                             </div>
-                            @enderror
+                            @enderror 
                         </div>
 
-                        <div class="form-group">
-                            <label>EMAIL</label>
-                            <input type="email" name="email" value="{{ old('email', $user->email) }}"
-                                placeholder="Masukkan Email" class="form-control @error('email') is-invalid @enderror">
-
-                            @error('email')
-                            <div class="invalid-feedback" style="display: block">
-                                {{ $message }}
-                            </div>
-                            @enderror
-                        </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -94,6 +83,35 @@
                                 class="form-control @error('no_wa') is-invalid @enderror">
 
                             @error('no_wa')
+                            <div class="invalid-feedback" style="display: block">
+                                {{ $message }}
+                            </div>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label>JENJANG</label>
+                            <select class="form-control select-jenjang @error('jenjang') is-invalid @enderror" name="jenjang">
+                                <option value="">- SELECT JENJANG -</option>
+                                    @if ($user->siswa->jenjang !== null )
+                                    <option value="{{ $user->siswa->jenjang }}" selected>{{ $user->siswa->jenjang }}</option>
+                                    @else
+                                        <option value="{{ $user->siswa->jenjang }}">{{ $user->siswa->jenjang }}</option>
+                                    @endif
+                            </select>
+                            @error('jenjang')
+                            <div class="invalid-feedback" style="display: block">
+                                {{ $message }}
+                            </div>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label>ASAL SEKOLAH</label>
+                            <input type="text" name="asal_sekolah" value="{{ old('asal_sekolah', $user->siswa->asal_sekolah) }}" placeholder="Masukkan Asal Sekolah"
+                                class="form-control @error('asal_sekolah') is-invalid @enderror">
+
+                            @error('asal_sekolah')
                             <div class="invalid-feedback" style="display: block">
                                 {{ $message }}
                             </div>

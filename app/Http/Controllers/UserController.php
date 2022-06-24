@@ -31,7 +31,7 @@ class UserController extends Controller
     public function tentor()
     { 
         $users = User::latest()->when(request()->q, function($users) {
-            $users = $users->where('name', 'like', '%'. request()->q . '%');
+            $users = $users->where('username', 'like', '%'. request()->q . '%');
         })->paginate(10);
         $roles = new Role();
         $tentor = new Tentor();
@@ -41,7 +41,7 @@ class UserController extends Controller
     public function siswa()
     { 
         $users = User::latest()->when(request()->q, function($users) {
-            $users = $users->where('name', 'like', '%'. request()->q . '%');
+            $users = $users->where('username', 'like', '%'. request()->q . '%');
         })->paginate(10);
         $roles = new Role();
         $siswa = Siswa::latest()->get();
@@ -83,8 +83,7 @@ class UserController extends Controller
     public function edit(User $user)
     {
         $roles = Role::latest()->get();
-        $kelass = Kelas::latest()->get();
-        return view('users.edit', compact('user','kelass','roles'));
+        return view('users.edit', compact('user','roles'));
     }
 
     public function update(Request $request, User $user)
@@ -111,10 +110,10 @@ class UserController extends Controller
 
         if($user){
             //redirect dengan pesan sukses
-            return redirect()->route('users.index')->with(['success' => 'Data Berhasil Diupdate!']);
+            return redirect()->route('users.siswa')->with(['success' => 'Data Berhasil Diupdate!']);
         }else{
             //redirect dengan pesan error
-            return redirect()->route('users.index')->with(['error' => 'Data Gagal Diupdate!']);
+            return redirect()->route('users.siswa')->with(['error' => 'Data Gagal Diupdate!']);
         }
     }
 
@@ -169,7 +168,8 @@ class UserController extends Controller
         $siswa = Siswa::findOrFail($id);
         $user = User::latest()->get();
         $tentor = Tentor::latest()->get();
-        return view('users.edittSiswa', compact('tentor','user','siswa'));
+        $roles = Role::latest()->get();
+        return view('users.edittSiswa', compact('tentor','user','siswa','roles'));
     }
     public function updateSiswa(Request $request, $id){ 
         $siswa = Siswa::find($id)->update($request->all());

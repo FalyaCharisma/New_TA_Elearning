@@ -76,7 +76,7 @@
                                         @endif
                                     
                                     </td>
-                                    <td class="text-center">
+                                    <td class="text-center"> 
                                       
                                             @if(!empty($user->siswa->user_id))
                                             <a href="{{ route('edittSiswa', $user->siswa->id) }}" class="btn btn-sm btn-primary">
