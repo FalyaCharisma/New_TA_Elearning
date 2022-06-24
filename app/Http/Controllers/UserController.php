@@ -110,10 +110,10 @@ class UserController extends Controller
 
         if($user){
             //redirect dengan pesan sukses
-            return redirect()->route('users.siswa')->with(['success' => 'Data Berhasil Diupdate!']);
+            return redirect()->back()->with(['success' => 'Data Berhasil Diupdate!']);
         }else{
             //redirect dengan pesan error
-            return redirect()->route('users.siswa')->with(['error' => 'Data Gagal Diupdate!']);
+            return redirect()->back()->with(['error' => 'Data Gagal Diupdate!']);
         }
     }
 
@@ -157,7 +157,8 @@ class UserController extends Controller
     public function edittTentor($id){ 
         $tentor = Tentor::findOrFail($id);
         $user = User::latest()->get();
-        return view('users.edittTentor', compact('tentor','user'));
+        $roles = Role::latest()->get();
+        return view('users.edittTentor', compact('tentor','user','roles'));
     }
     public function updateTentor(Request $request, $id){ 
         $tentor = Tentor::find($id)->update($request->all());
