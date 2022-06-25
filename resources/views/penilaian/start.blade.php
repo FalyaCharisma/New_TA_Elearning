@@ -45,7 +45,7 @@
         <b>Pertanyaan No. 1</b>
         <div class="form-group">
         <p>Bagaimanakah kualitas tentor yang mengajar?</p>
-            <input type="radio" name="kualitas" value="Sangat Baik"> Sangat Baik<br>
+            <input type="radio" name="kualitas" value="Sangat Baik"  required> Sangat Baik<br>
             <input type="radio" name="kualitas" value="Baik"> Baik<br>
             <input type="radio" name="kualitas" value="Cukup Baik"> Cukup<br>
             <input type="radio" name="kualitas" value="Kurang Baik"> Kurang Baik<br>
@@ -59,7 +59,7 @@
         <b>Pertanyaan No. 2</b>
         <div class="form-group">
         <p>Bagaimanakah pembelajaran yang telah dilaksanakan?</p>
-            <input type="radio" name="pembelajaran" value="Sangat Baik"> Sangat Baik<br>
+            <input type="radio" name="pembelajaran" value="Sangat Baik" required> Sangat Baik<br>
             <input type="radio" name="pembelajaran" value="Baik"> Baik<br>
             <input type="radio" name="pembelajaran" value="Cukup Baik"> Cukup<br>
             <input type="radio" name="pembelajaran" value="Kurang Baik"> Kurang Baik<br>

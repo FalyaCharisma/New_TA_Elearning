@@ -62,7 +62,7 @@
 
                         <div class="form-group">
                             <label>ISI MATERI</label>
-                            <textarea id="ckeditor" name="isi" value="{{ old('isi') }}" class="ckeditor" placeholder="Place some text here"
+                            <textarea name="isi" value="{{ old('isi') }}" class="form-control @error('isi') is-invalid @enderror" placeholder="Place some text here"
                             style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
 
                             @error('isi')

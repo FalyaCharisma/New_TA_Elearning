@@ -72,8 +72,8 @@
 
                         <div class="form-group">
                             <label>ISI MATERI</label>
-                            <textarea name="isi" value="{{ old('isi', $materi->isi) }}" class="ckeditor" id="ckeditor" placeholder="Place some text here"
-                            style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                            <textarea name="isi" value="{{ old('isi', $materi->isi) }}" class="form-control @error('isi') is-invalid @enderror" placeholder="Place some text here"
+                            style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">{{ $materi->isi }}</textarea>
 
                             @error('isi')
                             <div class="invalid-feedback" style="display: block">
@@ -83,11 +83,31 @@
                         </div>
 
                         <div class="form-group">
-                            <label>KETERANGAN</label>
-                            <input type="text" name="keterangan" value="{{ old('keterangan', $materi->keterangan) }}" placeholder="Masukkan Keterangan"
-                                class="form-control @error('keterangan') is-invalid @enderror">
+                            <label>RINGKASAN</label>
+                            <input type="text" name="ringkasan" value="{{ old('ringkasan', $materi->ringkasan) }}" placeholder="Masukkan Ringkasan"
+                                class="form-control @error('ringkasan') is-invalid @enderror">
 
-                            @error('keterangan')
+                            @error('ringkasan')
+                            <div class="invalid-feedback" style="display: block">
+                                {{ $message }}
+                            </div>
+                            @enderror
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="font-weight-bold">Siswa</label>
+                            
+                            @foreach ($siswa as $siswa)
+                            @if($siswa->nama_tentor==Auth::user()->tentor->name)
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" name="siswa" value="{{old ('siswa', $siswa->name) }}">
+                                <label class="form-check-label" for="check-{{ $siswa->id }}">
+                                    {{ $siswa->name }}
+                                </label>
+                            </div>
+                            @endif
+                            @endforeach
+                            @error('siswa')
                             <div class="invalid-feedback" style="display: block">
                                 {{ $message }}
                             </div>
@@ -95,11 +115,10 @@
                         </div>
 
                         <div class="form-group">
-                            <label>KESIMPULAN</label>
-                            <input type="text" name="kesimpulan" value="{{ old('kesimpulan', $materi->kesimpulan) }}" placeholder="Masukkan Kesimpulan"
-                                class="form-control @error('kesimpulan') is-invalid @enderror">
+                            <label>DOCUMENT</label>
+                            <input type="file" name="document" value="{{ old('document', $materi->document) }}" class="form-control @error('document') is-invalid @enderror">
 
-                            @error('kesimpulan')
+                            @error('document')
                             <div class="invalid-feedback" style="display: block">
                                 {{ $message }}
                             </div>

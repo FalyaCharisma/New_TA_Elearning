@@ -58,7 +58,7 @@
                                         <label>Beri Tanggapan</label>
                                         <textarea name="respon" value="{{ old('respon') }}" class="form-control @error('respon') is-invalid @enderror"
                                             placeholder="Place some text here"
-                                            style="width: 100%; height: 100px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                                            style="width: 100%; height: 100px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;" required></textarea>
                                         @error('respon')
                                             <div class="invalid-feedback" style="display: block">
                                                 {{ $message }}

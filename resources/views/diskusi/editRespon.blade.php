@@ -20,7 +20,7 @@
                         <div class="form-group">
                             <label>Tanggapan</label>
                             <textarea name="respon" value="{{ old('respon', $respon->respon) }}" class="form-control"
-                                style="width: 100%; height: 100px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                                style="width: 100%; height: 100px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;" required>{{ $respon->respon }}</textarea>
                             @error('respon') 
                             <div class="invalid-feedback" style="display: block">
                                 {{ $message }}

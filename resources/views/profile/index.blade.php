@@ -22,7 +22,7 @@
                             <label>USERNAME</label>
                             <input type="text" name="username" value="{{ old('username', $user->username) }}"
                                 placeholder="Masukkan Username"
-                                class="form-control @error('username') is-invalid @enderror">
+                                class="form-control @error('username') is-invalid @enderror" required>
 
                             @error('username')
                             <div class="invalid-feedback" style="display: block">
@@ -68,7 +68,7 @@
                             <label>NAMA SISWA</label>
                             <input type="text" name="name" value="{{ old('name', $user->siswa->name) }}"
                                 placeholder="Masukkan Nama User"
-                                class="form-control @error('name') is-invalid @enderror">
+                                class="form-control @error('name') is-invalid @enderror" required>
 
                             @error('name')
                             <div class="invalid-feedback" style="display: block">
@@ -91,7 +91,7 @@
 
                         <div class="form-group">
                             <label>JENJANG</label>
-                            <select class="form-control select-jenjang @error('jenjang') is-invalid @enderror" name="jenjang">
+                            <select class="form-control select-jenjang @error('jenjang') is-invalid @enderror" name="jenjang" required>
                                 <option value="">- SELECT JENJANG -</option>
                                     @if ($user->siswa->jenjang !== null )
                                     <option value="{{ $user->siswa->jenjang }}" selected>{{ $user->siswa->jenjang }}</option>
@@ -109,7 +109,7 @@
                         <div class="form-group">
                             <label>ASAL SEKOLAH</label>
                             <input type="text" name="asal_sekolah" value="{{ old('asal_sekolah', $user->siswa->asal_sekolah) }}" placeholder="Masukkan Asal Sekolah"
-                                class="form-control @error('asal_sekolah') is-invalid @enderror">
+                                class="form-control @error('asal_sekolah') is-invalid @enderror" required>
 
                             @error('asal_sekolah')
                             <div class="invalid-feedback" style="display: block">
@@ -121,7 +121,7 @@
                         <div class="form-group">
                             <label>ALAMAT</label>
                             <input type="text" name="alamat" value="{{ old('alamat', $user->siswa->alamat) }}" placeholder="Masukkan Alamat"
-                                class="form-control @error('alamat') is-invalid @enderror">
+                                class="form-control @error('alamat') is-invalid @enderror" required>
 
                             @error('alamat')
                             <div class="invalid-feedback" style="display: block">
@@ -149,7 +149,7 @@
                             <label>NAMA TENTOR</label>
                             <input type="text" name="name" value="{{ old('name', $user->tentor->name) }}"
                                 placeholder="Masukkan Nama User"
-                                class="form-control @error('name') is-invalid @enderror">
+                                class="form-control @error('name') is-invalid @enderror" required>
 
                             @error('name')
                             <div class="invalid-feedback" style="display: block">
@@ -173,7 +173,7 @@
                         <div class="form-group">
                             <label>ALAMAT</label>
                             <input type="text" name="alamat" value="{{ old('alamat', $user->tentor->alamat) }}" placeholder="Masukkan Alamat"
-                                class="form-control @error('alamat') is-invalid @enderror">
+                                class="form-control @error('alamat') is-invalid @enderror" required>
 
                             @error('alamat')
                             <div class="invalid-feedback" style="display: block">
