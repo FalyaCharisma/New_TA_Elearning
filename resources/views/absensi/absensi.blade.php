@@ -14,7 +14,7 @@
     @foreach ($absens as $no => $absensis)
         <tr>
             <td>{{ $count++ }}</td>
-            <td>{{ $absensis->user->tentor->name }}</td> 
+            <td>{{ $absensis->name }}</td> 
             <td>{{ $absensis->keterangan }}</td>
             <td>{{ $absensis->created_at }}</td>
             </tr>

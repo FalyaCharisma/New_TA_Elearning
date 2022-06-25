@@ -30,9 +30,7 @@ class AbsensiController extends Controller
     public function riwayat()
     {
         $absens = Absensi::latest()->when(request()->q, function ($absens) {
-            $absens = $absens->whereHas('User', function ($absens){
-                $absens->where('username','like', '%' . request()->q . '%');
-            });
+            $absens = $absens->where('name', 'like', '%' . request()->q . '%');
         })->paginate(10);
         return view('absensi.riwayat', compact('absens'));
     }
@@ -40,9 +38,7 @@ class AbsensiController extends Controller
     public function index()
     {
         $absens = Absensi::latest()->when(request()->q, function ($absens) {
-            $absens = $absens->whereHas('User', function ($absens){
-                $absens->where('username','like', '%' . request()->q . '%');
-            });
+            $absens = $absens->where('name', 'like', '%' . request()->q . '%');
         })->paginate(10);
         return view('absensi.index', compact('absens'));
     }
@@ -58,7 +54,7 @@ class AbsensiController extends Controller
         $image = Absensi::create([
             'keterangan' => $request->input('keterangan'),
             'link'      => $image->getClientOriginalName(),
-            'user_id'   => Auth()->id(),
+            'name'      => Auth::user()->tentor->name,
         ]);
         if($image){
             //redirect dengan pesan sukses

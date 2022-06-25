@@ -59,7 +59,7 @@
                             </thead>
                             <tbody>
                             @foreach ($absens as $no => $absensis)
-                            @if ($absensis->user_id == Auth::user()->id)
+                            @if($absensis->name == Auth::user()->tentor->name)
                                 <tr>
                                     <th scope="row" style="text-align: center">
                                     {{ ++$no + ($absens->currentPage() - 1) * $absens->perPage() }}</th>
@@ -129,7 +129,7 @@
                                 <tr>
                                 <th scope="row" style="text-align: center">
                                                     {{ ++$no + ($absens->currentPage() - 1) * $absens->perPage() }}</th>
-                                    <td>{{ $absensis->user->tentor->name }}</td>
+                                    <td>{{ $absensis->name }}</td>
                                     <td><img src="{{ asset('storage/public/absensis/' . $absensis->link) }}"
                                                         width="150"></td>
                                     <td>{{ $absensis->keterangan }}</td>
