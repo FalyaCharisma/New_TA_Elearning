@@ -18,9 +18,9 @@
                     <form action="{{ route('users.tentor') }}" method="GET">
                         <div class="form-group">
                             <div class="input-group mb-3">
-                                @can('users.create')
+                                @can('users.createTentor')
                                     <div class="input-group-prepend">
-                                        <a href="{{ route('users.create') }}" class="btn btn-primary" style="padding-top: 10px;"><i class="fa fa-plus-circle"></i> TAMBAH</a>
+                                        <a href="{{ route('users.createTentor') }}" class="btn btn-primary" style="padding-top: 10px;"><i class="fa fa-plus-circle"></i> TAMBAH</a>
                                     </div>
                                 @endcan
                                 <input type="text" class="form-control" name="q"

@@ -82,9 +82,9 @@
                             @endforeach
                             </tbody>
                         </table>
-                        <!-- <div style="text-align: center">
+                        <div style="text-align: center">
                             {{$users->links("vendor.pagination.bootstrap-4")}}
-                        </div> -->
+                        </div>
                     </div>
                     @endcan
                 </div>

@@ -54,21 +54,16 @@ class UserController extends Controller
         $kelass = Kelas::latest()->get();
         $tentor = Tentor::latest()->get();
         return view('users.createSiswa', compact('kelass','roles','tentor'));
+    }
 
+    public function createTentor()
+    {
+        $roles = Role::latest()->get();
+        return view('users.createTentor', compact('roles'));
     }
 
     public function store(Request $request)
     {
-        // $this->validate($request, [
-        //     'username'      => 'required',
-        //     'password'  => 'required|confirmed'
-        // ]);
-
-        // $user = User::create([
-        //     'username'  => $request->input('username'),
-        //     'password'  => bcrypt($request->input('password'))
-        // ]);
-
         $data = $request->all();
 
         $user = new User();
@@ -89,14 +84,29 @@ class UserController extends Controller
         $siswa->nama_tentor = $data['nama_tentor'];
         $siswa->save();
 
-        // if($user){
-        //     //redirect dengan pesan sukses
-        //     return redirect()->back()->with(['success' => 'Data Berhasil Disimpan!']);
-        // }else{
-        //     //redirect dengan pesan error
-        //     return redirect()->back()->with(['error' => 'Data Gagal Disimpan!']);
-        // }
         return redirect()->route('users.siswa')->with(['success' => 'Data Berhasil Disimpan!']);
+    }
+
+    public function store2(Request $request)
+    {
+        $data = $request->all();
+
+        $user = new User();
+        $user->username = $data['username'];
+        $user->password = bcrypt($data['password']);
+        $user->save();
+
+        //assign role
+        $user->assignRole($request->input('role'));
+
+        $tentor = new Tentor();
+        $tentor->user_id = $user->id;
+        $tentor->name = $data['name'];
+        $tentor->no_wa = $data['no_wa'];
+        $tentor->alamat = $data['alamat'];
+        $tentor->save();
+
+        return redirect()->route('users.tentor')->with(['success' => 'Data Berhasil Disimpan!']);
     }
 
     public function edit(User $user)

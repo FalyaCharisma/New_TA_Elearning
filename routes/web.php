@@ -69,12 +69,12 @@ Route::group(['middleware' => 'auth'], function(){
     ]);
 
     Route::get('users/createSiswa', [UserController::class, 'createSiswa'])->name('users.createSiswa');
+    Route::get('users/createTentor', [UserController::class, 'createTentor'])->name('users.createTentor');
+    Route::post('users/createTentor/store2', [UserController::class, 'store2'])->name('users.store2');
     Route::get('users/siswa', [UserController::class, 'siswa'])->name('users.siswa');
     Route::get('users/tentor', [UserController::class, 'tentor'])->name('users.tentor');
-    Route::get('users/showSiswa/{id}', [UserController::class, 'showSiswa'])->name('users.showSiswa');
     Route::post('users/dataSiswa/{id}', [UserController::class, 'dataSiswa'])->name('users.dataSiswa');
     Route::get('users/editSiswa/{id}', [UserController::class, 'editSiswa'])->name('users.editSiswa');
-    Route::get('users/showTentor/{id}', [UserController::class, 'showTentor'])->name('users.showTentor');
     Route::post('users/dataTentor/{id}', [UserController::class, 'dataTentor'])->name('users.dataTentor');
     Route::get('/users/tentor/edittTentor/{id}', [UserController::class, 'edittTentor'])->name('edittTentor');
     Route::post('/users/tentor/updateTentor/{id}', [UserController::class, 'updateTentor'])->name('updateTentor');
