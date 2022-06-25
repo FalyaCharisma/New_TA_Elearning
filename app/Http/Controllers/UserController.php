@@ -17,16 +17,6 @@ class UserController extends Controller
         $this->middleware(['permission:users.index|users.createSiswa|users.edit|users.delete|users.tentor|users.siswa|users.showSiswa|users.dataSiswa|users.showTentor|users.dataTentor
         |users.editSiswa']);
     }
-
-    public function index()
-    {
-        $users = User::latest()->when(request()->q, function($users) {
-            $users = $users->where('username', 'like', '%'. request()->q . '%');
-        })->paginate(10);
-        $roles = new Role();
-        $kelas = new Kelas();
-        return view('users.index', compact('users','roles', 'kelas'));
-    }
     
     public function tentor()
     { 
@@ -146,43 +136,6 @@ class UserController extends Controller
         }
     }
 
-    public function showSiswa($id)
-    {
-        $tentor = Tentor::latest()->get();
-        $user = User::findOrFail($id);
-        $siswa = Siswa::latest()->get();
-
-        return view('users.showSiswa', compact('user','siswa', 'tentor'));
-    }
-
-    public function showTentor($id)
-    {
-        $user = User::findOrFail($id);
-        $tentor = Tentor::where('user_id', $id)->get();
-
-        return view('users.showTentor', compact('user','tentor'));
-    }
-
-    public function dataSiswa(Request $request,$id){
-    
-        $siswa = Siswa::create([
-            'user_id'   => $id,
-            'name'      => $request->input('name'),
-            'jenjang'   => $request->input('jenjang'),
-            'no_wa'     => $request->input('no_wa'),
-            'asal_sekolah'    => $request->input('asal_sekolah'),
-            'alamat'    => $request->input('alamat'),
-            'nama_tentor'=> $request->input('nama_tentor'),
-        ]);
-
-        if ($siswa) {
-            return redirect()->route('users.index')->with(['success' => 'Data Berhasil Disimpan!']);
-        }else{
-            //redirect dengan pesan error
-            return redirect()->route('users.index')->with(['error' => 'Data Gagal Disimpan!']);
-        }
-    }
-
     public function edittTentor($id){ 
         $tentor = Tentor::findOrFail($id);
         $user = User::latest()->get();
@@ -204,23 +157,6 @@ class UserController extends Controller
     public function updateSiswa(Request $request, $id){ 
         $siswa = Siswa::find($id)->update($request->all());
         return redirect()->route('users.siswa')->with(['success' => 'Data Berhasil Diupdate!']);
-    }
-    
-    public function dataTentor(Request $request,$id){
-    
-        $tentor = Tentor::create([
-            'user_id'    => $id,
-            'name'      => $request->input('name'),
-            'no_wa'     => $request->input('no_wa'),
-            'alamat'    => $request->input('alamat'),
-        ]);
-
-        if ($tentor) {
-            return redirect()->route('users.index')->with(['success' => 'Data Berhasil Disimpan!']);
-        }else{
-            //redirect dengan pesan error
-            return redirect()->route('users.index')->with(['error' => 'Data Gagal Disimpan!']);
-        }
     }
 
     public function destroy($id)

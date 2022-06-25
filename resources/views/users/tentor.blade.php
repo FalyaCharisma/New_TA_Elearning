@@ -55,25 +55,13 @@
                             @if($role=='teacher')
                                 <tr>
                                     <td>{{ $count++ }}</td>
-                                    @if(!empty($user->tentor->user_id))
-                                        <td>{{ $user->tentor->name }}</td>
-                                        <td>{{ $user->tentor->no_wa }}</td>
-                                        <td>{{ $user->tentor->alamat }}</td>
-                                        @elseif(empty($user->tentor->user_id))
-                                        <td>{{ $user->username }}</td>
-                                        <td></td>
-                                        <td></td>   
-                                        @endif
+                                    <td>{{ $user->tentor->name }}</td>
+                                    <td>{{ $user->tentor->no_wa }}</td>
+                                    <td>{{ $user->tentor->alamat }}</td>
                                     <td class="text-center">
-                                        @if(!empty($user->tentor->user_id))
                                             <a href="{{ route('edittTentor', $user->tentor->id) }}"  class="btn btn-sm btn-primary">
                                                 <i class="fa fa-pencil-alt"></i>
-                                            </a>  
-                                            @elseif(empty($user->tentor->user_id))
-                                            <a href="showTentor/{{ $user->id }}" class="btn btn-sm btn-primary">
-                                                <i class="fa fa-pencil-alt"></i>
-                                            </a>              
-                                            @endif                 
+                                            </a>                   
                                         @can('users.delete')
                                             <button onClick="Delete(this.id)" class="btn btn-sm btn-danger" id="{{ $user->id }}">
                                                 <i class="fa fa-trash"></i>
