@@ -81,7 +81,7 @@
                         <div class="form-group">
                             <label>NAMA SISWA</label>
                             <input type="text" name="name" value="{{ old('name', $siswa->name) }}"
-                                class="form-control">
+                                class="form-control" required>
                             @error('name')
                             <div class="invalid-feedback" style="display: block">
                                 {{ $message }}
@@ -91,7 +91,7 @@
 
                         <div class="form-group">
                             <label>JENJANG</label>
-                            <select class="form-control select-jenjang @error('jenjang') is-invalid @enderror" name="jenjang">
+                            <select class="form-control select-jenjang @error('jenjang') is-invalid @enderror" name="jenjang" required>
                                 <option value="">- SELECT JENJANG -</option>
                                     @if ($siswa->jenjang !== null )
                                     <option value="{{ $siswa->jenjang }}" selected>{{ $siswa->jenjang }}</option>
@@ -121,7 +121,7 @@
                         <div class="form-group">
                             <label>ASAL SEKOLAH</label>
                             <input type="text" name="asal_sekolah" value="{{ old('asal_sekolah', $siswa->asal_sekolah) }}"
-                                class="form-control">
+                                class="form-control" required>
 
                             @error('asal_sekolah')
                             <div class="invalid-feedback" style="display: block">
@@ -133,7 +133,7 @@
                         <div class="form-group">
                             <label>ALAMAT</label>
                             <input type="text" name="alamat" value="{{ old('alamat', $siswa->alamat) }}"
-                                class="form-control">
+                                class="form-control" required>
 
                             @error('alamat')
                             <div class="invalid-feedback" style="display: block">
@@ -144,7 +144,7 @@
 
                         <div class="form-group">
                             <label>NAMA TENTOR</label>
-                            <select class="form-control select-nama_tentor @error('nama_tentor') is-invalid @enderror" name="nama_tentor">
+                            <select class="form-control select-nama_tentor @error('nama_tentor') is-invalid @enderror" name="nama_tentor" required>
                                 @foreach ($tentor as $no => $tentor)   
                                 @if($siswa->nama_tentor == $tentor->name) 
                                 <option value="{{ $tentor->name }}" selected>{{ $tentor->name }}</option>  

@@ -81,7 +81,7 @@
                         <div class="form-group">
                             <label>NAMA TENTOR</label>
                             <input type="text" name="name" value="{{ old('name', $tentor->name) }}"
-                                class="form-control">
+                                class="form-control" required>
                             @error('name')
                             <div class="invalid-feedback" style="display: block">
                                 {{ $message }}
@@ -104,7 +104,7 @@
                         <div class="form-group">
                             <label>ALAMAT</label>
                             <input type="text" name="alamat" value="{{ old('alamat', $tentor->alamat) }}" 
-                                class="form-control">
+                                class="form-control" required>
 
                             @error('alamat')
                             <div class="invalid-feedback" style="display: block">
