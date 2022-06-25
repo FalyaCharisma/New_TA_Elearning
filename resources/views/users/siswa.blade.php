@@ -18,9 +18,9 @@
                     <form action="{{ route('users.siswa') }}" method="GET">
                         <div class="form-group">
                             <div class="input-group mb-3">
-                                @can('users.create')
+                                @can('users.createSiswa')
                                     <div class="input-group-prepend">
-                                        <a href="{{ route('users.create') }}" class="btn btn-primary" style="padding-top: 10px;"><i class="fa fa-plus-circle"></i> TAMBAH</a>
+                                        <a href="{{ route('users.createSiswa') }}" class="btn btn-primary" style="padding-top: 10px;"><i class="fa fa-plus-circle"></i> TAMBAH</a>
                                     </div>
                                 @endcan
                                 <input type="text" class="form-control" name="q"
@@ -58,36 +58,17 @@
                             @foreach($user->getRoleNames() as $role)
                             @if($role=='student')
                                 <tr>
-                                        <td>{{ $count++ }}</td>
-                                        @if(!empty($user->siswa->user_id))
-                                        <td>{{ $user->siswa->name }}</td>
-                                        <td>{{ $user->siswa->nama_tentor }}</td>
-                                        <td>{{ $user->siswa->jenjang }}</td>
-                                        <td>{{ $user->siswa->no_wa }}</td>
-                                        <td>{{ $user->siswa->asal_sekolah }}</td>
-                                        <td>{{ $user->siswa->alamat }}</td>
-                                        @elseif(empty($user->siswa->user_id))
-                                        <td>{{ $user->username }}</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>   
-                                        <td></td>   
-                                        @endif
-                                    
-                                    </td>
+                                    <td>{{ $count++ }}</td>
+                                    <td>{{ $user->siswa->name }}</td>
+                                    <td>{{ $user->siswa->nama_tentor }}</td>
+                                    <td>{{ $user->siswa->jenjang }}</td>
+                                    <td>{{ $user->siswa->no_wa }}</td>
+                                    <td>{{ $user->siswa->asal_sekolah }}</td>
+                                    <td>{{ $user->siswa->alamat }}</td>
                                     <td class="text-center"> 
-                                      
-                                            @if(!empty($user->siswa->user_id))
                                             <a href="{{ route('edittSiswa', $user->siswa->id) }}" class="btn btn-sm btn-primary">
                                                 <i class="fa fa-pencil-alt"></i>
                                             </a>  
-                                            @elseif(empty($user->siswa->user_id))
-                                            <a href="showSiswa/{{ $user->id }}" class="btn btn-sm btn-primary">
-                                                <i class="fa fa-pencil-alt"></i>
-                                            </a>              
-                                            @endif
-                                        
                                         @can('users.delete')
                                             <button onClick="Delete(this.id)" class="btn btn-sm btn-danger" id="{{ $user->id }}">
                                                 <i class="fa fa-trash"></i>

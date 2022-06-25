@@ -68,9 +68,10 @@ Route::group(['middleware' => 'auth'], function(){
         'show'
     ]);
 
+    Route::get('users/createSiswa', [UserController::class, 'createSiswa'])->name('users.createSiswa');
     Route::get('users/siswa', [UserController::class, 'siswa'])->name('users.siswa');
     Route::get('users/tentor', [UserController::class, 'tentor'])->name('users.tentor');
-    Route::get('users/showSiswa/{id}', [UserController::class, 'showSiswa'])->name('usera.showSiswa');
+    Route::get('users/showSiswa/{id}', [UserController::class, 'showSiswa'])->name('users.showSiswa');
     Route::post('users/dataSiswa/{id}', [UserController::class, 'dataSiswa'])->name('users.dataSiswa');
     Route::get('users/editSiswa/{id}', [UserController::class, 'editSiswa'])->name('users.editSiswa');
     Route::get('users/showTentor/{id}', [UserController::class, 'showTentor'])->name('users.showTentor');
