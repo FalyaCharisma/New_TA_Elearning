@@ -15,10 +15,13 @@ class CreateResponsTable extends Migration
     {
         Schema::create('respons', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id')->unsigned();
-            $table->integer('diskusi_id')->unsigned();
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('diskusi_id');
             $table->text('respon');
-            $table->timestamps();
+            $table->timestamps();  
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('diskusi_id')->references('id')->on('diskusis')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

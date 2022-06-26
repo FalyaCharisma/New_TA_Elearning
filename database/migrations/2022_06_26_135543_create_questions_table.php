@@ -30,6 +30,8 @@ class CreateQuestionsTable extends Migration
             $table->text('penjelasan')->nullable();
             $table->string('created_by');
             $table->timestamps();
+
+            $table->foreign('subject_id')->references('id')->on('subjects')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

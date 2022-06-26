@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAudioTable extends Migration
+class CreateMateriTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,19 @@ class CreateAudioTable extends Migration
      */
     public function up()
     {
-        Schema::create('audio', function (Blueprint $table) {
+        Schema::create('materi', function (Blueprint $table) {
             $table->id();
+            $table->string('mapel');
+            $table->string('kelas');
+            $table->string('judul');
+            $table->longText('isi');
+            $table->string('ringkasan')->nullable();
             $table->unsignedBigInteger('user_id');
-            $table->string('title');
-            $table->string('caption')->nullable();
+            $table->string('siswa'); 
             $table->string('link');
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
@@ -30,6 +36,6 @@ class CreateAudioTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('audio');
+        Schema::dropIfExists('materi');
     }
 }

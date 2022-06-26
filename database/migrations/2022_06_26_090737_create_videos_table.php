@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMateriTable extends Migration
+class CreateVideosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,15 @@ class CreateMateriTable extends Migration
      */
     public function up()
     {
-        Schema::create('materi', function (Blueprint $table) {
+        Schema::create('videos', function (Blueprint $table) {
             $table->id();
-            $table->string('mapel');
-            $table->string('kelas');
-            $table->string('judul');
-            $table->longText('isi');
-            $table->string('ringkasan')->nullable();
             $table->unsignedBigInteger('user_id');
-            $table->string('siswa'); 
+            $table->string('title');
+            $table->string('caption')->nullable();
             $table->string('link');
             $table->timestamps();
+            
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
@@ -34,6 +32,6 @@ class CreateMateriTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('materi');
+        Schema::dropIfExists('videos');
     }
 }

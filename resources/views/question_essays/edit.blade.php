@@ -20,7 +20,7 @@
                         @csrf
                         <div class="form-group">
                             <label>SUBJECT</label>
-                            <select class="form-control select-subject @error('subject_id') is-invalid @enderror" name="subject_id">
+                            <select class="form-control select-subject @error('subject_id') is-invalid @enderror" name="subject_id" required>
                                 <option value="">- SELECT SUBJECT -</option>
                                 @foreach ($subjects as $subject)
                                     @if ($questionEssay->subject_id == $subject->id )
@@ -125,7 +125,7 @@
 
                         <div class="form-group">
                             <label>PERTANYAAN</label>
-                            <textarea name="detail" cols="30" rows="30" class="form-control">{{ old('detail', $questionEssay->detail) }}</textarea>
+                            <textarea name="detail" cols="30" rows="30" class="form-control" required>{{ old('detail', $questionEssay->detail) }}</textarea>
                             @error('detail')
                             <div class="invalid-feedback" style="display: block">
                                 {{ $message }}
@@ -135,7 +135,7 @@
 
                         <div class="form-group">
                             <label>JAWABAN</label>
-                            <textarea name="answer" cols="30" rows="30" class="form-control">{{ old('answer', $questionEssay->answer) }}</textarea>
+                            <textarea name="answer" cols="30" rows="30" class="form-control" required>{{ old('answer', $questionEssay->answer) }}</textarea>
                             @error('answer')
                             <div class="invalid-feedback" style="display: block">
                                 {{ $message }}

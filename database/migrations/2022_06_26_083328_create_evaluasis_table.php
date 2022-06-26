@@ -15,14 +15,15 @@ class CreateEvaluasisTable extends Migration
     {
         Schema::create('evaluasis', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('user_id')->unsigned();
-            $table->integer('penilaian_id')->unsigned();
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('penilaian_id');
             $table->string('kualitas');
             $table->string('pembelajaran');
             $table->string('isi');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('penilaian_id')->references('id')->on('penilaians')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
