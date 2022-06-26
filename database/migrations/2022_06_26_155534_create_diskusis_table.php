@@ -15,16 +15,13 @@ class CreateDiskusisTable extends Migration
     {
         Schema::create('diskusis', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('materi_id');
+            $table->foreignId('materi_id');
             $table->string('pertanyaan');
-            $table->bigInteger('user_id')->unsigned();
+            $table->unsignedBigInteger('user_id');
             $table->timestamps();
 
-            $table->foreign('user_id')
-                ->references('id')
-                ->on('users')
-                ->onDelete('cascade')
-                ->onUpdate('cascade');    
+            $table->foreign('materi_id')->references('id')->on('materi')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
         });
     } 
 

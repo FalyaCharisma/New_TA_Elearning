@@ -100,7 +100,7 @@
                             @foreach ($siswa as $siswa)
                             @if($siswa->nama_tentor==Auth::user()->tentor->name)
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" name="siswa" value="{{old ('siswa', $siswa->name) }}">
+                                <input class="form-check-input" type="checkbox" name="siswa" value="{{old ('siswa', $siswa->name) }}" required>
                                 <label class="form-check-label" for="check-{{ $siswa->id }}">
                                     {{ $siswa->name }}
                                 </label>
