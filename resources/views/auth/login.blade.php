@@ -78,7 +78,7 @@
                                         </button>
                                     </div>
                                         <div class="card-body">
-                                            <a href="https://api.whatsapp.com/send?phone=628983747620" class="btn btn-block btn-outline-primary">Lupa Password</a>
+                                            <a href="https://api.whatsapp.com/send?phone=6285640006066" class="btn btn-block btn-outline-primary">Lupa Password</a>
                                         </div>
                                     </div>
 

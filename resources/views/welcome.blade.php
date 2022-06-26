@@ -76,7 +76,7 @@
                     <div class="left-text col-lg-6 col-md-6 col-sm-12 col-xs-12" data-scroll-reveal="enter left move 30px over 0.6s after 0.4s">
                         <h1>Bimbel Privat <strong>Malang Raya</strong></h1>
                         <p>Part of PT Generasi Kreatif Semesta || Free Biaya Pendaftaran</p>
-                        <a href="#about" class="main-button-slider">Daftar Sekarang</a>
+                        <a href="https://bit.ly/3xRse5Q" class="main-button-slider">Daftar Sekarang</a>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" data-scroll-reveal="enter right move 30px over 0.6s after 0.4s">
                         <img src="asset/images/slider-icon.png" class="rounded img-fluid d-block mx-auto" alt="First Vector Graphic">
