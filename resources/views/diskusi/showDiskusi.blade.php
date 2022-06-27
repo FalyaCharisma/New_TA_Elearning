@@ -37,12 +37,14 @@
                                     <div class="card-body">
                                         <p class="">{{ $item->respon }} </p>
                                         <div class="input-group-prepend">
+                                            @if($item->user_id == Auth::user()->id)
                                             <a href="{{ route('editRespon', $item->id) }}"  class="btn btn-sm btn-primary">Edit</a>
                                             <form method="POST" action="{{ url('diskusi/respon/delete', $item->id) }}" style="margin-left:5px">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button class="btn btn-sm btn-danger">Hapus</button>
                                             </form>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
