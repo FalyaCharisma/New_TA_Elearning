@@ -800,6 +800,7 @@ TRY IT ... with or without CENTER CENTER
 }
 
 @media (max-width: 765px) {
+
   .welcome-area {
     margin-bottom: 100px;
   }
@@ -815,7 +816,7 @@ TRY IT ... with or without CENTER CENTER
     font-weight: 600;
     font-size: 24px !important;
     line-height: 30px !important;
-    margin-bottom: 20px !important;
+    margin-bottom: 20px !important; 
   }
   .welcome-area .header-text h1 span {
     color: #fff;
@@ -830,6 +831,10 @@ TRY IT ... with or without CENTER CENTER
   .welcome-area .header-text img {
     width: 80%;
     margin-top: 20px;
+  }
+  .header-area .main-nav .logo {
+
+    font-size: 17px;
   }
 }
 
@@ -847,6 +852,9 @@ about
 @media (max-width: 765px) {
   #about {
     padding: 20px 0px 120px 0px;
+  }
+  #about .left-text .text{
+    font-size: 10x;
   }
 }
 
