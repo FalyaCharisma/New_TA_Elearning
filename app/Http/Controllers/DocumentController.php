@@ -27,7 +27,7 @@ class DocumentController extends Controller
     {
         $this->validate($request, [
             'title'     => 'required',
-            'document'  => 'required|mimes:doc,docx,pdf,pptx,xlsx',
+            'document'  => 'required|mimes:doc,docx,pdf,pptx,xlsx|max:5120',
         ]);
 
         //upload document

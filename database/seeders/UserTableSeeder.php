@@ -18,20 +18,19 @@ class UserTableSeeder extends Seeder
     {
         //create data user
         $userCreate = User::create([
-            'name'      => 'Admin',
-            'email'     => 'admin@gmail.com',
-            'username'  => 'adminjuara',
+          
+            'username'  => 'superadminjuara',
             'password'  => bcrypt('password')
         ]);
 
         //assign permission to role
-        $role = Role::find(1);
+        $role = Role::find(6);
         $permissions = Permission::all();
 
         $role->syncPermissions($permissions);
 
         //assign role with permission to user
-        $user = User::find(1);
+        $user = User::find(102);
         $user->assignRole($role->name);
     }
 }

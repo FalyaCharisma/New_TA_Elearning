@@ -17,6 +17,45 @@ class UserController extends Controller
         $this->middleware(['permission:users.index|users.createSiswa|users.edit|users.delete|users.tentor|users.siswa|users.showSiswa|users.dataSiswa|users.showTentor|users.dataTentor
         |users.editSiswa']);
     }
+
+    public function index()
+    {
+        $users = User::latest()->when(request()->q, function($users) {
+            $users = $users->where('username', 'like', '%'. request()->q . '%');
+        })->paginate(10);
+
+        return view('users.index', compact('users'));
+    }
+
+    public function create()
+    {
+        $roles = Role::latest()->get();
+        return view('users.create', compact('roles'));
+    }
+
+    public function store(Request $request)
+    {
+        $this->validate($request, [
+            'username'      => 'required',
+            'password'  => 'required|confirmed'
+        ]);
+
+        $user = User::create([
+            'username'      => $request->input('username'),
+            'password'  => bcrypt($request->input('password'))
+        ]);
+
+        //assign role
+        $user->assignRole(6);
+
+        if($user){
+            //redirect dengan pesan sukses
+            return redirect()->route('users.index')->with(['success' => 'Data Berhasil Disimpan!']);
+        }else{
+            //redirect dengan pesan error
+            return redirect()->route('users.index')->with(['error' => 'Data Gagal Disimpan!']);
+        }
+    }
     
     public function tentor()
     { 
@@ -52,7 +91,7 @@ class UserController extends Controller
         return view('users.createTentor', compact('roles'));
     }
 
-    public function store(Request $request)
+    public function store3(Request $request)
     {
         $data = $request->all();
 
@@ -62,7 +101,7 @@ class UserController extends Controller
         $user->save();
 
         //assign role
-        $user->assignRole($request->input('role'));
+        $user->assignRole(3);
 
         $siswa = new Siswa();
         $siswa->user_id = $user->id;
@@ -87,7 +126,7 @@ class UserController extends Controller
         $user->save();
 
         //assign role
-        $user->assignRole($request->input('role'));
+        $user->assignRole(2); 
 
         $tentor = new Tentor();
         $tentor->user_id = $user->id;
@@ -123,9 +162,6 @@ class UserController extends Controller
                 'password'  => bcrypt($request->input('password'))
             ]);
         }
-
-        //assign role
-        $user->syncRoles($request->input('role'));
 
         if($user){
             //redirect dengan pesan sukses

@@ -28,5 +28,8 @@ class Exam extends Model
         return $this->belongsToMany(QuestionEssay::class)->withTimestamps();
     }
 
+    public function getName($id){
+        return $this->where('id',$id)->value('name');
+    }
 
 }

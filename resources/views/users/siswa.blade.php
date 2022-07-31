@@ -58,7 +58,7 @@
                             @foreach($user->getRoleNames() as $role)
                             @if($role=='student')
                                 <tr>
-                                    <td>{{ $count++ }}</td>
+                                <td>{{ $count++ }}</td>
                                     <td>{{ $user->siswa->name }}</td>
                                     <td>{{ $user->siswa->nama_tentor }}</td>
                                     <td>{{ $user->siswa->jenjang }}</td>

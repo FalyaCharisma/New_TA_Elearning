@@ -23,6 +23,10 @@ class Siswa extends Model
         return $this->hasMany(Diskusi::class);
     } 
 
+    public function jadwal(){
+        return $this->hasMany(Jadwal::class);
+    } 
+
     public function respon(){
         return $this->hasMany(Respon::class);
     } 

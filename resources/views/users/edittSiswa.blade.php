@@ -52,10 +52,11 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <label class="font-weight-bold">ROLE</label>
                            
                             @foreach ($roles as $role)
+                            @if($role->name=='student')
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="checkbox" name="role[]" value="{{ $role->name }}"
                                         id="check-{{ $role->id }}" {{ $siswa->user->roles->contains($role->id) ? 'checked' : '' }}>
@@ -63,8 +64,9 @@
                                         {{ $role->name }}
                                     </label>
                                 </div>
+                            @endif
                             @endforeach
-                        </div>
+                        </div> -->
 
                         <button class="btn btn-primary mr-1 btn-submit" type="submit"><i class="fa fa-paper-plane"></i>
                             UPDATE</button>

@@ -13,6 +13,6 @@ class ExportController extends Controller
     public function export_excel(Request $request)
     {
         $absens = Absensi::orderBy('created_at')->get();
-        return Excel::download(new AbsensiExport($request->start_date, $request->end_date), 'absensi.xlsx');
+        return Excel::download(new AbsensiExport($request->start_date, $request->end_date, $request->name), 'absensi.xlsx');
     }
 }

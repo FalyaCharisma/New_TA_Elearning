@@ -4,23 +4,23 @@
 <div class="main-content">
     <section class="section">
         <div class="section-header">
-            <h1>Data Tentor</h1>
+            <h1>Data Admin</h1>
         </div>
 
         <div class="section-body">
 
             <div class="card">
                 <div class="card-header">
-                    <h4><i class="fas fa-users"></i> Data Tentor</h4>
+                    <h4><i class="fas fa-users"></i> Data Admin</h4>
                 </div>
 
                 <div class="card-body">
-                    <form action="{{ route('users.tentor') }}" method="GET">
+                    <form action="{{ route('users.index') }}" method="GET"> 
                         <div class="form-group">
                             <div class="input-group mb-3">
-                                @can('users.createTentor')
+                                @can('users.create')
                                     <div class="input-group-prepend">
-                                        <a href="{{ route('users.createTentor') }}" class="btn btn-primary" style="padding-top: 10px;"><i class="fa fa-plus-circle"></i> TAMBAH</a>
+                                        <a href="{{ route('users.create') }}" class="btn btn-primary" style="padding-top: 10px;"><i class="fa fa-plus-circle"></i> TAMBAH</a>
                                     </div>
                                 @endcan
                                 <input type="text" class="form-control" name="q"
@@ -32,36 +32,31 @@
                             </div>
                         </div>
                     </form>
-
-                    @can('users.tentor')
                     <div class="table-responsive">
                         <table class="table table-bordered">
                             <thead>
                             <tr>
                                 <th scope="col" style="text-align: center;width: 6%">NO.</th>
-                                <th scope="col">NAMA</th>
-                                <th scope="col">NO. WA</th>
-                                <th scope="col">ALAMAT</th>
+                                <th scope="col">USERNAME</th>
                                 <th scope="col" style="width: 15%;text-align: center">AKSI</th>
                             </tr>
                             </thead>
                             <tbody>
-                            @php
-                                $count = 1;
-                            @endphp
                             @foreach ($users as $no => $user)
                             @if(!empty($user->getRoleNames()))
                             @foreach($user->getRoleNames() as $role)
-                            @if($role=='teacher')
+                            @if($role=='superadmin')
                                 <tr>
-                                <td>{{ $count++ }}</td>
-                                    <td>{{ $user->tentor->name }}</td>
-                                    <td>{{ $user->tentor->no_wa }}</td>
-                                    <td>{{ $user->tentor->alamat }}</td>
+                                    <th scope="row" style="text-align: center">{{ ++$no + ($users->currentPage()-1) * $users->perPage() }}</th>
+                                    <td>{{ $user->username }}</td>
+                                    
                                     <td class="text-center">
-                                            <a href="{{ route('edittTentor', $user->tentor->id) }}"  class="btn btn-sm btn-primary">
+                                        @can('users.edit')
+                                            <a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-primary">
                                                 <i class="fa fa-pencil-alt"></i>
-                                            </a>                   
+                                            </a>
+                                        @endcan
+                                        
                                         @can('users.delete')
                                             <button onClick="Delete(this.id)" class="btn btn-sm btn-danger" id="{{ $user->id }}">
                                                 <i class="fa fa-trash"></i>
@@ -69,9 +64,9 @@
                                         @endcan
                                     </td>
                                 </tr>
-                            @endif
-                            @endforeach
-                            @endif
+                                @endif
+                                @endforeach
+                                @endif
                             @endforeach
                             </tbody>
                         </table>
@@ -79,9 +74,8 @@
                             {{$users->links("vendor.pagination.bootstrap-4")}}
                         </div>
                     </div>
-                    @endcan
                 </div>
-            </div> 
+            </div>
         </div>
 
     </section>

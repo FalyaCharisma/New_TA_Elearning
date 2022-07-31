@@ -27,7 +27,7 @@ class AudioController extends Controller
     {
         $this->validate($request, [
             'title'     => 'required',
-            'audio'     => 'required|mimes:mp3,wav',
+            'audio'     => 'required|mimes:mp3,wav|max:5120',
         ]);
 
         //upload audio

@@ -25,12 +25,10 @@ class ProfileController extends Controller
         if($request->input('password') == "") {
             $user->update([
                 'username'  => $request->input('username'),
-                'email'     => $request->input('email'),
             ]);
         } else {
             $user->update([
                 'username'  => $request->input('username'),
-                'email'     => $request->input('email'),
                 'password'  => bcrypt($request->input('password'))
             ]);
         }

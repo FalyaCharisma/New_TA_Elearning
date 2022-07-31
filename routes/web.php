@@ -25,6 +25,8 @@ use App\Http\Controllers\DiskusiController;
 use App\Http\Controllers\PenilaianController;
 use App\Http\Controllers\SoalPenilaianController;
 use App\Http\Controllers\ExportController;
+use App\Http\Controllers\NilaiController;
+use App\Http\Controllers\JadwalController;
 use App\Models\Exam;
 use App\Models\Penilaian;
 
@@ -71,7 +73,9 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('users/createSiswa', [UserController::class, 'createSiswa'])->name('users.createSiswa');
     Route::get('users/createTentor', [UserController::class, 'createTentor'])->name('users.createTentor');
     Route::post('users/createTentor/store2', [UserController::class, 'store2'])->name('users.store2');
+    Route::post('users/createSiswa/store3', [UserController::class, 'store3'])->name('users.store3');
     Route::get('users/siswa', [UserController::class, 'siswa'])->name('users.siswa');
+    Route::get('users/index', [UserController::class, 'index'])->name('users.index');
     Route::get('users/tentor', [UserController::class, 'tentor'])->name('users.tentor');
     Route::get('/users/tentor/edittTentor/{id}', [UserController::class, 'edittTentor'])->name('edittTentor');
     Route::post('/users/tentor/updateTentor/{id}', [UserController::class, 'updateTentor'])->name('updateTentor');
@@ -121,6 +125,14 @@ Route::group(['middleware' => 'auth'], function(){
     //question essays
     Route::resource('question_essays', QuestionEssayController::class);
 
+    //ujian nilai
+    // Route::resource('nilai', NilaiController::class);
+    Route::get('/nilai', [NilaiController::class, 'index'])->name('nilai.index');
+    Route::get('/nilai/tentor', [NilaiController::class, 'tentor'])->name('nilai.tentor');
+    Route::get('/nilai/exportPDF/', [NilaiController::class, 'export_pdf'])->name('nilai.exportPDF');
+    Route::get('/nilai/cetakNilai/{id}', [NilaiController::class, 'cetakNilai'])->name('nilai.cetakNilai');
+    Route::get('/nilai/siswa/{id}', [NilaiController::class, 'siswa'])->name('nilai.siswa');
+
     //materi
     Route::resource('materi', MateriController::class);
     Route::get('materi/showMateri/{id}', [MateriController::class, 'showMateri'])->name('materi.showMateri');
@@ -130,8 +142,8 @@ Route::group(['middleware' => 'auth'], function(){
         'show', 'create', 'edit', 'update'
     ]);
 
-    Route::get('/absensi/export_excel/{start_date}/{end_date}', [ExportController::class, 'export_excel'])->name('absensi.export_excel');
-    Route::get('/absensi/exportPDF/{start_date}/{end_date}', [AbsensiController::class, 'cetakAbsensiPertanggalPDF'])->name('absensi.exportPDF');
+    Route::get('/absensi/export_excel/{start_date}/{end_date}/{name}', [ExportController::class, 'export_excel'])->name('absensi.export_excel');
+    Route::get('/absensi/exportPDF/{start_date}/{end_date}/{name}', [AbsensiController::class, 'cetakAbsensiPertanggalPDF'])->name('absensi.exportPDF');
 
 
     //informasi
@@ -183,5 +195,8 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('/penilaian/evaluasi/{id}', [PenilaianController::class, 'evaluasi'])->name('penilaian.evaluasi');
     Route::get('penilaian/siswa/{id}', [PenilaianController::class, 'siswa'])->name('penilaian.siswa');
     Route::get('penilaian/riwayat/{id}', [PenilaianController::class, 'riwayat'])->name('penilaian.riwayat');
+
+    //jadwal
+    Route::resource('jadwal', JadwalController::class);
 
 });

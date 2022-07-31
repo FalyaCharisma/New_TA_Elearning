@@ -86,14 +86,22 @@
                 <div class="card-body">
                     <div class="my-2">
                         <form action="{{ route('absensi.index') }}" method="GET">
+                     
                             <div class="input-group mb-3">
+                                <select class="form-control" name="name" id="name">
+                                    <option value="">- SELECT TENTOR -</option>
+                                    @foreach ($absens as $no => $absensis)         
+                                    <option value="{{ $absensis->name }}">{{ $absensis->name }}</option>
+                                    @endforeach
+                                </select>
                                 <input type="date" class="form-control" name="start_date" id="start_date">
                                 <input type="date" class="form-control" name="end_date" id="end_date">
                                 <a href="" onclick="this.href='/absensi/export_excel/'+ document.getElementById('start_date').value +
-                                        '/' + document.getElementById('end_date').value " target="_blank" class="btn btn-success" style="padding-top: 8px;"> Cetak Excel</a>
+                                        '/' + document.getElementById('end_date').value +  '/' + document.getElementById('name').value " target="_blank" class="btn btn-success" style="padding-top: 8px;"> Cetak Excel</a>
 
                                 <a href="" onclick="this.href='/absensi/exportPDF/'+ document.getElementById('start_date').value +
-                                        '/' + document.getElementById('end_date').value " target="_blank" class="btn btn-danger" style="padding-top: 10px; margin-left: 5px;"> Cetak PDF</a>
+                                        '/' + document.getElementById('end_date').value +
+                                        '/' + document.getElementById('name').value" target="_blank" class="btn btn-danger" style="padding-top: 10px; margin-left: 5px;"> Cetak PDF</a>
                             </div>
                         </form>
                     </div>

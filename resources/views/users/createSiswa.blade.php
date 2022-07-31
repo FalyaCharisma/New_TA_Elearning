@@ -53,18 +53,19 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <label class="font-weight-bold">ROLE</label>
-                            
+                        <!-- <div class="form-group">
+                            <label class="font-weight-bold">ROLE</label>  
                             @foreach ($roles as $role)
+                            @if($role->name=='student')
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" name="role[]" value="{{ $role->name }}" id="check-{{ $role->id }}">
+                                <input class="form-check-input" type="checkbox" name="role[]" value="{{ $role->name }}" id="check-{{ $role->id }}" checked>
                                 <label class="form-check-label" for="check-{{ $role->id }}">
                                     {{ $role->name }}
                                 </label>
                             </div>
+                            @endif
                             @endforeach  
-                        </div>
+                        </div> -->
 
                         <div class="form-group">
                             <label>NAMA USER</label>

@@ -114,7 +114,12 @@
                             class="dropdown {{ setActive('admin/user') }}">
                                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-users"></i><span>Data User</span></a>                   
                             <ul class="dropdown-menu">
-                            @can('users.tentor')
+                                @can('users.index')
+                                <li class="{{ setActive('/user') }}"><a class="nav-link"
+                                        href="{{ route('users.index') }}"><i class="fas fa-users"></i>
+                                        <span>Data Admin</span></a></li>
+                                @endcan 
+                                @can('users.tentor')
                                 <li class="{{ setActive('/user') }}"><a class="nav-link"
                                         href="{{  url('users/tentor') }}"><i class="fas fa-users"></i>
                                         <span>Data Tentor</span></a></li>
@@ -144,6 +149,12 @@
                             <li class="{{ setActive('/penilaian') }}"><a class="nav-link"
                                 href="{{  route('penilaian.index') }}"><i class="fas fa-book-open"></i>
                                 <span>Penilaian Tentor</span></a></li>
+                        @endcan
+
+                        @can('jadwal.index')
+                            <li class="{{ setActive('/jadwal') }}"><a class="nav-link"
+                                href="{{  route('jadwal.index') }}"><i class="fas fa-clock"></i>
+                                <span>Jadwal</span></a></li>
                         @endcan
 
                         @can('materi.index')
@@ -186,6 +197,16 @@
                                         href="{{  route('exam_essays.index') }}">
                                         <span>Ujian Esai</span></a></li>
                             @endcan
+                            @hasrole('student')
+                            <li class="{{ setActive('/nilai') }}"><a class="nav-link"
+                                        href="{{  route('nilai.index') }}">
+                                        <span>Nilai</span></a></li>
+                            @endhasrole
+                            @hasrole('teacher')
+                            <li class="{{ setActive('/nilai') }}"><a class="nav-link"
+                                        href="{{  route('nilai.tentor') }}">
+                                        <span>Nilai</span></a></li>
+                            @endhasrole
                             </ul>
                         </li>
                         @endhasanyrole
