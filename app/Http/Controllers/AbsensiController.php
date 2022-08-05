@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 use App\Models\Absensi;
+use App\Models\Siswa;
 use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -40,12 +41,14 @@ class AbsensiController extends Controller
         $absens = Absensi::latest()->when(request()->q, function ($absens) {
             $absens = $absens->where('name', 'like', '%' . request()->q . '%');
         })->paginate(10);
-        return view('absensi.index', compact('absens'));
+        $siswa = Siswa::latest()->get();
+        return view('absensi.index', compact('absens','siswa'));
     }
     public function store(Request $request)
     {
         $this->validate($request, [
             'keterangan'   => 'required',
+            'nama_siswa'   => 'required',
             'image'        => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
         ]);
         $image = $request->file('image');
@@ -55,6 +58,7 @@ class AbsensiController extends Controller
             'keterangan' => $request->input('keterangan'),
             'link'      => $image->getClientOriginalName(),
             'name'      => Auth::user()->tentor->name,
+            'nama_siswa' => $request->input('nama_siswa'),
         ]);
         if($image){
             //redirect dengan pesan sukses

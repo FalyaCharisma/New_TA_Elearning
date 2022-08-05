@@ -3,8 +3,9 @@
         <tr>
             <th>No</th>
             <th>Nama</th>
+            <th>Nama Siswa</th>
             <th>Keterangan</th>
-            <th>Tanggal</th> --}}
+            <th>Tanggal</th>
         </tr>
     </thead>
     <tbody>
@@ -15,6 +16,7 @@
         <tr>
             <td>{{ $count++ }}</td>
             <td>{{ $absensis->name }}</td> 
+            <td>{{ $absensis->nama_siswa }}</td> 
             <td>{{ $absensis->keterangan }}</td>
             <td>{{ $absensis->created_at }}</td>
             </tr>

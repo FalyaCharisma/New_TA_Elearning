@@ -34,6 +34,22 @@
                             </div>
                             @enderror
                             </div>
+                            <div class="form-group">
+                            <label>NAMA SISWA</label>
+                            <select class="form-control select-nama_siswa @error('nama_siswa') is-invalid @enderror" name="nama_siswa" required>
+                                <option value="">- SELECT SISWA -</option>
+                                @foreach ($siswa as $no => $siswa)
+                                @if(Auth::user()->tentor->name==$siswa->nama_tentor)         
+                                <option value="{{ $siswa->name }}">{{ $siswa->name }}</option>
+                                @endif
+                                @endforeach
+                            </select>
+                            @error('nama_tentor')
+                            <div class="invalid-feedback" style="display: block">
+                                {{ $message }}
+                            </div>
+                            @enderror
+                            </div>
                             <button class="btn btn-primary mr-1 btn-submit" type="submit" id="submit"><i class="fa fa-upload"></i> UPLOAD</button>
                             <button class="btn btn-warning btn-reset" type="reset"><i class="fa fa-redo"></i> RESET</button>
                         </form>
@@ -53,6 +69,7 @@
                             <tr>
                                 <th scope="col" style="text-align: center;width: 6%">NO.</th>
                                 <th scope="col">FOTO</th>
+                                <th scope="col">NAMA SISWA</th>
                                 <th scope="col">KETERANGAN</th>
                                 <th scope="col">TANGGAL</th>
                             </tr>
@@ -64,6 +81,7 @@
                                     <th scope="row" style="text-align: center">
                                     {{ ++$no + ($absens->currentPage() - 1) * $absens->perPage() }}</th>
                                     <td><img src="{{ asset('storage/public/absensis/' . $absensis->link) }}"width="150"></td>
+                                    <td>{{ $absensis->nama_siswa }}</td>
                                     <td>{{ $absensis->keterangan }}</td>
                                     <td>{{ $absensis->created_at }}</td>
                                 </tr>
@@ -126,6 +144,7 @@
                                 <th scope="col" style="text-align: center;width: 6%">NO.</th>
                                 <th scope="col">NAMA</th>
                                 <th scope="col">FOTO</th>
+                                <th scope="col">NAMA SISWA</th>
                                 <th scope="col">KETERANGAN</th>
                                 <th scope="col">TANGGAL</th>
                                 <th scope="col">AKSI</th>
@@ -140,6 +159,7 @@
                                     <td>{{ $absensis->name }}</td>
                                     <td><img src="{{ asset('storage/public/absensis/' . $absensis->link) }}"
                                                         width="150"></td>
+                                    <td>{{ $absensis->nama_siswa }}</td>
                                     <td>{{ $absensis->keterangan }}</td>
                                     <td>{{ $absensis->created_at }}</td>
                                     <td class="text-center">

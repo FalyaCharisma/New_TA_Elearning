@@ -20,7 +20,7 @@
 			<tr>
 			<th>NO</th>
             <th>NAMA</th>
-            <!-- <th>FOTO</th> -->
+            <th>NAMA SISWA</th>
             <th>KETERANGAN</th>
             <th>TANGGAL</th>
 			</tr>
@@ -32,8 +32,9 @@
    		@endphp
         @foreach ($absens as $no => $absensis)
         <tr>
-		<td>{{ $count++ }}</td>
-        <td>{{ $absensis->name }}</td> 
+			<td>{{ $count++ }}</td>
+			<td>{{ $absensis->name }}</td>
+			<td>{{ $absensis->nama_siswa }}</td>  
             <td>{{ $absensis->keterangan }}</td>
             <td>{{ $absensis->created_at }}</td>
             </tr>
