@@ -115,6 +115,17 @@
                             @enderror
                         </div>
 
+                        <div class="form-group">
+                            <label>CABANG</label>
+                            <input type="text" name="cabang" value="{{ old('cabang', $tentor->cabang) }}"
+                                class="form-control" required>
+                            @error('cabang')
+                            <div class="invalid-feedback" style="display: block">
+                                {{ $message }}
+                            </div>
+                            @enderror
+                        </div>
+
                         <button class="btn btn-primary mr-1 btn-submit" type="submit"><i class="fa fa-paper-plane"></i>
                             UPDATE</button>
                         <button class="btn btn-warning btn-reset" type="reset"><i class="fa fa-redo"></i> RESET</button>

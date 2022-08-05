@@ -53,6 +53,7 @@
                             @if(!empty($user->getRoleNames()))
                             @foreach($user->getRoleNames() as $role)
                             @if($role=='teacher')
+                            @if(Auth::user()->admin->cabang == $user->tentor->cabang)
                                 <tr>
                                 <td>{{ $count++ }}</td>
                                     <td>{{ $user->tentor->name }}</td>
@@ -69,6 +70,7 @@
                                         @endcan
                                     </td>
                                 </tr>
+                            @endif
                             @endif
                             @endforeach
                             @endif

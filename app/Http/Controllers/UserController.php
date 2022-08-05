@@ -9,6 +9,7 @@ use App\Models\Kelas;
 use App\Models\Admin;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -147,6 +148,7 @@ class UserController extends Controller
         $siswa->alamat = $data['alamat'];
         $siswa->asal_sekolah = $data['asal_sekolah'];
         $siswa->nama_tentor = $data['nama_tentor'];
+        $siswa->cabang = Auth::user()->admin->cabang; 
         $siswa->save();
 
         return redirect()->route('users.siswa')->with(['success' => 'Data Berhasil Disimpan!']);
@@ -169,6 +171,7 @@ class UserController extends Controller
         $tentor->name = $data['name'];
         $tentor->no_wa = $data['no_wa'];
         $tentor->alamat = $data['alamat'];
+        $tentor->cabang = Auth::user()->admin->cabang; 
         $tentor->save();
 
         return redirect()->route('users.tentor')->with(['success' => 'Data Berhasil Disimpan!']);
