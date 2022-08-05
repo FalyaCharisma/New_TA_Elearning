@@ -4,25 +4,23 @@
 <div class="main-content">
     <section class="section">
         <div class="section-header">
-            <h1>Data Siswa</h1>
+            <h1>Data Admin</h1>
         </div>
 
         <div class="section-body">
 
             <div class="card">
                 <div class="card-header">
-                    <h4><i class="fas fa-users"></i> Data Siswa</h4>
+                    <h4><i class="fas fa-users"></i> Data Admin</h4>
                 </div>
 
                 <div class="card-body">
-                    <form action="{{ route('users.siswa') }}" method="GET">
+                    <form action="{{ route('users.admin') }}" method="GET">
                         <div class="form-group">
                             <div class="input-group mb-3">
-                                @can('users.createSiswa')
                                     <div class="input-group-prepend">
-                                        <a href="{{ route('users.createSiswa') }}" class="btn btn-primary" style="padding-top: 10px;"><i class="fa fa-plus-circle"></i> TAMBAH</a>
+                                        <a href="{{ route('users.createAdmin') }}" class="btn btn-primary" style="padding-top: 10px;"><i class="fa fa-plus-circle"></i> TAMBAH</a>
                                     </div>
-                                @endcan
                                 <input type="text" class="form-control" name="q"
                                        placeholder="cari berdasarkan nama user">
                                 <div class="input-group-append">
@@ -33,18 +31,14 @@
                         </div>
                     </form>
 
-
-                    @can('users.siswa')
                     <div class="table-responsive">
                         <table class="table table-bordered">
                             <thead>
                             <tr>
                                 <th scope="col" style="text-align: center;width: 6%">NO.</th>
                                 <th scope="col">NAMA</th>
-                                <th scope="col">NAMA TENTOR</th>
-                                <th scope="col">JENJANG</th>
+                                <th scope="col">CABANG</th>
                                 <th scope="col">NO. WA</th>
-                                <th scope="col">ASAL SEKOLAH</th>
                                 <th scope="col">ALAMAT</th>
                                 <th scope="col" style="width: 15%;text-align: center">AKSI</th>
                             </tr>
@@ -56,19 +50,17 @@
                             @foreach ($users as $no => $user)
                             @if(!empty($user->getRoleNames()))
                             @foreach($user->getRoleNames() as $role)
-                            @if($role=='student')
+                            @if($role=='admin')
                                 <tr>
                                 <td>{{ $count++ }}</td>
-                                    <td>{{ $user->siswa->name }}</td>
-                                    <td>{{ $user->siswa->nama_tentor }}</td>
-                                    <td>{{ $user->siswa->jenjang }}</td>
-                                    <td>{{ $user->siswa->no_wa }}</td>
-                                    <td>{{ $user->siswa->asal_sekolah }}</td>
-                                    <td>{{ $user->siswa->alamat }}</td>
-                                    <td class="text-center"> 
-                                            <a href="{{ route('edittSiswa', $user->siswa->id) }}" class="btn btn-sm btn-primary">
+                                    <td>{{ $user->admin->name }}</td>
+                                    <td>{{ $user->admin->cabang }}</td>
+                                    <td>{{ $user->admin->no_wa }}</td>
+                                    <td>{{ $user->admin->alamat }}</td>
+                                    <td class="text-center">
+                                            <a href="{{ route('edittAdmin', $user->admin->id) }}"  class="btn btn-sm btn-primary">
                                                 <i class="fa fa-pencil-alt"></i>
-                                            </a>  
+                                            </a>                   
                                         @can('users.delete')
                                             <button onClick="Delete(this.id)" class="btn btn-sm btn-danger" id="{{ $user->id }}">
                                                 <i class="fa fa-trash"></i>
@@ -82,9 +74,10 @@
                             @endforeach
                             </tbody>
                         </table>
-                    
+                        <div style="text-align: center">
+                            {{$users->links("vendor.pagination.bootstrap-4")}}
+                        </div>
                     </div>
-                    @endcan
                 </div>
             </div> 
         </div>

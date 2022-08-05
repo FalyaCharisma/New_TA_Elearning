@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Siswa;
 use App\Models\Tentor;
 use App\Models\Kelas;
+use App\Models\Admin;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 
@@ -35,43 +36,72 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'username'      => 'required',
-            'password'  => 'required|confirmed'
-        ]);
+        // $this->validate($request, [
+        //     'username'      => 'required',
+        //     'password'  => 'required|confirmed'
+        // ]);
 
-        $user = User::create([
-            'username'      => $request->input('username'),
-            'password'  => bcrypt($request->input('password'))
-        ]);
+        // $user = User::create([
+        //     'username'      => $request->input('username'),
+        //     'password'  => bcrypt($request->input('password'))
+        // ]);
+
+        // //assign role
+        // $user->assignRole(6);
+
+        // if($user){
+        //     //redirect dengan pesan sukses
+        //     return redirect()->route('users.index')->with(['success' => 'Data Berhasil Disimpan!']);
+        // }else{
+        //     //redirect dengan pesan error
+        //     return redirect()->route('users.index')->with(['error' => 'Data Gagal Disimpan!']);
+        // }
+        $data = $request->all();
+
+        $user = new User();
+        $user->username = $data['username'];
+        $user->password = bcrypt($data['password']);
+        $user->save();
 
         //assign role
-        $user->assignRole(6);
+        $user->assignRole(1);
 
-        if($user){
-            //redirect dengan pesan sukses
-            return redirect()->route('users.index')->with(['success' => 'Data Berhasil Disimpan!']);
-        }else{
-            //redirect dengan pesan error
-            return redirect()->route('users.index')->with(['error' => 'Data Gagal Disimpan!']);
-        }
+        $admin = new Admin();
+        $admin->user_id = $user->id;
+        $admin->name = $data['name'];
+        $admin->cabang = $data['cabang'];
+        $admin->no_wa = $data['no_wa'];
+        $admin->alamat = $data['alamat'];
+        $admin->save();
+
+        return redirect()->route('users.admin')->with(['success' => 'Data Berhasil Disimpan!']);
     }
     
     public function tentor()
     { 
         $users = User::latest()->when(request()->q, function($users) {
             $users = $users->where('username', 'like', '%'. request()->q . '%');
-        })->paginate(10);
+        })->paginate(1000);
         $roles = new Role();
         $tentor = new Tentor();
         return view('users.tentor', compact('users','roles','tentor'));
+    }
+
+    public function admin()
+    { 
+        $users = User::latest()->when(request()->q, function($users) {
+            $users = $users->where('username', 'like', '%'. request()->q . '%');
+        })->paginate(1000);
+        $roles = new Role();
+        $admin = Admin::latest()->get();
+        return view('users.admin', compact('users','roles','admin'));
     }
 
     public function siswa()
     { 
         $users = User::latest()->when(request()->q, function($users) {
             $users = $users->where('username', 'like', '%'. request()->q . '%');
-        })->paginate(10);
+        })->paginate(1000);
         $roles = new Role();
         $siswa = Siswa::latest()->get();
         return view('users.siswa', compact('users','roles','siswa'));
@@ -83,6 +113,12 @@ class UserController extends Controller
         $kelass = Kelas::latest()->get();
         $tentor = Tentor::latest()->get();
         return view('users.createSiswa', compact('kelass','roles','tentor'));
+    }
+
+    public function createAdmin()
+    {
+        $roles = Role::latest()->get();
+        return view('users.createAdmin', compact('roles'));
     }
 
     public function createTentor()
@@ -181,6 +217,17 @@ class UserController extends Controller
     public function updateTentor(Request $request, $id){ 
         $tentor = Tentor::find($id)->update($request->all());
         return redirect()->route('users.tentor')->with(['success' => 'Data Berhasil Diupdate!']);
+    }
+
+    public function edittAdmin($id){ 
+        $admin = Admin::findOrFail($id);
+        $user = User::latest()->get();
+        $roles = Role::latest()->get();
+        return view('users.edittAdmin', compact('admin','user','roles'));
+    }
+    public function updateAdmin(Request $request, $id){ 
+        $admin = Admin::find($id)->update($request->all());
+        return redirect()->route('users.admin')->with(['success' => 'Data Berhasil Diupdate!']);
     }
 
     public function edittSiswa($id){ 

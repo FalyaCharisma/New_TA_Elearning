@@ -72,15 +72,19 @@ Route::group(['middleware' => 'auth'], function(){
 
     Route::get('users/createSiswa', [UserController::class, 'createSiswa'])->name('users.createSiswa');
     Route::get('users/createTentor', [UserController::class, 'createTentor'])->name('users.createTentor');
+    Route::get('users/createAdmin', [UserController::class, 'createAdmin'])->name('users.createAdmin');
     Route::post('users/createTentor/store2', [UserController::class, 'store2'])->name('users.store2');
     Route::post('users/createSiswa/store3', [UserController::class, 'store3'])->name('users.store3');
+    Route::post('users/createAdmin/store', [UserController::class, 'store'])->name('users.store');
     Route::get('users/siswa', [UserController::class, 'siswa'])->name('users.siswa');
-    Route::get('users/index', [UserController::class, 'index'])->name('users.index');
+    Route::get('users/admin', [UserController::class, 'admin'])->name('users.admin');
     Route::get('users/tentor', [UserController::class, 'tentor'])->name('users.tentor');
     Route::get('/users/tentor/edittTentor/{id}', [UserController::class, 'edittTentor'])->name('edittTentor');
     Route::post('/users/tentor/updateTentor/{id}', [UserController::class, 'updateTentor'])->name('updateTentor');
     Route::get('/users/siswa/edittSiswa/{id}', [UserController::class, 'edittSiswa'])->name('edittSiswa');
     Route::post('/users/siswa/updateSiswa/{id}', [UserController::class, 'updateSiswa'])->name('updateSiswa');
+    Route::get('/users/admin/edittAdmin/{id}', [UserController::class, 'edittAdmin'])->name('edittAdmin');
+    Route::post('/users/admin/updateAdmin/{id}', [UserController::class, 'updateAdmin'])->name('updateAdmin');
     
     //images
     Route::resource('images', ImageController::class)->except([

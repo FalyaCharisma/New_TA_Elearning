@@ -114,11 +114,6 @@
                             class="dropdown {{ setActive('admin/user') }}">
                                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-users"></i><span>Data User</span></a>                   
                             <ul class="dropdown-menu">
-                                @can('users.index')
-                                <li class="{{ setActive('/user') }}"><a class="nav-link"
-                                        href="{{ route('users.index') }}"><i class="fas fa-users"></i>
-                                        <span>Data Admin</span></a></li>
-                                @endcan 
                                 @can('users.tentor')
                                 <li class="{{ setActive('/user') }}"><a class="nav-link"
                                         href="{{  url('users/tentor') }}"><i class="fas fa-users"></i>
@@ -132,6 +127,29 @@
                             </ul>
                         </li>
                         @endhasrole
+
+                        @hasrole('superadmin')
+                        <li
+                            class="dropdown {{ setActive('admin/user') }}">
+                                <a href="#" class="nav-link has-dropdown"><i class="fas fa-users"></i><span>Data User</span></a>                   
+                            <ul class="dropdown-menu">
+                                <li class="{{ setActive('/user') }}"><a class="nav-link"
+                                        href="{{ url('users/admin') }}"><i class="fas fa-users"></i>
+                                        <span>Data Admin</span></a></li>
+                                @can('users.tentor')
+                                <li class="{{ setActive('/user') }}"><a class="nav-link"
+                                        href="{{  url('users/tentor') }}"><i class="fas fa-users"></i>
+                                        <span>Data Tentor</span></a></li>
+                                @endcan 
+                                @can('users.siswa')
+                                <li class="{{ setActive('/user') }}"><a class="nav-link"
+                                        href="{{  url('users/siswa') }}"><i class="fas fa-users"></i>
+                                        <span>Data Siswa</span></a></li>
+                                @endcan 
+                            </ul>
+                        </li>
+                        @endhasrole
+
                         @can('kelas.index')
                         <li class="{{ setActive('/kelas') }}"><a class="nav-link"
                                 href="{{ route('kelas.index') }}"><i class="fas fa-graduation-cap"></i> 
