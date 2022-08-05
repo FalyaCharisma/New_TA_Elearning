@@ -42,6 +42,9 @@
                                 <th scope="col">NAMA</th>
                                 <th scope="col">NO. WA</th>
                                 <th scope="col">ALAMAT</th>
+                                @hasrole('superadmin')
+                                <th scope="col">CABANG</th>
+                                @endhasrole
                                 <th scope="col" style="width: 15%;text-align: center">AKSI</th>
                             </tr>
                             </thead>
@@ -53,6 +56,7 @@
                             @if(!empty($user->getRoleNames()))
                             @foreach($user->getRoleNames() as $role)
                             @if($role=='teacher')
+                            @hasrole('admin')
                             @if(Auth::user()->admin->cabang == $user->tentor->cabang)
                                 <tr>
                                 <td>{{ $count++ }}</td>
@@ -71,6 +75,28 @@
                                     </td>
                                 </tr>
                             @endif
+                            @endhasrole
+
+                            @hasrole('superadmin')
+                                <tr>
+                                <td>{{ $count++ }}</td>
+                                    <td>{{ $user->tentor->name }}</td>
+                                    <td>{{ $user->tentor->no_wa }}</td>
+                                    <td>{{ $user->tentor->alamat }}</td>
+                                    <td>{{ $user->tentor->cabang }}</td>
+                                    <td class="text-center">
+                                            <a href="{{ route('edittTentor', $user->tentor->id) }}"  class="btn btn-sm btn-primary">
+                                                <i class="fa fa-pencil-alt"></i>
+                                            </a>                   
+                                        @can('users.delete')
+                                            <button onClick="Delete(this.id)" class="btn btn-sm btn-danger" id="{{ $user->id }}">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
+                                        @endcan
+                                    </td>
+                                </tr>
+                            @endhasrole
+
                             @endif
                             @endforeach
                             @endif

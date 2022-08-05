@@ -46,6 +46,9 @@
                                 <th scope="col">NO. WA</th>
                                 <th scope="col">ASAL SEKOLAH</th>
                                 <th scope="col">ALAMAT</th>
+                                @hasrole('superadmin')
+                                <th scope="col">CABANG</th>
+                                @endhasrole
                                 <th scope="col" style="width: 15%;text-align: center">AKSI</th>
                             </tr>
                             </thead>
@@ -57,6 +60,7 @@
                             @if(!empty($user->getRoleNames()))
                             @foreach($user->getRoleNames() as $role)
                             @if($role=='student')
+                            @hasrole('admin')
                             @if(Auth::user()->admin->cabang == $user->siswa->cabang)
                                 <tr>
                                 <td>{{ $count++ }}</td>
@@ -78,6 +82,29 @@
                                     </td>
                                 </tr>
                             @endif
+                            @endhasrole
+                            @hasrole('superadmin')
+                                <tr>
+                                <td>{{ $count++ }}</td>
+                                    <td>{{ $user->siswa->name }}</td>
+                                    <td>{{ $user->siswa->nama_tentor }}</td>
+                                    <td>{{ $user->siswa->jenjang }}</td>
+                                    <td>{{ $user->siswa->no_wa }}</td>
+                                    <td>{{ $user->siswa->asal_sekolah }}</td>
+                                    <td>{{ $user->siswa->alamat }}</td>
+                                    <td>{{ $user->siswa->cabang }}</td>
+                                    <td class="text-center"> 
+                                            <a href="{{ route('edittSiswa', $user->siswa->id) }}" class="btn btn-sm btn-primary">
+                                                <i class="fa fa-pencil-alt"></i>
+                                            </a>  
+                                        @can('users.delete')
+                                            <button onClick="Delete(this.id)" class="btn btn-sm btn-danger" id="{{ $user->id }}">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
+                                        @endcan
+                                    </td>
+                                </tr>
+                            @endhasrole
                             @endif
                             @endforeach
                             @endif
