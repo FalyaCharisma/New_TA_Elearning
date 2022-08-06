@@ -140,6 +140,7 @@ Route::group(['middleware' => 'auth'], function(){
     //materi
     Route::resource('materi', MateriController::class);
     Route::get('materi/showMateri/{id}', [MateriController::class, 'showMateri'])->name('materi.showMateri');
+    Route::get('materi/listMateri/{id}', [MateriController::class, 'listMateri'])->name('materi.listMateri');
 
     //absens
     Route::resource('absensi', AbsensiController::class)->except([

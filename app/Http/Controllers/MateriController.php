@@ -24,21 +24,9 @@ class MateriController extends Controller
         $materis = Materi::latest()->when(request()->q, function($materis) {
             $materis = $materis->where('judul', 'like', '%'. request()->q . '%');
         })->paginate(10);
-        $siswa = Siswa::latest()->get();
-        $mataPelajaran = new mataPelajaran();
+        $mataPelajaran = mataPelajaran::latest()->get();
         $kelass = new Kelas();
         $user = new User();
-        return view('materi.index', compact('materis', 'mataPelajaran', 'kelass', 'user', 'siswa'));
-    }
-
-    public function tentor()
-    {
-        $materis = Materi::latest()->when(request()->q, function($materis) {
-            $materis = $materis->where('judul', 'like', '%'. request()->q . '%');
-        })->paginate(10);
-        $mataPelajaran = new mataPelajaran();
-        $kelass = new Kelas();
-        $user = Auth::user();
         return view('materi.index', compact('materis', 'mataPelajaran', 'kelass', 'user'));
     }
 
@@ -47,10 +35,8 @@ class MateriController extends Controller
         $mataPelajaran = mataPelajaran::latest()->get();
         $kelass = Kelas::latest()->get();
         $user = Auth::user();
-        $tentor = Tentor::latest()->get();
-        $siswa = Siswa::latest()->get();
         
-        return view('materi.create', compact('mataPelajaran', 'kelass', 'user','siswa','tentor'));
+        return view('materi.create', compact('mataPelajaran', 'kelass', 'user'));
     }
 
     public function store(Request $request)
@@ -72,8 +58,6 @@ class MateriController extends Controller
             'mapel'           => $request->input('mapel'),
             'judul'           => $request->input('judul'),
             'isi'             => $request->input('isi'),
-            'ringkasan'       => $request->input('ringkasan'),
-            'siswa'           => $request->input('siswa'), 
             'user_id'         => Auth()->id(),
             'link'            => $document->getClientOriginalName(),
         ]);
@@ -88,17 +72,16 @@ class MateriController extends Controller
         }
     }
 
-    public function edit(materi $materi)
+    public function edit(Materi $materi)
     {
         $mataPelajaran = mataPelajaran::latest()->get();
         $kelass = Kelas::latest()->get();
         $user = User::latest()->get();
-        $siswa = Siswa::latest()->get();
         
-        return view('materi.edit', compact('materi', 'mataPelajaran', 'kelass', 'user','siswa'));
+        return view('materi.edit', compact('materi', 'mataPelajaran', 'kelass', 'user'));
     }
 
-    public function update(Request $request, materi $materi)
+    public function update(Request $request, Materi $materi)
     {
         $this->validate($request, [
             'kelas'  => 'required',
@@ -116,8 +99,6 @@ class MateriController extends Controller
             'mapel'           => $request->input('mapel'),
             'judul'           => $request->input('judul'),
             'isi'             => $request->input('isi'),
-            'ringkasan'       => $request->input('ringkasan'),
-            'siswa'           => $request->input('siswa'), 
             'user_id'         => Auth()->id(),
             'link'            => $document->getClientOriginalName(),
         ]);
@@ -148,15 +129,6 @@ class MateriController extends Controller
         }
     }
     
-    public function showlist()
-    {     
-        $user = Auth::user();
-        $siswa = Siswa::latest()->get();
-        $mataPelajaran = mataPelajaran::get();
-        $materis = Materi::where('kelas', $user->kelas)->where('mapel', $mataPelajaran->mata_pelajaran)->get();
-
-        return view('materi.showlist', compact('materis', 'mataPelajaran', 'user', 'siswa'));
-    }
 
     public function showMateri($id)
     {
@@ -164,5 +136,14 @@ class MateriController extends Controller
         $materis = Materi::findOrFail($id);
 
         return view('materi.showMateri', compact('user', 'materis'));
+    }
+
+    public function listMateri($id)
+    {
+        $mataPelajaran = mataPelajaran::findOrFail($id);
+        // $materis = Materi::get();
+        $materis = Materi::where('mapel', $mataPelajaran->mata_pelajaran)->get();
+
+        return view('materi.listMateri', compact('mataPelajaran', 'materis'));
     }
 }

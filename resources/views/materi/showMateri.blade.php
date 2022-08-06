@@ -20,8 +20,6 @@
                                     <div class="card-body">
                                         <h3 class="card-title">{{ $materis->judul }}</h3>
                                         {!! $materis->isi !!}
-                                        <h5>Ringkasan :</h5>
-                                        <p> {!! $materis->ringkasan !!}</p>
                                     </div>
                                 </div>
                             </div>

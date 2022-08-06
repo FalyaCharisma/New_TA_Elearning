@@ -33,29 +33,37 @@
                         </div>
                     @endcan
                     </form>
-
-                    <div class="table-responsive">
-                        <table class="table table-bordered">
-                            <thead>
-                            <tr>
-                                <th scope="col" style="text-align: center;width: 6%">NO.</th>
-                                <th scope="col">MATA PELAJARAN</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @php 
-                                $no=1;
-                            @endphp
-                            @foreach($mataPelajaran as $mataPelajaran)   
-                                <tr>
-                                    <th scope="row" style="text-align: center"> {{ $no++ }} </th>
-                                    <td><a href="materi/listMateri/{{ $mataPelajaran->id }}">{{ $mataPelajaran->mata_pelajaran}}</a></td>
-                                </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
-                     
+                
+                    @foreach ($materis as $no => $materi)
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                        <div class="card card-statistic-1">
+                            <div class="card-icon bg-primary">
+                                <i class="fa fa-book-open text-white fa-2x"></i>
+                            </div>
+                            <div class="card-wrap">
+                                <div class="card-header">
+                                    <h4>{{ $materi->mapel }} 
+                                        @can('materi.edit')
+                                            <a href="{{ route('materi.edit', $materi->id) }}" class="btn btn-sm btn-primary">
+                                                <i class="fa fa-pencil-alt"></i>
+                                            </a>
+                                        @endcan
+                                        
+                                        @can('materi.delete')
+                                            <button onClick="Delete(this.id)" class="btn btn-sm btn-danger" id="{{ $materi->id }}">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
+                                        @endcan</h4>
+                                </div>
+                                <div class="card-body">
+                                {{ $materi->judul }}
+                                </div>
+                                {{ $materi->created_at }}<br>
+                                <a href="materi/showMateri/{{ $materi->id }}">Selengkapnya</a>
+                            </div>
+                        </div>
                     </div>
+                    @endforeach
                 </div>
             </div>
         </div>
