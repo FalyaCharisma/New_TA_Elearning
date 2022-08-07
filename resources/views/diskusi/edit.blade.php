@@ -23,12 +23,8 @@
                             <label>MATERI</label>
                             <select class="form-control select-materi @error('materi_id') is-invalid @enderror" name="materi_id">
                                 <option value="">- SELECT MATERI -</option>
-                                @foreach ($materi as $materi)
-                                @if ($materi->siswa ==  Auth::user()->siswa->name)
+                                @foreach ($materi as $materi)  
                                     <option value="{{ $materi->id }}" selected>{{ $materi->judul }}</option>
-                                    @else
-                                        <option value="{{ $materi->id }}">{{ $materi->judul }}</option>
-                                    @endif
                                 @endforeach
                             </select>
                             @error('materi_id')

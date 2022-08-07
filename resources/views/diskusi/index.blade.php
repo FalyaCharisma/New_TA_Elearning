@@ -27,11 +27,9 @@
                         </div>
                     @endcan
                     </form>
-                    
-                    @can('diskusi.siswa')
+                
                     @foreach($diskusi as $diskusi)
                     <div class="card card-default mb-2">
-                    @if ($diskusi->user_id == Auth::user()->id)
                         <div class="card-header">
                              <span class="">{{$diskusi->user->siswa->name}}, <b>{{$diskusi->created_at }}</b></span>
                         </div>
@@ -47,36 +45,9 @@
                             @endcan
                             </div>
                         </div>
-                    @endif
                     </div>
                     @endforeach
-                    @endcan
 
-                    @can('diskusi.tentor')
-                    @foreach($diskusi as $diskusi)
-                    <div class="card card-default mb-2"> 
-                    @if ($diskusi->user->siswa->nama_tentor == Auth::user()->tentor->name)
-                        <div class="card-header">
-                             <span class="">{{$diskusi->user->siswa->name}}, <b>{{$diskusi->created_at }}</b></span>
-                        </div>
-                        <div class="card-body">
-                            <h5 class="">{{ $materi->getMapel($diskusi->materi_id) }} - {{ $materi->getJudul($diskusi->materi_id) }}</h5>
-                            <hr>
-                            {{$diskusi->pertanyaan }}
-                            <hr>
-                            <div class="input-group-prepend">
-                                <a href="diskusi/showDiskusi/{{ $diskusi->id }}" class="btn btn-primary" style="padding-top: 10px;"> Lihat Diskusi </a>
-                            @can('diskusi.delete')
-                            <button onClick="Delete(this.id)" class="btn btn-sm btn-danger" style="margin-left: 10px;" id="{{ $diskusi->id }}">
-                                Hapus
-                            </button>
-                            @endcan
-                            </div>
-                        </div>
-                    @endif
-                    </div>
-                    @endforeach
-                    @endcan
                 </div>
             </div>
         </div>
